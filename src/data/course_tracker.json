@@ -1,0 +1,2162 @@
+{
+    "01 - Getting Started": [
+        {
+            "name": "001 Welcome To The Course.mp4",
+            "duration_seconds": 164.375,
+            "duration_formatted": "00:02:44"
+        },
+        {
+            "name": "003 Anaconda Installation.mp4",
+            "duration_seconds": 694.392993,
+            "duration_formatted": "00:11:34"
+        },
+        {
+            "name": "004 Getting Started With VS Code.mp4",
+            "duration_seconds": 773.200998,
+            "duration_formatted": "00:12:53"
+        }
+    ],
+    "02 - Python Programming Language": [
+        {
+            "name": "001 Getting Started With VS Code.mp4",
+            "duration_seconds": 636.784014,
+            "duration_formatted": "00:10:36"
+        },
+        {
+            "name": "002 Different Ways of Creating Virtual Environment.mp4",
+            "duration_seconds": 501.876077,
+            "duration_formatted": "00:08:21"
+        },
+        {
+            "name": "004 Python Basics-Syntax And Semantics.mp4",
+            "duration_seconds": 1217.515079,
+            "duration_formatted": "00:20:17"
+        },
+        {
+            "name": "005 Variables In Python.mp4",
+            "duration_seconds": 1135.22356,
+            "duration_formatted": "00:18:55"
+        },
+        {
+            "name": "006 Basics Data Types In Python.mp4",
+            "duration_seconds": 592.851859,
+            "duration_formatted": "00:09:52"
+        },
+        {
+            "name": "007 Operators In Python.mp4",
+            "duration_seconds": 977.188571,
+            "duration_formatted": "00:16:17"
+        }
+    ],
+    "03 - Python Control Flow": [
+        {
+            "name": "001 Conditional Statements (if, elif, else).mp4",
+            "duration_seconds": 1263.304853,
+            "duration_formatted": "00:21:03"
+        },
+        {
+            "name": "002 Loops In Python.mp4",
+            "duration_seconds": 1683.16805,
+            "duration_formatted": "00:28:03"
+        }
+    ],
+    "04 - Inbuilt Data Structures In Python": [
+        {
+            "name": "001 List And List Comprehension In Python.mp4",
+            "duration_seconds": 2227.675986,
+            "duration_formatted": "00:37:07"
+        },
+        {
+            "name": "003 Tuple In Python.mp4",
+            "duration_seconds": 1354.745011,
+            "duration_formatted": "00:22:34"
+        },
+        {
+            "name": "005 Sets In Python.mp4",
+            "duration_seconds": 1265.208889,
+            "duration_formatted": "00:21:05"
+        },
+        {
+            "name": "007 Dictionaries In Python.mp4",
+            "duration_seconds": 2299.193447,
+            "duration_formatted": "00:38:19"
+        },
+        {
+            "name": "009 Real world Usecases Of List.mp4",
+            "duration_seconds": 590.947823,
+            "duration_formatted": "00:09:50"
+        }
+    ],
+    "05 - Functions In Python": [
+        {
+            "name": "001 Getting Started With Functions.mp4",
+            "duration_seconds": 1461.928322,
+            "duration_formatted": "00:24:21"
+        },
+        {
+            "name": "002 More Coding Example With Functions.mp4",
+            "duration_seconds": 1683.30737,
+            "duration_formatted": "00:28:03"
+        },
+        {
+            "name": "003 Lambda Function In Python.mp4",
+            "duration_seconds": 584.910635,
+            "duration_formatted": "00:09:44"
+        },
+        {
+            "name": "004 Map Function In Python.mp4",
+            "duration_seconds": 669.013311,
+            "duration_formatted": "00:11:09"
+        },
+        {
+            "name": "005 Filter Function In Python.mp4",
+            "duration_seconds": 540.653401,
+            "duration_formatted": "00:09:00"
+        }
+    ],
+    "08 - Importing Creating Modules And Packages": [
+        {
+            "name": "001 Import Modules And Packages In Python.mp4",
+            "duration_seconds": 1026.739932,
+            "duration_formatted": "00:17:06"
+        },
+        {
+            "name": "002 Standard Library Overview.mp4",
+            "duration_seconds": 1064.216961,
+            "duration_formatted": "00:17:44"
+        }
+    ],
+    "09 - File Handling In Python": [
+        {
+            "name": "001 File Operation In Python.mp4",
+            "duration_seconds": 1027.94737,
+            "duration_formatted": "00:17:07"
+        },
+        {
+            "name": "002 Working With File Paths.mp4",
+            "duration_seconds": 523.656395,
+            "duration_formatted": "00:08:43"
+        }
+    ],
+    "10 - Exception Handling In Python": [
+        {
+            "name": "001 Exception Handling With try except else and finally blocks.mp4",
+            "duration_seconds": 1500.334127,
+            "duration_formatted": "00:25:00"
+        }
+    ],
+    "11 - OOPS Concepts With Classes And Objects": [
+        {
+            "name": "001 Classes And Objects In Python.mp4",
+            "duration_seconds": 1375.87517,
+            "duration_formatted": "00:22:55"
+        },
+        {
+            "name": "003 Inheritance In OOPS.mp4",
+            "duration_seconds": 1140.657029,
+            "duration_formatted": "00:19:00"
+        },
+        {
+            "name": "004 Polymorphism In OOPS.mp4",
+            "duration_seconds": 1149.062676,
+            "duration_formatted": "00:19:09"
+        },
+        {
+            "name": "005 Encapsulation In OOPS.mp4",
+            "duration_seconds": 1332.407415,
+            "duration_formatted": "00:22:12"
+        },
+        {
+            "name": "006 Abstraction In OOPS.mp4",
+            "duration_seconds": 549.198345,
+            "duration_formatted": "00:09:09"
+        },
+        {
+            "name": "008 Magic Methods In Python.mp4",
+            "duration_seconds": 483.810952,
+            "duration_formatted": "00:08:03"
+        },
+        {
+            "name": "009 Operator Overloading In Python.mp4",
+            "duration_seconds": 512.185737,
+            "duration_formatted": "00:08:32"
+        },
+        {
+            "name": "010 Custom Exception Handling.mp4",
+            "duration_seconds": 425.853946,
+            "duration_formatted": "00:07:05"
+        }
+    ],
+    "12 - Advance Python": [
+        {
+            "name": "001 Iterators In Python.mp4",
+            "duration_seconds": 385.962063,
+            "duration_formatted": "00:06:25"
+        },
+        {
+            "name": "002 Generators With Practical Implementation.mp4",
+            "duration_seconds": 666.877075,
+            "duration_formatted": "00:11:06"
+        },
+        {
+            "name": "003 Function Copy,Cloures And Decorators.mp4",
+            "duration_seconds": 1275.379206,
+            "duration_formatted": "00:21:15"
+        }
+    ],
+    "13 - Data Analysis With Python": [
+        {
+            "name": "001 Numpy In Python.mp4",
+            "duration_seconds": 1696.890998,
+            "duration_formatted": "00:28:16"
+        },
+        {
+            "name": "002 Pandas- DataFrame And Series.mp4",
+            "duration_seconds": 1749.71644,
+            "duration_formatted": "00:29:09"
+        },
+        {
+            "name": "003 Data Manipulation With Pandas And Numpy.mp4",
+            "duration_seconds": 1479.111088,
+            "duration_formatted": "00:24:39"
+        },
+        {
+            "name": "005 Data Visualization With Matplotlib.mp4",
+            "duration_seconds": 1835.165873,
+            "duration_formatted": "00:30:35"
+        },
+        {
+            "name": "006 Data Visualization With Seaborn.mp4",
+            "duration_seconds": 1127.468095,
+            "duration_formatted": "00:18:47"
+        }
+    ],
+    "14 - Working With Sqlite3": [
+        {
+            "name": "002 Crud Operation With SQLite3 And Python.mp4",
+            "duration_seconds": 1016.708934,
+            "duration_formatted": "00:16:56"
+        }
+    ],
+    "15 - Logging In Python": [
+        {
+            "name": "001 Logging Practical Implementation In Python.mp4",
+            "duration_seconds": 877.621383,
+            "duration_formatted": "00:14:37"
+        },
+        {
+            "name": "002 Logging With Multiple Loggers.mp4",
+            "duration_seconds": 280.35771,
+            "duration_formatted": "00:04:40"
+        },
+        {
+            "name": "003 Logging With A Real World Example.mp4",
+            "duration_seconds": 463.888231,
+            "duration_formatted": "00:07:43"
+        }
+    ],
+    "16 - Python Multi Threading and Multi Processing": [
+        {
+            "name": "001 What Is Process And Threads.mp4",
+            "duration_seconds": 842.652132,
+            "duration_formatted": "00:14:02"
+        },
+        {
+            "name": "002 2-Multithreading Practical Implementation With Python.mp4",
+            "duration_seconds": 708.580113,
+            "duration_formatted": "00:11:48"
+        },
+        {
+            "name": "003 Multiprocessing Practical Implementation With Python.mp4",
+            "duration_seconds": 408.1139,
+            "duration_formatted": "00:06:48"
+        },
+        {
+            "name": "004 Thread Pool Executor and Process Pool.mp4",
+            "duration_seconds": 463.841791,
+            "duration_formatted": "00:07:43"
+        },
+        {
+            "name": "005 Implement Web Scraping Usecase With Multithreading.mp4",
+            "duration_seconds": 576.040612,
+            "duration_formatted": "00:09:36"
+        },
+        {
+            "name": "006 Real World Usecase Implementation With MultiProcessing.mp4",
+            "duration_seconds": 389.584376,
+            "duration_formatted": "00:06:29"
+        }
+    ],
+    "17 - Memory Management With Python": [
+        {
+            "name": "001 Memory Allocation And DeallocationGarbage collection and Best Practises.mp4",
+            "duration_seconds": 1247.515261,
+            "duration_formatted": "00:20:47"
+        }
+    ],
+    "18 - Getting Started With Flask Framework": [
+        {
+            "name": "001 Introduction To Flask Framework.mp4",
+            "duration_seconds": 733.796984,
+            "duration_formatted": "00:12:13"
+        },
+        {
+            "name": "002 Understanding Simple Flask App Skeleton.mp4",
+            "duration_seconds": 760.174853,
+            "duration_formatted": "00:12:40"
+        },
+        {
+            "name": "003 Integrating HTML With Flask Web App.mp4",
+            "duration_seconds": 549.709184,
+            "duration_formatted": "00:09:09"
+        },
+        {
+            "name": "004 Working With HTTP Verbs Get And Post.mp4",
+            "duration_seconds": 698.224014,
+            "duration_formatted": "00:11:38"
+        },
+        {
+            "name": "005 Building Dynamic Url ,Variables Rule And Jinja 2 Template Engine.mp4",
+            "duration_seconds": 2229.626463,
+            "duration_formatted": "00:37:09"
+        },
+        {
+            "name": "006 Working With Rest API's And HTTP Verbs Put And Delete.mp4",
+            "duration_seconds": 1420.411043,
+            "duration_formatted": "00:23:40"
+        }
+    ],
+    "19 - Getting Started With Streamlit Web Framework": [
+        {
+            "name": "001 Building Web App Using Streamlit.mp4",
+            "duration_seconds": 1045.966054,
+            "duration_formatted": "00:17:25"
+        },
+        {
+            "name": "002 Example Of ML App With Streamlit Web App.mp4",
+            "duration_seconds": 501.550998,
+            "duration_formatted": "00:08:21"
+        }
+    ],
+    "20 - Getting Started With Statistics": [
+        {
+            "name": "001 What is Statistics And its Application.mp4",
+            "duration_seconds": 542.371678,
+            "duration_formatted": "00:09:02"
+        },
+        {
+            "name": "002 Types Of Statistics.mp4",
+            "duration_seconds": 485.973333,
+            "duration_formatted": "00:08:05"
+        },
+        {
+            "name": "003 Population Vs Sample Data.mp4",
+            "duration_seconds": 242.346667,
+            "duration_formatted": "00:04:02"
+        },
+        {
+            "name": "004 Measure Of Central Tendency.mp4",
+            "duration_seconds": 662.4,
+            "duration_formatted": "00:11:02"
+        },
+        {
+            "name": "005 Measure Of Dispersion.mp4",
+            "duration_seconds": 687.744,
+            "duration_formatted": "00:11:27"
+        },
+        {
+            "name": "006 Why Sample Variance Is Divided By n-1.mp4",
+            "duration_seconds": 508.074667,
+            "duration_formatted": "00:08:28"
+        },
+        {
+            "name": "007 Standard Deviation.mp4",
+            "duration_seconds": 379.861333,
+            "duration_formatted": "00:06:19"
+        },
+        {
+            "name": "008 What Are Variables.mp4",
+            "duration_seconds": 522.88,
+            "duration_formatted": "00:08:42"
+        },
+        {
+            "name": "009 What are Random Variables.mp4",
+            "duration_seconds": 503.808,
+            "duration_formatted": "00:08:23"
+        },
+        {
+            "name": "010 Histograms- Descriptive Statistics.mp4",
+            "duration_seconds": 519.04,
+            "duration_formatted": "00:08:39"
+        },
+        {
+            "name": "011 Percentile And Quartiles- Descriptive Statistics.mp4",
+            "duration_seconds": 647.594667,
+            "duration_formatted": "00:10:47"
+        },
+        {
+            "name": "012 5 Number Summary-Descriptive Statistics.mp4",
+            "duration_seconds": 601.941333,
+            "duration_formatted": "00:10:01"
+        },
+        {
+            "name": "013 Correlation And Covariance.mp4",
+            "duration_seconds": 2357.568413,
+            "duration_formatted": "00:39:17"
+        }
+    ],
+    "21 - Introduction To Probability": [
+        {
+            "name": "001 Addition Rule (For Mutual And Non Mutual Exclusive Events).mp4",
+            "duration_seconds": 771.456,
+            "duration_formatted": "00:12:51"
+        },
+        {
+            "name": "002 Probability-Multiplication Rule(Independent And Dependent Events).mp4",
+            "duration_seconds": 538.410667,
+            "duration_formatted": "00:08:58"
+        }
+    ],
+    "22 - Probability Distribution Function For Data": [
+        {
+            "name": "001 The Relationship Between PDF,PMF And CDF.mp4",
+            "duration_seconds": 1893.540839,
+            "duration_formatted": "00:31:33"
+        },
+        {
+            "name": "002 Types Of Probability Distribution.mp4",
+            "duration_seconds": 482.975034,
+            "duration_formatted": "00:08:02"
+        },
+        {
+            "name": "003 Bernoulli Distribution.mp4",
+            "duration_seconds": 1464.157438,
+            "duration_formatted": "00:24:24"
+        },
+        {
+            "name": "004 Binomial Distribution.mp4",
+            "duration_seconds": 993.581837,
+            "duration_formatted": "00:16:33"
+        },
+        {
+            "name": "005 Poisson Distribution.mp4",
+            "duration_seconds": 806.475442,
+            "duration_formatted": "00:13:26"
+        },
+        {
+            "name": "006 Normal Gaussian Distribution.mp4",
+            "duration_seconds": 893.225193,
+            "duration_formatted": "00:14:53"
+        },
+        {
+            "name": "007 Standard Normal Distribution And Z Score.mp4",
+            "duration_seconds": 871.073356,
+            "duration_formatted": "00:14:31"
+        },
+        {
+            "name": "008 Uniform Distribution.mp4",
+            "duration_seconds": 904.277891,
+            "duration_formatted": "00:15:04"
+        },
+        {
+            "name": "009 Log Normal Distribution.mp4",
+            "duration_seconds": 653.8739,
+            "duration_formatted": "00:10:53"
+        },
+        {
+            "name": "010 Power Law Distribution.mp4",
+            "duration_seconds": 468.857302,
+            "duration_formatted": "00:07:48"
+        },
+        {
+            "name": "011 Pareto Distribution.mp4",
+            "duration_seconds": 332.463288,
+            "duration_formatted": "00:05:32"
+        },
+        {
+            "name": "012 Central Limit Theorem.mp4",
+            "duration_seconds": 652.712902,
+            "duration_formatted": "00:10:52"
+        },
+        {
+            "name": "013 Estimates.mp4",
+            "duration_seconds": 418.052041,
+            "duration_formatted": "00:06:58"
+        }
+    ],
+    "23 - Inferential Statistics": [
+        {
+            "name": "001 Hypothesis Testing And Mechanism.mp4",
+            "duration_seconds": 439.600159,
+            "duration_formatted": "00:07:19"
+        },
+        {
+            "name": "002 What is P value.mp4",
+            "duration_seconds": 728.874354,
+            "duration_formatted": "00:12:08"
+        },
+        {
+            "name": "003 Z Test- Hypothesis Testing.mp4",
+            "duration_seconds": 1623.074807,
+            "duration_formatted": "00:27:03"
+        },
+        {
+            "name": "004 Student t Distribution.mp4",
+            "duration_seconds": 319.413673,
+            "duration_formatted": "00:05:19"
+        },
+        {
+            "name": "005 T Stats With T test Hypothesis Testing.mp4",
+            "duration_seconds": 639.849048,
+            "duration_formatted": "00:10:39"
+        },
+        {
+            "name": "006 Z test Vs T test.mp4",
+            "duration_seconds": 217.431633,
+            "duration_formatted": "00:03:37"
+        },
+        {
+            "name": "007 Type 1 And Type 2 Error.mp4",
+            "duration_seconds": 300.46619,
+            "duration_formatted": "00:05:00"
+        },
+        {
+            "name": "008 Bayes Theorem.mp4",
+            "duration_seconds": 582.960159,
+            "duration_formatted": "00:09:42"
+        },
+        {
+            "name": "009 Confidence Interval And MArgin Of Error.mp4",
+            "duration_seconds": 501.829637,
+            "duration_formatted": "00:08:21"
+        },
+        {
+            "name": "010 What is Chi Square Test.mp4",
+            "duration_seconds": 499.229002,
+            "duration_formatted": "00:08:19"
+        },
+        {
+            "name": "011 ChiSquare Goodness OF Fit.mp4",
+            "duration_seconds": 723.719524,
+            "duration_formatted": "00:12:03"
+        },
+        {
+            "name": "012 Annova Test.mp4",
+            "duration_seconds": 295.079161,
+            "duration_formatted": "00:04:55"
+        },
+        {
+            "name": "013 Assumptions Of Annova.mp4",
+            "duration_seconds": 294.243243,
+            "duration_formatted": "00:04:54"
+        },
+        {
+            "name": "014 Types Of Annova.mp4",
+            "duration_seconds": 468.300023,
+            "duration_formatted": "00:07:48"
+        },
+        {
+            "name": "015 Partioning Of Variance In Annova.mp4",
+            "duration_seconds": 1441.123243,
+            "duration_formatted": "00:24:01"
+        }
+    ],
+    "24 - Feature Engineering": [
+        {
+            "name": "001 Handling Missing Values.mp4",
+            "duration_seconds": 1213.149728,
+            "duration_formatted": "00:20:13"
+        },
+        {
+            "name": "002 Handling Imbalanced Dataset.mp4",
+            "duration_seconds": 762.496848,
+            "duration_formatted": "00:12:42"
+        },
+        {
+            "name": "003 Handling Imbalanced Dataset Using Smote.mp4",
+            "duration_seconds": 830.577755,
+            "duration_formatted": "00:13:50"
+        },
+        {
+            "name": "004 Handling Outliers Using Python.mp4",
+            "duration_seconds": 502.294036,
+            "duration_formatted": "00:08:22"
+        },
+        {
+            "name": "005 Data Encoding- Nominal Or OHE.mp4",
+            "duration_seconds": 801.738571,
+            "duration_formatted": "00:13:21"
+        },
+        {
+            "name": "006 Label And Ordinal Encoding.mp4",
+            "duration_seconds": 593.594898,
+            "duration_formatted": "00:09:53"
+        },
+        {
+            "name": "007 Target Guided Ordinal Encoding.mp4",
+            "duration_seconds": 324.429184,
+            "duration_formatted": "00:05:24"
+        }
+    ],
+    "25 - Exploratory Data Analysis and Feature Engineering": [
+        {
+            "name": "001 Red Wine Dataset EDA.mp4",
+            "duration_seconds": 1411.8661,
+            "duration_formatted": "00:23:31"
+        },
+        {
+            "name": "002 EDA And Feature Engineering Flight Price Dataset.mp4",
+            "duration_seconds": 1813.710635,
+            "duration_formatted": "00:30:13"
+        },
+        {
+            "name": "003 Data Cleaning With Google Playstore Dataset.mp4",
+            "duration_seconds": 1569.901111,
+            "duration_formatted": "00:26:09"
+        },
+        {
+            "name": "004 Part 2- EDA Google Play Store Cleaned Dataset.mp4",
+            "duration_seconds": 1128.164717,
+            "duration_formatted": "00:18:48"
+        }
+    ],
+    "26 - Introduction To Machine Learning": [
+        {
+            "name": "001 Introduction.mp4",
+            "duration_seconds": 528.583,
+            "duration_formatted": "00:08:48"
+        },
+        {
+            "name": "002 Types of ML Techniques.mp4",
+            "duration_seconds": 927.833,
+            "duration_formatted": "00:15:27"
+        },
+        {
+            "name": "003 Equation of Line, 3d, and Hyperplane.mp4",
+            "duration_seconds": 822.016,
+            "duration_formatted": "00:13:42"
+        },
+        {
+            "name": "004 Distance of a point from a plane.mp4",
+            "duration_seconds": 423.722667,
+            "duration_formatted": "00:07:03"
+        },
+        {
+            "name": "005 Instance based Vs Model based learning.mp4",
+            "duration_seconds": 979.669333,
+            "duration_formatted": "00:16:19"
+        }
+    ],
+    "27 - Understanding Complete Linear Regression Indepth Intuition And Practicals": [
+        {
+            "name": "001 Simple Linear Regression Introduction.mp4",
+            "duration_seconds": 357.083,
+            "duration_formatted": "00:05:57"
+        },
+        {
+            "name": "002 Understanding Simple Linear regression Equations.mp4",
+            "duration_seconds": 511.189333,
+            "duration_formatted": "00:08:31"
+        },
+        {
+            "name": "003 Cost Function.mp4",
+            "duration_seconds": 1191.893333,
+            "duration_formatted": "00:19:51"
+        },
+        {
+            "name": "004 Convergence Algorithm.mp4",
+            "duration_seconds": 692.522667,
+            "duration_formatted": "00:11:32"
+        },
+        {
+            "name": "005 Convergence Algorithm Part02.mp4",
+            "duration_seconds": 790.314667,
+            "duration_formatted": "00:13:10"
+        },
+        {
+            "name": "006 Multiple Linear regression.mp4",
+            "duration_seconds": 390.4,
+            "duration_formatted": "00:06:30"
+        },
+        {
+            "name": "007 Performance Metrics.mp4",
+            "duration_seconds": 1006.122667,
+            "duration_formatted": "00:16:46"
+        },
+        {
+            "name": "008 MSE, MAE, RMSE.mp4",
+            "duration_seconds": 1353.429333,
+            "duration_formatted": "00:22:33"
+        },
+        {
+            "name": "009 Overfitting and Underfitting.mp4",
+            "duration_seconds": 650.069333,
+            "duration_formatted": "00:10:50"
+        },
+        {
+            "name": "010 Linear Regression with OLS.mp4",
+            "duration_seconds": 1299.2,
+            "duration_formatted": "00:21:39"
+        },
+        {
+            "name": "011 Simple Linear Regression Practical.mp4",
+            "duration_seconds": 2787.285333,
+            "duration_formatted": "00:46:27"
+        },
+        {
+            "name": "012 Multiple Linear regression.mp4",
+            "duration_seconds": 1933.653333,
+            "duration_formatted": "00:32:13"
+        },
+        {
+            "name": "013 Polynomial Regression Intuition.mp4",
+            "duration_seconds": 687.744,
+            "duration_formatted": "00:11:27"
+        },
+        {
+            "name": "014 Polynomial Regression Implementation.mp4",
+            "duration_seconds": 1354.496,
+            "duration_formatted": "00:22:34"
+        },
+        {
+            "name": "015 Pipeline in Polynomial.mp4",
+            "duration_seconds": 320.853333,
+            "duration_formatted": "00:05:20"
+        }
+    ],
+    "28 - Ridge,Lasso And ElasticNet ML ALgorithms": [
+        {
+            "name": "001 Ridge Regression.mp4",
+            "duration_seconds": 968.149333,
+            "duration_formatted": "00:16:08"
+        },
+        {
+            "name": "004 Cleaning the Dataset.mp4",
+            "duration_seconds": 1353.685333,
+            "duration_formatted": "00:22:33"
+        },
+        {
+            "name": "005 EDA and Feature Engineering.mp4",
+            "duration_seconds": 1550.293333,
+            "duration_formatted": "00:25:50"
+        },
+        {
+            "name": "006 Feature Selection.mp4",
+            "duration_seconds": 1049.898667,
+            "duration_formatted": "00:17:29"
+        },
+        {
+            "name": "007 Model Training.mp4",
+            "duration_seconds": 523.648,
+            "duration_formatted": "00:08:43"
+        },
+        {
+            "name": "008 Hyperparameter tuning.mp4",
+            "duration_seconds": 697.642667,
+            "duration_formatted": "00:11:37"
+        }
+    ],
+    "29 - Steps By Step Project Implementation With LifeCycle OF ML Project": [
+        {
+            "name": "001 Basic Simple Linear Regression Project.mp4",
+            "duration_seconds": 2484.070748,
+            "duration_formatted": "00:41:24"
+        },
+        {
+            "name": "002 Multiple Linear Regression Projects With Assumptions.mp4",
+            "duration_seconds": 1641.697211,
+            "duration_formatted": "00:27:21"
+        },
+        {
+            "name": "003 Basic Regression Project From Scratch-EDA And Feature Engineering.mp4",
+            "duration_seconds": 1041.182766,
+            "duration_formatted": "00:17:21"
+        },
+        {
+            "name": "004 Model Training With Cross Validation Using Lasso Regression.mp4",
+            "duration_seconds": 1488.53839,
+            "duration_formatted": "00:24:48"
+        },
+        {
+            "name": "005 Model Training With Ridge and Elastic net With Cross Validation.mp4",
+            "duration_seconds": 324.011224,
+            "duration_formatted": "00:05:24"
+        },
+        {
+            "name": "006 Model Pickling In ML Project.mp4",
+            "duration_seconds": 186.084694,
+            "duration_formatted": "00:03:06"
+        },
+        {
+            "name": "007 End To End ML Project Implementation.mp4",
+            "duration_seconds": 1923.076621,
+            "duration_formatted": "00:32:03"
+        },
+        {
+            "name": "008 Project Deployment In AWS.mp4",
+            "duration_seconds": 778.054218,
+            "duration_formatted": "00:12:58"
+        }
+    ],
+    "30 - Logistic Regression": [
+        {
+            "name": "001 Can Linear Regression Solve Classifier Problem.mp4",
+            "duration_seconds": 706.304,
+            "duration_formatted": "00:11:46"
+        },
+        {
+            "name": "002 Logistic Regression Indepth Math Intuition.mp4",
+            "duration_seconds": 1110.442667,
+            "duration_formatted": "00:18:30"
+        },
+        {
+            "name": "003 Performance Metrics.mp4",
+            "duration_seconds": 1407.061333,
+            "duration_formatted": "00:23:27"
+        },
+        {
+            "name": "004 Logistic Regression OVR.mp4",
+            "duration_seconds": 605.610667,
+            "duration_formatted": "00:10:05"
+        },
+        {
+            "name": "005 Logistic Regression Implementation.mp4",
+            "duration_seconds": 808.448,
+            "duration_formatted": "00:13:28"
+        },
+        {
+            "name": "006 Grid Search Hyper Parameter.mp4",
+            "duration_seconds": 751.658667,
+            "duration_formatted": "00:12:31"
+        },
+        {
+            "name": "007 Randomised Search CV.mp4",
+            "duration_seconds": 287.872,
+            "duration_formatted": "00:04:47"
+        },
+        {
+            "name": "008 Logistic OVR.mp4",
+            "duration_seconds": 259.029333,
+            "duration_formatted": "00:04:19"
+        },
+        {
+            "name": "009 Logistic Imbalanced Dataset.mp4",
+            "duration_seconds": 587.392,
+            "duration_formatted": "00:09:47"
+        },
+        {
+            "name": "010 Logistic Regression ROC.mp4",
+            "duration_seconds": 1120.938667,
+            "duration_formatted": "00:18:40"
+        }
+    ],
+    "31 - Support Vector Machines": [
+        {
+            "name": "001 Introduction to support vector Machine.mp4",
+            "duration_seconds": 535.466667,
+            "duration_formatted": "00:08:55"
+        },
+        {
+            "name": "002 SoftMargin and Hard Margin.mp4",
+            "duration_seconds": 149.290667,
+            "duration_formatted": "00:02:29"
+        },
+        {
+            "name": "003 SVM Maths Intuition.mp4",
+            "duration_seconds": 725.461333,
+            "duration_formatted": "00:12:05"
+        },
+        {
+            "name": "004 SVC Cost function.mp4",
+            "duration_seconds": 410.410667,
+            "duration_formatted": "00:06:50"
+        },
+        {
+            "name": "005 Support Vector Regression.mp4",
+            "duration_seconds": 623.146667,
+            "duration_formatted": "00:10:23"
+        },
+        {
+            "name": "006 SVM Kernels.mp4",
+            "duration_seconds": 641.322667,
+            "duration_formatted": "00:10:41"
+        },
+        {
+            "name": "007 Support Vector Classifiers.mp4",
+            "duration_seconds": 1090.304,
+            "duration_formatted": "00:18:10"
+        },
+        {
+            "name": "008 SVM Kernels implementation.mp4",
+            "duration_seconds": 815.061333,
+            "duration_formatted": "00:13:35"
+        },
+        {
+            "name": "009 Support Vector Regression Implementation.mp4",
+            "duration_seconds": 1260.842667,
+            "duration_formatted": "00:21:00"
+        }
+    ],
+    "32 - Naive Bayes Theorem": [
+        {
+            "name": "001 Understanding Baye's Theorem.mp4",
+            "duration_seconds": 2073.077528,
+            "duration_formatted": "00:34:33"
+        },
+        {
+            "name": "002 Variants Of Naive Baye's.mp4",
+            "duration_seconds": 684.71,
+            "duration_formatted": "00:11:24"
+        },
+        {
+            "name": "003 Naive Baye's Practical Implementation.mp4",
+            "duration_seconds": 610.963424,
+            "duration_formatted": "00:10:10"
+        }
+    ],
+    "33 - K Nearest Neighbour ML Algorithm": [
+        {
+            "name": "001 KNN Classification And Regression Indepth Intuition.mp4",
+            "duration_seconds": 937.343107,
+            "duration_formatted": "00:15:37"
+        },
+        {
+            "name": "002 Optimization Of KNN- KDtree And Ball Tree Indepth Intuition.mp4",
+            "duration_seconds": 898.333583,
+            "duration_formatted": "00:14:58"
+        },
+        {
+            "name": "003 KNN Classifier And Regressor Classification.mp4",
+            "duration_seconds": 376.116803,
+            "duration_formatted": "00:06:16"
+        }
+    ],
+    "34 - Decision Tree Classifier And Regressor": [
+        {
+            "name": "001 Introduction TO Decision Tree.mp4",
+            "duration_seconds": 762.538667,
+            "duration_formatted": "00:12:42"
+        },
+        {
+            "name": "002 Entropy and Gini Impurity.mp4",
+            "duration_seconds": 691.797333,
+            "duration_formatted": "00:11:31"
+        },
+        {
+            "name": "003 Information Gain.mp4",
+            "duration_seconds": 547.882667,
+            "duration_formatted": "00:09:07"
+        },
+        {
+            "name": "004 Entropy vs Gini impurity.mp4",
+            "duration_seconds": 168.661333,
+            "duration_formatted": "00:02:48"
+        },
+        {
+            "name": "005 Decision Tree Split for Numerical Features.mp4",
+            "duration_seconds": 298.752,
+            "duration_formatted": "00:04:58"
+        },
+        {
+            "name": "006 Post Pruning & Pre Pruning.mp4",
+            "duration_seconds": 503.978667,
+            "duration_formatted": "00:08:23"
+        },
+        {
+            "name": "007 Decision Tree Regression.mp4",
+            "duration_seconds": 1281.536,
+            "duration_formatted": "00:21:21"
+        },
+        {
+            "name": "008 Decision Tree Implementation.mp4",
+            "duration_seconds": 1013.674667,
+            "duration_formatted": "00:16:53"
+        },
+        {
+            "name": "009 Decision tree Prepruning.mp4",
+            "duration_seconds": 507.562667,
+            "duration_formatted": "00:08:27"
+        },
+        {
+            "name": "010 Diabetes Prediction Using Decision Tree Regressor.mp4",
+            "duration_seconds": 642.048,
+            "duration_formatted": "00:10:42"
+        }
+    ],
+    "35 - Random Forest Machine Learning": [
+        {
+            "name": "001 Bagging & Boosting Ensemble Techniques.mp4",
+            "duration_seconds": 872.533333,
+            "duration_formatted": "00:14:32"
+        },
+        {
+            "name": "002 Random Forest Regression.mp4",
+            "duration_seconds": 725.802667,
+            "duration_formatted": "00:12:05"
+        },
+        {
+            "name": "003 Problem Classification.mp4",
+            "duration_seconds": 195.968,
+            "duration_formatted": "00:03:15"
+        },
+        {
+            "name": "004 Feature Engineering Part 01.mp4",
+            "duration_seconds": 799.488,
+            "duration_formatted": "00:13:19"
+        },
+        {
+            "name": "005 Feature Engineering Part 02.mp4",
+            "duration_seconds": 529.792,
+            "duration_formatted": "00:08:49"
+        },
+        {
+            "name": "006 Model Training Step.mp4",
+            "duration_seconds": 709.632,
+            "duration_formatted": "00:11:49"
+        },
+        {
+            "name": "007 Random Forest Regression Project-Problem Statement.mp4",
+            "duration_seconds": 127.232,
+            "duration_formatted": "00:02:07"
+        },
+        {
+            "name": "008 Feature Engineering.mp4",
+            "duration_seconds": 714.666667,
+            "duration_formatted": "00:11:54"
+        },
+        {
+            "name": "009 Model Training.mp4",
+            "duration_seconds": 417.322667,
+            "duration_formatted": "00:06:57"
+        }
+    ],
+    "36 - Adaboost Machine Learning Algorithm": [
+        {
+            "name": "001 Introduction to Adaboost ML algorithm.mp4",
+            "duration_seconds": 710.741333,
+            "duration_formatted": "00:11:50"
+        },
+        {
+            "name": "002 Creating Decision Tree Stump.mp4",
+            "duration_seconds": 454.570667,
+            "duration_formatted": "00:07:34"
+        },
+        {
+            "name": "003 Performance of Decision Tree Stump.mp4",
+            "duration_seconds": 487.850667,
+            "duration_formatted": "00:08:07"
+        },
+        {
+            "name": "004 Updating Weights.mp4",
+            "duration_seconds": 319.36,
+            "duration_formatted": "00:05:19"
+        },
+        {
+            "name": "005 Normalising Weights and Assigning Bins.mp4",
+            "duration_seconds": 372.736,
+            "duration_formatted": "00:06:12"
+        },
+        {
+            "name": "006 Selecting New Datapoints for Next tree.mp4",
+            "duration_seconds": 387.285333,
+            "duration_formatted": "00:06:27"
+        },
+        {
+            "name": "007 Final Prediction for Adaboost.mp4",
+            "duration_seconds": 282.965333,
+            "duration_formatted": "00:04:42"
+        },
+        {
+            "name": "008 Adaboost Model Training.mp4",
+            "duration_seconds": 700.117333,
+            "duration_formatted": "00:11:40"
+        },
+        {
+            "name": "009 Adaboost Regressor Model Training.mp4",
+            "duration_seconds": 479.146667,
+            "duration_formatted": "00:07:59"
+        }
+    ],
+    "37 - Gradient Boosting": [
+        {
+            "name": "001 Gradient Boosting Regression.mp4",
+            "duration_seconds": 877.141333,
+            "duration_formatted": "00:14:37"
+        },
+        {
+            "name": "002 Gradient Boost Classifier Training.mp4",
+            "duration_seconds": 524.842667,
+            "duration_formatted": "00:08:44"
+        },
+        {
+            "name": "003 Gradient Boost Regression Model Training.mp4",
+            "duration_seconds": 618.624,
+            "duration_formatted": "00:10:18"
+        }
+    ],
+    "38 - Xgboost Machine Learning Algorithms": [
+        {
+            "name": "001 Xgboost Classification Indepth Intuit.mp4",
+            "duration_seconds": 1731.157333,
+            "duration_formatted": "00:28:51"
+        },
+        {
+            "name": "002 Xgboost Regressor.mp4",
+            "duration_seconds": 1295.274667,
+            "duration_formatted": "00:21:35"
+        },
+        {
+            "name": "003 Model Training Xgboost.mp4",
+            "duration_seconds": 483.029333,
+            "duration_formatted": "00:08:03"
+        },
+        {
+            "name": "004 Xgboost Regressor Training.mp4",
+            "duration_seconds": 328.128,
+            "duration_formatted": "00:05:28"
+        }
+    ],
+    "39 - Unsupervised Machine Learning": [
+        {
+            "name": "001 Introduction To Unsupervised Machine Learning.mp4",
+            "duration_seconds": 470.714898,
+            "duration_formatted": "00:07:50"
+        }
+    ],
+    "40 - PCA": [
+        {
+            "name": "001 Curse Of Dimensionality.mp4",
+            "duration_seconds": 850.56,
+            "duration_formatted": "00:14:10"
+        },
+        {
+            "name": "002 Feature Selection and Extraction.mp4",
+            "duration_seconds": 1070.762667,
+            "duration_formatted": "00:17:50"
+        },
+        {
+            "name": "003 PCA Geometric Intuition.mp4",
+            "duration_seconds": 988.16,
+            "duration_formatted": "00:16:28"
+        },
+        {
+            "name": "004 PCA Maths Intuition 01.mp4",
+            "duration_seconds": 688.896,
+            "duration_formatted": "00:11:28"
+        },
+        {
+            "name": "005 Eigen Decomposition on Covariance Matrix.mp4",
+            "duration_seconds": 1011.797333,
+            "duration_formatted": "00:16:51"
+        },
+        {
+            "name": "006 PCA Implementation.mp4",
+            "duration_seconds": 735.872,
+            "duration_formatted": "00:12:15"
+        }
+    ],
+    "41 - K Means Clustering Unsupervised ML": [
+        {
+            "name": "001 Kmeans Clustering Geometric Intuition.mp4",
+            "duration_seconds": 752.554667,
+            "duration_formatted": "00:12:32"
+        },
+        {
+            "name": "002 How to Find K Values.mp4",
+            "duration_seconds": 638.250667,
+            "duration_formatted": "00:10:38"
+        },
+        {
+            "name": "003 Random Initialisation Trap(Kmeans++).mp4",
+            "duration_seconds": 307.157333,
+            "duration_formatted": "00:05:07"
+        },
+        {
+            "name": "004 K means Clustering Implementation.mp4",
+            "duration_seconds": 1214.890667,
+            "duration_formatted": "00:20:14"
+        }
+    ],
+    "42 - Hierarichal Clustering": [
+        {
+            "name": "001 Hierarichal Clustering.mp4",
+            "duration_seconds": 911.986916,
+            "duration_formatted": "00:15:11"
+        },
+        {
+            "name": "002 Agglomerative Clustering Implementation.mp4",
+            "duration_seconds": 833.92,
+            "duration_formatted": "00:13:53"
+        },
+        {
+            "name": "003 Kmeans vs Hierarical Mean Clustering.mp4",
+            "duration_seconds": 226.474667,
+            "duration_formatted": "00:03:46"
+        }
+    ],
+    "43 - DBSCAN Clustering": [
+        {
+            "name": "001 How DBSCAN Works.mp4",
+            "duration_seconds": 554.624,
+            "duration_formatted": "00:09:14"
+        },
+        {
+            "name": "002 Examples After Applying DBSCAN.mp4",
+            "duration_seconds": 163.882667,
+            "duration_formatted": "00:02:43"
+        },
+        {
+            "name": "003 Pros and Cons Of DBSCAN.mp4",
+            "duration_seconds": 419.259478,
+            "duration_formatted": "00:06:59"
+        },
+        {
+            "name": "004 DBSCAN Clustering Implementation.mp4",
+            "duration_seconds": 374.723605,
+            "duration_formatted": "00:06:14"
+        }
+    ],
+    "44 - Silhoutte Clustering": [
+        {
+            "name": "001 Silhoutte Clustering Intuition.mp4",
+            "duration_seconds": 527.975306,
+            "duration_formatted": "00:08:47"
+        }
+    ],
+    "45 - Anomaly Detection Machine Learning Algorithms": [
+        {
+            "name": "001 Anomaly Detection USsing Isolation Forest Indepth Intuition.mp4",
+            "duration_seconds": 1353.584014,
+            "duration_formatted": "00:22:33"
+        },
+        {
+            "name": "002 DBSCAN Clustering Anomaly Detection.mp4",
+            "duration_seconds": 479.584921,
+            "duration_formatted": "00:07:59"
+        },
+        {
+            "name": "003 Local Outlier Factor Anomaly Detection.mp4",
+            "duration_seconds": 438.485601,
+            "duration_formatted": "00:07:18"
+        }
+    ],
+    "46 - Dockers For Beginners": [
+        {
+            "name": "001 Dockers Series.mp4",
+            "duration_seconds": 59.675261,
+            "duration_formatted": "00:00:59"
+        },
+        {
+            "name": "002 Dockers and What is Containers.mp4",
+            "duration_seconds": 740.298571,
+            "duration_formatted": "00:12:20"
+        },
+        {
+            "name": "003 Docker image vs Containers.mp4",
+            "duration_seconds": 344.723424,
+            "duration_formatted": "00:05:44"
+        },
+        {
+            "name": "004 Docker vs Virtual Machines.mp4",
+            "duration_seconds": 466.999705,
+            "duration_formatted": "00:07:46"
+        },
+        {
+            "name": "005 Docker Installation.mp4",
+            "duration_seconds": 719.075533,
+            "duration_formatted": "00:11:59"
+        },
+        {
+            "name": "006 Docker Basic Commands.mp4",
+            "duration_seconds": 1142.932585,
+            "duration_formatted": "00:19:02"
+        },
+        {
+            "name": "007 Creating a Docker Image.mp4",
+            "duration_seconds": 859.788458,
+            "duration_formatted": "00:14:19"
+        },
+        {
+            "name": "008 Push Docker Image to Docker Hub.mp4",
+            "duration_seconds": 510.79254,
+            "duration_formatted": "00:08:30"
+        },
+        {
+            "name": "009 9-Dockers-Compose.mp4",
+            "duration_seconds": 1075.826939,
+            "duration_formatted": "00:17:55"
+        },
+        {
+            "name": "009 Docker Compose.mp4",
+            "duration_seconds": 1111.637333,
+            "duration_formatted": "00:18:31"
+        }
+    ],
+    "47 - GIT For Beginners": [
+        {
+            "name": "001 Introduction, Installation and Basic Commands.mp4",
+            "duration_seconds": 1230.976,
+            "duration_formatted": "00:20:30"
+        },
+        {
+            "name": "002 Git Merge, Push, Checkout and Log with commands.mp4",
+            "duration_seconds": 788.650667,
+            "duration_formatted": "00:13:08"
+        },
+        {
+            "name": "003 Resolving Git Branch Merge Conflict.mp4",
+            "duration_seconds": 1055.958,
+            "duration_formatted": "00:17:35"
+        }
+    ],
+    "48 - End To End Machine Learning Project With AWS,Azure Deployment": [
+        {
+            "name": "001 End To End ML Project With Deployment-Github And Code Set Up.mp4",
+            "duration_seconds": 2276.692993,
+            "duration_formatted": "00:37:56"
+        },
+        {
+            "name": "002 Implementing Project Structure, Logging And Exception Handling.mp4",
+            "duration_seconds": 2019.903832,
+            "duration_formatted": "00:33:39"
+        },
+        {
+            "name": "003 Discussing Project Problem Statement,EDA And Model Training.mp4",
+            "duration_seconds": 2270.818662,
+            "duration_formatted": "00:37:50"
+        },
+        {
+            "name": "004 Data Ingestion Implementation.mp4",
+            "duration_seconds": 1567.114717,
+            "duration_formatted": "00:26:07"
+        },
+        {
+            "name": "005 Data Transformation Using Pipelines Implementation.mp4",
+            "duration_seconds": 2228.419025,
+            "duration_formatted": "00:37:08"
+        },
+        {
+            "name": "006 Model Trainer Implementation.mp4",
+            "duration_seconds": 1481.247324,
+            "duration_formatted": "00:24:41"
+        },
+        {
+            "name": "007 Model Hyperparameter Tuning Implementation.mp4",
+            "duration_seconds": 404.445147,
+            "duration_formatted": "00:06:44"
+        },
+        {
+            "name": "008 Building Prediction Pipeline.mp4",
+            "duration_seconds": 1613.183107,
+            "duration_formatted": "00:26:53"
+        },
+        {
+            "name": "009 ML Project Deployment Using AWS Beanstalk.mp4",
+            "duration_seconds": 1048.00941,
+            "duration_formatted": "00:17:28"
+        },
+        {
+            "name": "010 Deployment EC2 Instance With ECR.mp4",
+            "duration_seconds": 2513.606531,
+            "duration_formatted": "00:41:53"
+        },
+        {
+            "name": "011 Deployment Azure With Container And Images.mp4",
+            "duration_seconds": 1472.005782,
+            "duration_formatted": "00:24:32"
+        }
+    ],
+    "49 - End To End MLOPS Projects With ETL Pipelines- Building Network Security System": [
+        {
+            "name": "001 Project Structure Set up With Environment.mp4",
+            "duration_seconds": 1087.111814,
+            "duration_formatted": "00:18:07"
+        },
+        {
+            "name": "002 Github Repository Set Up With VS Code.mp4",
+            "duration_seconds": 724.834082,
+            "duration_formatted": "00:12:04"
+        },
+        {
+            "name": "003 Packaging the Project With Setup.py.mp4",
+            "duration_seconds": 994.882154,
+            "duration_formatted": "00:16:34"
+        },
+        {
+            "name": "004 Logging And Exception Handling Implementation.mp4",
+            "duration_seconds": 869.03,
+            "duration_formatted": "00:14:29"
+        },
+        {
+            "name": "005 Introduction To ETL Pipelines.mp4",
+            "duration_seconds": 483.439433,
+            "duration_formatted": "00:08:03"
+        },
+        {
+            "name": "006 Setting Up MongoDb Atlas.mp4",
+            "duration_seconds": 729.478073,
+            "duration_formatted": "00:12:09"
+        },
+        {
+            "name": "007 ETL Pipeline Setup With Python.mp4",
+            "duration_seconds": 1300.317438,
+            "duration_formatted": "00:21:40"
+        },
+        {
+            "name": "008 Data Ingestion Architecture.mp4",
+            "duration_seconds": 319.878073,
+            "duration_formatted": "00:05:19"
+        },
+        {
+            "name": "009 Implementing Data Ingestion Configuration.mp4",
+            "duration_seconds": 1090.269728,
+            "duration_formatted": "00:18:10"
+        },
+        {
+            "name": "010 Implementing Data Ingestions Component.mp4",
+            "duration_seconds": 2067.876259,
+            "duration_formatted": "00:34:27"
+        },
+        {
+            "name": "011 Implementing Data Validation-Part 1.mp4",
+            "duration_seconds": 1683.493129,
+            "duration_formatted": "00:28:03"
+        },
+        {
+            "name": "012 Implementing Data Validation-Part 2.mp4",
+            "duration_seconds": 2098.247959,
+            "duration_formatted": "00:34:58"
+        },
+        {
+            "name": "013 Data Transformation Architecture.mp4",
+            "duration_seconds": 1134.480522,
+            "duration_formatted": "00:18:54"
+        },
+        {
+            "name": "014 Data Transformation Implementation.mp4",
+            "duration_seconds": 1850.909002,
+            "duration_formatted": "00:30:50"
+        },
+        {
+            "name": "015 Model Trainer Implementation- Part 1.mp4",
+            "duration_seconds": 1485.101837,
+            "duration_formatted": "00:24:45"
+        },
+        {
+            "name": "016 Model Trainer And Evaluation With Hyperparameter Tuning.mp4",
+            "duration_seconds": 1217.05068,
+            "duration_formatted": "00:20:17"
+        },
+        {
+            "name": "017 Model Experiment Tracking With MLFLOW.mp4",
+            "duration_seconds": 983.736576,
+            "duration_formatted": "00:16:23"
+        },
+        {
+            "name": "018 MLFLOW Experiment Tracking With Remote Respository Dagshub.mp4",
+            "duration_seconds": 602.74356,
+            "duration_formatted": "00:10:02"
+        },
+        {
+            "name": "019 Model Pusher Implementation.mp4",
+            "duration_seconds": 251.890045,
+            "duration_formatted": "00:04:11"
+        },
+        {
+            "name": "020 Model Training Pipeline Implementation.mp4",
+            "duration_seconds": 1647.22356,
+            "duration_formatted": "00:27:27"
+        },
+        {
+            "name": "021 Batch Prediction Pipeline Implementation.mp4",
+            "duration_seconds": 694.090862,
+            "duration_formatted": "00:11:34"
+        },
+        {
+            "name": "022 Final Model And Artifacts Pusher To AWS S3 buckets.mp4",
+            "duration_seconds": 1194.109388,
+            "duration_formatted": "00:19:54"
+        },
+        {
+            "name": "023 Building Docker Image And Github Actions.mp4",
+            "duration_seconds": 635.483696,
+            "duration_formatted": "00:10:35"
+        },
+        {
+            "name": "024 Github Action-Docker Image Push to AWS ECR Repo Implementation.mp4",
+            "duration_seconds": 1095.470998,
+            "duration_formatted": "00:18:15"
+        },
+        {
+            "name": "025 Final Deployment To EC2 instance.mp4",
+            "duration_seconds": 1437.12941,
+            "duration_formatted": "00:23:57"
+        }
+    ],
+    "50 - MLFlow Dagshub and BentoML-Complete ML Project Lifecycle": [
+        {
+            "name": "001 Getting Started With MLOPS With MLFlow And Dagshub With Project.mp4",
+            "duration_seconds": 2448.590635,
+            "duration_formatted": "00:40:48"
+        },
+        {
+            "name": "002 Data Versioning Control Implementation.mp4",
+            "duration_seconds": 1480.550726,
+            "duration_formatted": "00:24:40"
+        },
+        {
+            "name": "003 Building Data Science Projects With BentoML.mp4",
+            "duration_seconds": 1714.143469,
+            "duration_formatted": "00:28:34"
+        }
+    ],
+    "51 - NLP for Machine Learning": [
+        {
+            "name": "001 Roadmap to Learn NLP for Machine Learning.mp4",
+            "duration_seconds": 974.165333,
+            "duration_formatted": "00:16:14"
+        },
+        {
+            "name": "002 Practical Use cases of NLP.mp4",
+            "duration_seconds": 333.397333,
+            "duration_formatted": "00:05:33"
+        },
+        {
+            "name": "003 Tokenisation and Basic Terminologies.mp4",
+            "duration_seconds": 632.661333,
+            "duration_formatted": "00:10:32"
+        },
+        {
+            "name": "004 Tokenisation Practicals.mp4",
+            "duration_seconds": 836.650667,
+            "duration_formatted": "00:13:56"
+        },
+        {
+            "name": "005 Text Preprocessing Stemming using NLTK.mp4",
+            "duration_seconds": 1195.946667,
+            "duration_formatted": "00:19:55"
+        },
+        {
+            "name": "006 Text Preprocessing Lemmatization NLTK.mp4",
+            "duration_seconds": 587.776,
+            "duration_formatted": "00:09:47"
+        },
+        {
+            "name": "007 Text Preprocessing Stopwords.mp4",
+            "duration_seconds": 1177.088,
+            "duration_formatted": "00:19:37"
+        },
+        {
+            "name": "008 Parts of Speech Tagging Using NLTK.mp4",
+            "duration_seconds": 685.824,
+            "duration_formatted": "00:11:25"
+        },
+        {
+            "name": "009 Named Entity Recognition.mp4",
+            "duration_seconds": 382.165333,
+            "duration_formatted": "00:06:22"
+        },
+        {
+            "name": "010 What's Next.mp4",
+            "duration_seconds": 658.517333,
+            "duration_formatted": "00:10:58"
+        },
+        {
+            "name": "011 One Hot Encoding Intuition.mp4",
+            "duration_seconds": 494.293333,
+            "duration_formatted": "00:08:14"
+        },
+        {
+            "name": "012 Advantages and Disadvantages of OHE.mp4",
+            "duration_seconds": 724.992,
+            "duration_formatted": "00:12:04"
+        },
+        {
+            "name": "013 Bag of Words Intuition.mp4",
+            "duration_seconds": 595.754667,
+            "duration_formatted": "00:09:55"
+        },
+        {
+            "name": "014 Advantages and Disadvantages BOW.mp4",
+            "duration_seconds": 589.397333,
+            "duration_formatted": "00:09:49"
+        },
+        {
+            "name": "015 BOW implementation using NLTK.mp4",
+            "duration_seconds": 1233.493333,
+            "duration_formatted": "00:20:33"
+        },
+        {
+            "name": "016 N Grams.mp4",
+            "duration_seconds": 415.744,
+            "duration_formatted": "00:06:55"
+        },
+        {
+            "name": "017 N Gram BOW Implementation Using NLTK.mp4",
+            "duration_seconds": 403.242667,
+            "duration_formatted": "00:06:43"
+        },
+        {
+            "name": "018 TF-IDF Instituion.mp4",
+            "duration_seconds": 622.549333,
+            "duration_formatted": "00:10:22"
+        },
+        {
+            "name": "019 Advantages and Disadvantages of TF-IDF.mp4",
+            "duration_seconds": 308.778667,
+            "duration_formatted": "00:05:08"
+        },
+        {
+            "name": "020 TFIDF Practical implementation Python.mp4",
+            "duration_seconds": 405.546667,
+            "duration_formatted": "00:06:45"
+        },
+        {
+            "name": "021 Word Embeddings.mp4",
+            "duration_seconds": 410.069333,
+            "duration_formatted": "00:06:50"
+        },
+        {
+            "name": "022 Word2Vec Intuition.mp4",
+            "duration_seconds": 1090.56,
+            "duration_formatted": "00:18:10"
+        },
+        {
+            "name": "023 Word2Vec Cbow Intuition.mp4",
+            "duration_seconds": 1215.402667,
+            "duration_formatted": "00:20:15"
+        },
+        {
+            "name": "024 SkipGram Indepth Intuition.mp4",
+            "duration_seconds": 590.378667,
+            "duration_formatted": "00:09:50"
+        },
+        {
+            "name": "025 Advantages of Word2Vec.mp4",
+            "duration_seconds": 263.253333,
+            "duration_formatted": "00:04:23"
+        },
+        {
+            "name": "026 AvgWord2vec Indepth Intuition.mp4",
+            "duration_seconds": 392.463651,
+            "duration_formatted": "00:06:32"
+        },
+        {
+            "name": "027 Word2vec Practical Implementation Gensim.mp4",
+            "duration_seconds": 450.218667,
+            "duration_formatted": "00:07:30"
+        },
+        {
+            "name": "028 Spam ham Project using BOW.mp4",
+            "duration_seconds": 734.72,
+            "duration_formatted": "00:12:14"
+        },
+        {
+            "name": "029 Spam And Ham Project Using TFidf.mp4",
+            "duration_seconds": 289.506372,
+            "duration_formatted": "00:04:49"
+        },
+        {
+            "name": "030 Best Practises For Solving ML Problems.mp4",
+            "duration_seconds": 615.282336,
+            "duration_formatted": "00:10:15"
+        },
+        {
+            "name": "031 Part 1-Text Classification With Word2vec And AvgWord2vec.mp4",
+            "duration_seconds": 1100.161429,
+            "duration_formatted": "00:18:20"
+        },
+        {
+            "name": "032 Part 2- Text Classification With Word2vec And AvgWord2vec.mp4",
+            "duration_seconds": 917.048866,
+            "duration_formatted": "00:15:17"
+        },
+        {
+            "name": "033 Part 1-Kindle Review Sentiment Analysis.mp4",
+            "duration_seconds": 1311.648776,
+            "duration_formatted": "00:21:51"
+        },
+        {
+            "name": "034 Part 2- Kindle Review Sentiment Analysis.mp4",
+            "duration_seconds": 467.278345,
+            "duration_formatted": "00:07:47"
+        }
+    ],
+    "52 - Deep Learning": [
+        {
+            "name": "001 Introduction.mp4",
+            "duration_seconds": 488.021333,
+            "duration_formatted": "00:08:08"
+        },
+        {
+            "name": "002 Why Deep Learning is getting Popular.mp4",
+            "duration_seconds": 765.397333,
+            "duration_formatted": "00:12:45"
+        },
+        {
+            "name": "003 3 - Perception Intuition.mp4",
+            "duration_seconds": 1101.013333,
+            "duration_formatted": "00:18:21"
+        },
+        {
+            "name": "004 Advantages and Disadvantages of Perceptron.mp4",
+            "duration_seconds": 410.453333,
+            "duration_formatted": "00:06:50"
+        },
+        {
+            "name": "005 ANN Intuition and Learning.mp4",
+            "duration_seconds": 1281.75,
+            "duration_formatted": "00:21:21"
+        },
+        {
+            "name": "006 Back Propogation and Weight Updation.mp4",
+            "duration_seconds": 1196.970667,
+            "duration_formatted": "00:19:56"
+        },
+        {
+            "name": "007 Chain Rule of Derivatives.mp4",
+            "duration_seconds": 663.936,
+            "duration_formatted": "00:11:03"
+        },
+        {
+            "name": "008 Vanishing Gradient Problem and Sigmoid.mp4",
+            "duration_seconds": 1286.826667,
+            "duration_formatted": "00:21:26"
+        },
+        {
+            "name": "009 Sigmoid Activation Function.mp4",
+            "duration_seconds": 479.189333,
+            "duration_formatted": "00:07:59"
+        },
+        {
+            "name": "010 Sigmoid Activation Function 2.0.mp4",
+            "duration_seconds": 829.354667,
+            "duration_formatted": "00:13:49"
+        },
+        {
+            "name": "011 Tanh Activation Function.mp4",
+            "duration_seconds": 414.165333,
+            "duration_formatted": "00:06:54"
+        },
+        {
+            "name": "012 Relu activation Function.mp4",
+            "duration_seconds": 652.757333,
+            "duration_formatted": "00:10:52"
+        },
+        {
+            "name": "013 Leaky Relu and Parametric Relu.mp4",
+            "duration_seconds": 275.925333,
+            "duration_formatted": "00:04:35"
+        },
+        {
+            "name": "014 ELU Activation Function.mp4",
+            "duration_seconds": 247.552,
+            "duration_formatted": "00:04:07"
+        },
+        {
+            "name": "015 Softmax For Multiclass Classification.mp4",
+            "duration_seconds": 695.637333,
+            "duration_formatted": "00:11:35"
+        },
+        {
+            "name": "016 Which Activation Function To Apply When.mp4",
+            "duration_seconds": 322.986667,
+            "duration_formatted": "00:05:22"
+        },
+        {
+            "name": "017 Loss Function Vs Cost Function.mp4",
+            "duration_seconds": 411.264,
+            "duration_formatted": "00:06:51"
+        },
+        {
+            "name": "018 Regression Cost Function.mp4",
+            "duration_seconds": 995.882667,
+            "duration_formatted": "00:16:35"
+        },
+        {
+            "name": "019 Loss Function Classification Problem.mp4",
+            "duration_seconds": 1229.909333,
+            "duration_formatted": "00:20:29"
+        },
+        {
+            "name": "020 Which Loss Function To Use When.mp4",
+            "duration_seconds": 222.890667,
+            "duration_formatted": "00:03:42"
+        },
+        {
+            "name": "021 Gradient Descent Optimisers.mp4",
+            "duration_seconds": 733.013333,
+            "duration_formatted": "00:12:13"
+        },
+        {
+            "name": "022 SGD.mp4",
+            "duration_seconds": 449.493333,
+            "duration_formatted": "00:07:29"
+        },
+        {
+            "name": "023 Mini Batch With SGD.mp4",
+            "duration_seconds": 616.448,
+            "duration_formatted": "00:10:16"
+        },
+        {
+            "name": "024 SGD With Momentum.mp4",
+            "duration_seconds": 740.345011,
+            "duration_formatted": "00:12:20"
+        },
+        {
+            "name": "025 Adagard.mp4",
+            "duration_seconds": 495.274667,
+            "duration_formatted": "00:08:15"
+        },
+        {
+            "name": "026 RMSPROP.mp4",
+            "duration_seconds": 377.557333,
+            "duration_formatted": "00:06:17"
+        },
+        {
+            "name": "027 Adam Optimiser.mp4",
+            "duration_seconds": 396.245333,
+            "duration_formatted": "00:06:36"
+        },
+        {
+            "name": "028 Exploding Gradient Problem.mp4",
+            "duration_seconds": 611.541333,
+            "duration_formatted": "00:10:11"
+        },
+        {
+            "name": "029 Weight Initialisation Techniques.mp4",
+            "duration_seconds": 717.312,
+            "duration_formatted": "00:11:57"
+        },
+        {
+            "name": "030 Dropout Layers.mp4",
+            "duration_seconds": 730.368,
+            "duration_formatted": "00:12:10"
+        },
+        {
+            "name": "031 CNN Introduction.mp4",
+            "duration_seconds": 486.570667,
+            "duration_formatted": "00:08:06"
+        },
+        {
+            "name": "032 Human Brain Vs CNN.mp4",
+            "duration_seconds": 443.264,
+            "duration_formatted": "00:07:23"
+        },
+        {
+            "name": "033 All you need to Know about Images.mp4",
+            "duration_seconds": 397.269333,
+            "duration_formatted": "00:06:37"
+        },
+        {
+            "name": "034 Convolution Operation In CNN.mp4",
+            "duration_seconds": 946.730667,
+            "duration_formatted": "00:15:46"
+        },
+        {
+            "name": "035 Padding In CNN.mp4",
+            "duration_seconds": 351.914667,
+            "duration_formatted": "00:05:51"
+        },
+        {
+            "name": "036 Operation Of CNN Vs ANN.mp4",
+            "duration_seconds": 453.802667,
+            "duration_formatted": "00:07:33"
+        },
+        {
+            "name": "037 Max, Min and Average Pooling.mp4",
+            "duration_seconds": 606.378667,
+            "duration_formatted": "00:10:06"
+        },
+        {
+            "name": "038 Flattening and Fully Connected Layers.mp4",
+            "duration_seconds": 457.984,
+            "duration_formatted": "00:07:37"
+        },
+        {
+            "name": "039 CNN example with RGB.mp4",
+            "duration_seconds": 258.602667,
+            "duration_formatted": "00:04:18"
+        }
+    ],
+    "53 - End to End Deep Learning Project Using ANN": [
+        {
+            "name": "001 Discussing Classification Problem Statement And Setting Up Vs Code.mp4",
+            "duration_seconds": 765.561882,
+            "duration_formatted": "00:12:45"
+        },
+        {
+            "name": "002 Feature Transformation Using Sklearn With ANN.mp4",
+            "duration_seconds": 1482.408322,
+            "duration_formatted": "00:24:42"
+        },
+        {
+            "name": "003 Step By Step Training With ANN With Optimizer and Loss Functions.mp4",
+            "duration_seconds": 2324.735397,
+            "duration_formatted": "00:38:44"
+        },
+        {
+            "name": "004 Prediction With Trained ANN Model.mp4",
+            "duration_seconds": 890.670998,
+            "duration_formatted": "00:14:50"
+        },
+        {
+            "name": "005 Integrating ANN Model With Streamlit Web APP.mp4",
+            "duration_seconds": 490.08034,
+            "duration_formatted": "00:08:10"
+        },
+        {
+            "name": "006 Deploying Streamlit web app with ANN Model.mp4",
+            "duration_seconds": 287.973855,
+            "duration_formatted": "00:04:47"
+        },
+        {
+            "name": "007 ANN Regresiion Practical Implementation.mp4",
+            "duration_seconds": 1006.074172,
+            "duration_formatted": "00:16:46"
+        },
+        {
+            "name": "008 Finding Optimal Hidden Layers And Hidden Neurons In ANN.mp4",
+            "duration_seconds": 980.346463,
+            "duration_formatted": "00:16:20"
+        }
+    ],
+    "54 - NLP With Deep Learning": [
+        {
+            "name": "001 Introduction To NLP In Deep Learning.mp4",
+            "duration_seconds": 1052.281882,
+            "duration_formatted": "00:17:32"
+        }
+    ],
+    "55 - Simple RNN Indepth Intuition": [
+        {
+            "name": "001 Understanding RNN Architecture- RNN Vs ANN.mp4",
+            "duration_seconds": 1296.509365,
+            "duration_formatted": "00:21:36"
+        },
+        {
+            "name": "002 Forward Propogation With Time In RNN Training.mp4",
+            "duration_seconds": 1224.899025,
+            "duration_formatted": "00:20:24"
+        },
+        {
+            "name": "003 Backward Propogation With Time In RNN Training.mp4",
+            "duration_seconds": 1901.853583,
+            "duration_formatted": "00:31:41"
+        },
+        {
+            "name": "004 Problems With RNN.mp4",
+            "duration_seconds": 1747.394444,
+            "duration_formatted": "00:29:07"
+        }
+    ],
+    "56 - End To End Deep Learning Project With Simple RNN": [
+        {
+            "name": "001 Problem Statement.mp4",
+            "duration_seconds": 436.349365,
+            "duration_formatted": "00:07:16"
+        },
+        {
+            "name": "002 Getting Started With Word Embedding Layers.mp4",
+            "duration_seconds": 891.460476,
+            "duration_formatted": "00:14:51"
+        },
+        {
+            "name": "003 Implementing Word Embedding With Keras Tensorflow.mp4",
+            "duration_seconds": 1099.18619,
+            "duration_formatted": "00:18:19"
+        },
+        {
+            "name": "004 Loading And Understanding IMDB Dataset And Feature Engineering.mp4",
+            "duration_seconds": 861.506735,
+            "duration_formatted": "00:14:21"
+        },
+        {
+            "name": "005 Training Simple RNN With Embedding Layer.mp4",
+            "duration_seconds": 464.073991,
+            "duration_formatted": "00:07:44"
+        },
+        {
+            "name": "006 Prediction From Trained Simple RNN.mp4",
+            "duration_seconds": 453.253492,
+            "duration_formatted": "00:07:33"
+        },
+        {
+            "name": "007 End To End Streamlit Web App Integrated With RNN And deployment.mp4",
+            "duration_seconds": 523.656395,
+            "duration_formatted": "00:08:43"
+        }
+    ],
+    "57 - LSTM And GRU RNN Indepth Intuition": [
+        {
+            "name": "001 Why LSTM RNN.mp4",
+            "duration_seconds": 1252.99517,
+            "duration_formatted": "00:20:52"
+        },
+        {
+            "name": "002 LSTM RNN Architecture.mp4",
+            "duration_seconds": 730.77839,
+            "duration_formatted": "00:12:10"
+        },
+        {
+            "name": "003 Forget Gate In LSTM RNN.mp4",
+            "duration_seconds": 900.284059,
+            "duration_formatted": "00:15:00"
+        },
+        {
+            "name": "004 Input Gate And Candidate Memory In LSTM RNN.mp4",
+            "duration_seconds": 706.908277,
+            "duration_formatted": "00:11:46"
+        },
+        {
+            "name": "005 Output Gate In LSTM RNN.mp4",
+            "duration_seconds": 535.359252,
+            "duration_formatted": "00:08:55"
+        },
+        {
+            "name": "006 Training Process In LSTM RNN.mp4",
+            "duration_seconds": 998.643787,
+            "duration_formatted": "00:16:38"
+        },
+        {
+            "name": "007 Variants Of LSTM RNN.mp4",
+            "duration_seconds": 824.912086,
+            "duration_formatted": "00:13:44"
+        },
+        {
+            "name": "008 GRU RNN Complete Indepth Intuition.mp4",
+            "duration_seconds": 1638.678617,
+            "duration_formatted": "00:27:18"
+        }
+    ],
+    "58 - LSTM And GRU End To End Deep Learning Project- Predicting Next Word": [
+        {
+            "name": "001 Discussing Problem Statement.mp4",
+            "duration_seconds": 290.29585,
+            "duration_formatted": "00:04:50"
+        },
+        {
+            "name": "002 Data Collection And Data Processing.mp4",
+            "duration_seconds": 1012.807959,
+            "duration_formatted": "00:16:52"
+        },
+        {
+            "name": "003 LSTM Neural Network Model Training.mp4",
+            "duration_seconds": 545.622472,
+            "duration_formatted": "00:09:05"
+        },
+        {
+            "name": "004 Prediction From LSTM Model.mp4",
+            "duration_seconds": 417.959161,
+            "duration_formatted": "00:06:57"
+        },
+        {
+            "name": "005 Streamlit Webapp Integration With LSTM Trained Model.mp4",
+            "duration_seconds": 359.677075,
+            "duration_formatted": "00:05:59"
+        },
+        {
+            "name": "006 GRU RNN Variant Practical Implementation.mp4",
+            "duration_seconds": 123.251497,
+            "duration_formatted": "00:02:03"
+        }
+    ],
+    "59 - Bidirectional RNN Architecture And Indepth Intuition": [
+        {
+            "name": "001 Bidirectional RNN  Architecture and Intuition.mp4",
+            "duration_seconds": 1387.995986,
+            "duration_formatted": "00:23:07"
+        }
+    ],
+    "60 - Encoder Decoder Sequence To Sequence Architecture": [
+        {
+            "name": "001 Indepth Intuition Of Encoder And Decoder-Sequence to Sequence Architecture.mp4",
+            "duration_seconds": 1866.605692,
+            "duration_formatted": "00:31:06"
+        },
+        {
+            "name": "002 Problems With Encoder And Decoder.mp4",
+            "duration_seconds": 614.957256,
+            "duration_formatted": "00:10:14"
+        }
+    ],
+    "61 - Attention Mechanism- Seq2Seq Networks": [
+        {
+            "name": "001 Attention Mechanism Indepth Architecture Explanation.mp4",
+            "duration_seconds": 1730.118798,
+            "duration_formatted": "00:28:50"
+        }
+    ],
+    "62 - Transformers": [
+        {
+            "name": "001 Plan Of Action.mp4",
+            "duration_seconds": 250.821927,
+            "duration_formatted": "00:04:10"
+        },
+        {
+            "name": "002 What And Why To Use Transformers.mp4",
+            "duration_seconds": 1110.378209,
+            "duration_formatted": "00:18:30"
+        },
+        {
+            "name": "003 Understanding the basic architecture of transformers.mp4",
+            "duration_seconds": 853.286871,
+            "duration_formatted": "00:14:13"
+        },
+        {
+            "name": "004 Self Attention Layer Working.mp4",
+            "duration_seconds": 3732.329048,
+            "duration_formatted": "01:02:12"
+        },
+        {
+            "name": "005 Multi Head Attention.mp4",
+            "duration_seconds": 619.322608,
+            "duration_formatted": "00:10:19"
+        },
+        {
+            "name": "006 Feed Forward Neural Network With Multi Head Attention.mp4",
+            "duration_seconds": 522.913356,
+            "duration_formatted": "00:08:42"
+        },
+        {
+            "name": "007 Positional Encoding Indepth Intuition.mp4",
+            "duration_seconds": 1824.577574,
+            "duration_formatted": "00:30:24"
+        },
+        {
+            "name": "008 Layer Normalization.mp4",
+            "duration_seconds": 2016.374399,
+            "duration_formatted": "00:33:36"
+        },
+        {
+            "name": "009 Layer Normalization Examples.mp4",
+            "duration_seconds": 468.810862,
+            "duration_formatted": "00:07:48"
+        },
+        {
+            "name": "010 Complete Encoder transformer architecture.mp4",
+            "duration_seconds": 1325.162789,
+            "duration_formatted": "00:22:05"
+        },
+        {
+            "name": "011 Decoder Transformer- Plan Of Action.mp4",
+            "duration_seconds": 511.164059,
+            "duration_formatted": "00:08:31"
+        },
+        {
+            "name": "012 Decoder Transformer- Masked Multi Head Attention Working.mp4",
+            "duration_seconds": 3190.607506,
+            "duration_formatted": "00:53:10"
+        },
+        {
+            "name": "013 Encoder Decoder Multi Head Attention.mp4",
+            "duration_seconds": 861.506735,
+            "duration_formatted": "00:14:21"
+        },
+        {
+            "name": "014 Final Decoder Linear And Softmax Layer.mp4",
+            "duration_seconds": 824.540567,
+            "duration_formatted": "00:13:44"
+        }
+    ]
+}
