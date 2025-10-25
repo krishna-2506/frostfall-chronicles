@@ -40,11 +40,37 @@ export const CourseTracker = () => {
         data?.map(item => `${item.section_name}|||${item.video_name}`) || []
       );
       setCompletedVideos(completed);
+
+      // Auto-expand current section + next 3
+      const sections = Object.keys(courseData);
+      const currentSectionIndex = findCurrentSection(sections, completed);
+      const toExpand = new Set<string>();
+      
+      for (let i = currentSectionIndex; i < Math.min(currentSectionIndex + 4, sections.length); i++) {
+        toExpand.add(sections[i]);
+      }
+      
+      setExpandedSections(toExpand);
     } catch (error: any) {
       toast.error('Failed to load progress');
     } finally {
       setLoading(false);
     }
+  };
+
+  const findCurrentSection = (sections: string[], completed: Set<string>): number => {
+    // Find the first section that isn't fully completed
+    for (let i = 0; i < sections.length; i++) {
+      const sectionName = sections[i];
+      const videos = courseData[sectionName as keyof typeof courseData] as Video[];
+      const allCompleted = videos.every(v => completed.has(`${sectionName}|||${v.name}`));
+      
+      if (!allCompleted) {
+        return i;
+      }
+    }
+    // If all completed, return last section
+    return Math.max(0, sections.length - 1);
   };
 
   const toggleVideo = async (sectionName: string, videoName: string) => {
