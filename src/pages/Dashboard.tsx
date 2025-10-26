@@ -6,6 +6,7 @@ import { LogOut, Snowflake } from 'lucide-react';
 import { Countdown } from '@/components/Countdown';
 import { CourseTracker } from '@/components/CourseTracker';
 import { HealthTracker } from '@/components/HealthTracker';
+import { WorkHoursTracker } from '@/components/WorkHoursTracker';
 import { StreakTracker } from '@/components/StreakTracker';
 
 export default function Dashboard() {
@@ -55,8 +56,11 @@ export default function Dashboard() {
           {/* Course Tracker */}
           <CourseTracker />
 
-          {/* Health Tracker */}
-          <HealthTracker />
+          {/* Health & Work Trackers */}
+          <div className="grid gap-6 md:grid-cols-2">
+            <HealthTracker />
+            <WorkHoursTracker />
+          </div>
 
           {/* Streak Tracker */}
           <StreakTracker />

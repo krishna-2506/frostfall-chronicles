@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import courseData from '@/data/course_tracker.json';
-import { BookOpen, ChevronDown, ChevronRight } from 'lucide-react';
+import { BookOpen, ChevronDown, ChevronRight, Search } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
 interface Video {
@@ -18,6 +19,7 @@ export const CourseTracker = () => {
   const [completedVideos, setCompletedVideos] = useState<Set<string>>(new Set());
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     loadProgress();
@@ -97,6 +99,19 @@ export const CourseTracker = () => {
     return (completed / videos.length) * 100;
   };
 
+  // Filter sections and videos based on search query
+  const filteredSections = Object.entries(courseData).filter(([section, videos]) => {
+    if (!searchQuery.trim()) return true;
+    
+    const query = searchQuery.toLowerCase();
+    const sectionMatch = section.toLowerCase().includes(query);
+    const videoMatch = (videos as Video[]).some(v => 
+      v.name.toLowerCase().includes(query)
+    );
+    
+    return sectionMatch || videoMatch;
+  });
+
   const totalVideos = Object.values(courseData).flat().length;
   const completedCount = completedVideos.size;
   const overallProgress = (completedCount / totalVideos) * 100;
@@ -138,8 +153,25 @@ export const CourseTracker = () => {
         <Progress value={overallProgress} className="h-3" />
       </div>
 
+      {/* Search Input */}
+      <div className="mb-4 relative">
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Input
+          type="text"
+          placeholder="Search sections or videos..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="pl-9 bg-input/50 backdrop-blur-sm"
+        />
+      </div>
+
       <div className="space-y-3">
-        {Object.entries(courseData).map(([section, videos]) => {
+        {filteredSections.length === 0 ? (
+          <div className="py-8 text-center text-muted-foreground">
+            No sections or videos found matching "{searchQuery}"
+          </div>
+        ) : (
+          filteredSections.map(([section, videos]) => {
           const progress = calculateSectionProgress(section, videos as Video[]);
           const isExpanded = expandedSections.has(section);
 
@@ -163,39 +195,44 @@ export const CourseTracker = () => {
 
                 <CollapsibleContent>
                   <div className="border-t border-border p-4 space-y-2">
-                    {(videos as Video[]).map((video) => {
-                      const key = `${section}|||${video.name}`;
-                      const isChecked = completedVideos.has(key);
+                    {(videos as Video[])
+                      .filter(video => {
+                        if (!searchQuery.trim()) return true;
+                        return video.name.toLowerCase().includes(searchQuery.toLowerCase());
+                      })
+                      .map((video) => {
+                        const key = `${section}|||${video.name}`;
+                        const isChecked = completedVideos.has(key);
 
-                      return (
-                        <div
-                          key={video.name}
-                          className="flex items-start gap-3 rounded-md p-2 transition-colors hover:bg-secondary/50"
-                        >
-                          <Checkbox
-                            id={key}
-                            checked={isChecked}
-                            onCheckedChange={() => toggleVideo(section, video.name)}
-                            className="mt-0.5"
-                          />
-                          <label
-                            htmlFor={key}
-                            className="flex-1 cursor-pointer text-sm"
+                        return (
+                          <div
+                            key={video.name}
+                            className="flex items-start gap-3 rounded-md p-2 transition-colors hover:bg-secondary/50"
                           >
-                            <div className={isChecked ? 'line-through text-muted-foreground' : ''}>
-                              {video.name}
-                            </div>
-                            <div className="text-xs text-muted-foreground">{video.duration_formatted}</div>
-                          </label>
-                        </div>
-                      );
-                    })}
+                            <Checkbox
+                              id={key}
+                              checked={isChecked}
+                              onCheckedChange={() => toggleVideo(section, video.name)}
+                              className="mt-0.5"
+                            />
+                            <label
+                              htmlFor={key}
+                              className="flex-1 cursor-pointer text-sm"
+                            >
+                              <div className={isChecked ? 'line-through text-muted-foreground' : ''}>
+                                {video.name}
+                              </div>
+                              <div className="text-xs text-muted-foreground">{video.duration_formatted}</div>
+                            </label>
+                          </div>
+                        );
+                      })}
                   </div>
                 </CollapsibleContent>
               </div>
             </Collapsible>
           );
-        })}
+        }))}
       </div>
     </Card>
   );

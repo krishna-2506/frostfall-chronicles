@@ -134,7 +134,7 @@ export const HealthTracker = () => {
   };
 
   return (
-    <div className="grid gap-6 md:grid-cols-2">
+    <div className="space-y-6">
       {/* Wake-up Tracker */}
       <Card className="border-primary/30 bg-gradient-to-br from-card to-card/50 p-6 shadow-[var(--glow-soft)]">
         <div className="mb-4 flex items-center gap-3">
