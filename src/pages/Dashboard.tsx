@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { LogOut, Snowflake, Timer, BookOpen, Activity, Flame } from 'lucide-react';
+import { LogOut, Snowflake, Timer, BookOpen, Activity, Flame, Target } from 'lucide-react';
 import { Countdown } from '@/components/Countdown';
 import { CourseTracker } from '@/components/CourseTracker';
 import { HealthTracker } from '@/components/HealthTracker';
@@ -94,6 +94,15 @@ export default function Dashboard() {
             >
               <Flame className="h-3.5 w-3.5" />
               Streak
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate('/missions')}
+              className="gap-2"
+            >
+              <Target className="h-3.5 w-3.5" />
+              Missions
             </Button>
           </div>
         </div>
