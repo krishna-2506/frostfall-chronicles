@@ -77,19 +77,21 @@ export const StreakTracker = () => {
           current_streak: 0,
           start_date: new Date().toISOString().split('T')[0],
           last_reset_date: new Date().toISOString(),
-          last_reset_reason: reason,
+          last_reset_reason: reason.trim(),
         })
         .eq('user_id', user.id)
         .eq('streak_type', 'no_junk_food');
 
       if (error) throw error;
 
-      toast.error('Streak reset. Start again tomorrow!');
+      toast.success('Streak reset. Start again tomorrow!');
       setStreak(0);
       setReason('');
       setStartDate(new Date());
+      await loadStreak(); // Reload to confirm save
     } catch (error: any) {
       toast.error('Failed to reset streak');
+      console.error('Reset error:', error);
     } finally {
       setLoading(false);
     }
