@@ -52,6 +52,79 @@ export type Database = {
           },
         ]
       }
+      daily_ratings: {
+        Row: {
+          created_at: string
+          id: string
+          rating: number
+          rating_date: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          rating: number
+          rating_date?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          rating?: number
+          rating_date?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "daily_ratings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      glow_up_logs: {
+        Row: {
+          created_at: string
+          did_haircare: boolean | null
+          did_skincare: boolean | null
+          id: string
+          log_date: string
+          overthinking_level: number | null
+          user_id: string
+          wasted_tasks: number | null
+        }
+        Insert: {
+          created_at?: string
+          did_haircare?: boolean | null
+          did_skincare?: boolean | null
+          id?: string
+          log_date?: string
+          overthinking_level?: number | null
+          user_id: string
+          wasted_tasks?: number | null
+        }
+        Update: {
+          created_at?: string
+          did_haircare?: boolean | null
+          did_skincare?: boolean | null
+          id?: string
+          log_date?: string
+          overthinking_level?: number | null
+          user_id?: string
+          wasted_tasks?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "glow_up_logs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       health_logs: {
         Row: {
           created_at: string

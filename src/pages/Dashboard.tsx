@@ -2,12 +2,14 @@ import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { LogOut, Snowflake, Timer, BookOpen, Activity, Flame, Target } from 'lucide-react';
+import { LogOut, Snowflake, Timer, BookOpen, Activity, Flame, Target, Zap, Star, Sparkles } from 'lucide-react';
 import { Countdown } from '@/components/Countdown';
 import { CourseTracker } from '@/components/CourseTracker';
 import { HealthTracker } from '@/components/HealthTracker';
 import { WorkHoursTracker } from '@/components/WorkHoursTracker';
 import { StreakTracker } from '@/components/StreakTracker';
+import { NoFapStreakTracker } from '@/components/NoFapStreakTracker';
+import { DayRatingTracker } from '@/components/DayRatingTracker';
 import { PerfectDayCounter } from '@/components/PerfectDayCounter';
 
 export default function Dashboard() {
@@ -98,11 +100,38 @@ export default function Dashboard() {
             <Button
               variant="outline"
               size="sm"
+              onClick={() => scrollToSection('nofap-streak-section')}
+              className="gap-2"
+            >
+              <Zap className="h-3.5 w-3.5" />
+              NoFap
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => scrollToSection('day-rating-section')}
+              className="gap-2"
+            >
+              <Star className="h-3.5 w-3.5" />
+              Rating
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
               onClick={() => navigate('/missions')}
               className="gap-2"
             >
               <Target className="h-3.5 w-3.5" />
               Missions
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate('/glow-up')}
+              className="gap-2"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              Glow Up
             </Button>
           </div>
         </div>
@@ -130,6 +159,16 @@ export default function Dashboard() {
           {/* Streak Tracker */}
           <div id="streak-section">
             <StreakTracker />
+          </div>
+
+          {/* NoFap Streak Tracker */}
+          <div id="nofap-streak-section">
+            <NoFapStreakTracker />
+          </div>
+
+          {/* Day Rating */}
+          <div id="day-rating-section">
+            <DayRatingTracker />
           </div>
 
           {/* Perfect Day Counter */}

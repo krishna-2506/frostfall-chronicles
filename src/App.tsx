@@ -7,6 +7,7 @@ import { AuthGuard } from "./components/AuthGuard";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import Missions from "./pages/Missions";
+import GlowUp from "./pages/GlowUp";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/" element={<AuthGuard><Dashboard /></AuthGuard>} />
           <Route path="/missions" element={<AuthGuard><Missions /></AuthGuard>} />
+          <Route path="/glow-up" element={<AuthGuard><GlowUp /></AuthGuard>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

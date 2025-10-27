@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Activity, Clock } from 'lucide-react';
+import { Activity, Clock, TrendingUp } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface HealthLog {
@@ -16,8 +16,10 @@ interface HealthLog {
 export const HealthTracker = () => {
   const [wakeupTime, setWakeupTime] = useState('');
   const [pushups, setPushups] = useState('');
+  const [runningKm, setRunningKm] = useState('');
   const [wakeupAvg, setWakeupAvg] = useState<number | null>(null);
   const [pushupData, setPushupData] = useState<HealthLog[]>([]);
+  const [runningAvg, setRunningAvg] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -54,6 +56,20 @@ export const HealthTracker = () => {
 
       if (pushupLogs) {
         setPushupData(pushupLogs);
+      }
+
+      // Load running data for average
+      const { data: runningLogs } = await supabase
+        .from('health_logs')
+        .select('value')
+        .eq('user_id', user.id)
+        .eq('log_type', 'running_km')
+        .order('log_date', { ascending: false })
+        .limit(7);
+
+      if (runningLogs && runningLogs.length > 0) {
+        const avg = runningLogs.reduce((sum, log) => sum + log.value, 0) / runningLogs.length;
+        setRunningAvg(Math.round(avg * 10) / 10);
       }
     } catch (error: any) {
       console.error('Failed to load health data:', error);
@@ -122,6 +138,38 @@ export const HealthTracker = () => {
       loadHealthData();
     } catch (error: any) {
       toast.error('Failed to log push-ups');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const logRunning = async () => {
+    if (!runningKm || parseFloat(runningKm) < 0) {
+      toast.error('Please enter a valid distance');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { error } = await supabase
+        .from('health_logs')
+        .upsert({
+          user_id: user.id,
+          log_type: 'running_km',
+          value: parseFloat(runningKm),
+          log_date: new Date().toISOString().split('T')[0],
+        });
+
+      if (error) throw error;
+
+      toast.success('Running distance logged!');
+      setRunningKm('');
+      loadHealthData();
+    } catch (error: any) {
+      toast.error('Failed to log running distance');
     } finally {
       setLoading(false);
     }
@@ -227,6 +275,44 @@ export const HealthTracker = () => {
             className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90"
           >
             Log Push-ups
+          </Button>
+        </div>
+      </Card>
+
+      {/* Running Tracker */}
+      <Card className="border-primary/30 bg-gradient-to-br from-card to-card/50 p-6 shadow-[var(--glow-soft)]">
+        <div className="mb-4 flex items-center gap-3">
+          <TrendingUp className="h-5 w-5 text-primary" />
+          <h3 className="text-lg font-semibold">Running</h3>
+        </div>
+
+        {runningAvg !== null && (
+          <div className="mb-4 rounded-lg bg-secondary/50 p-4 text-center backdrop-blur-sm">
+            <p className="text-sm text-muted-foreground">7-Day Average</p>
+            <p className="text-3xl font-bold text-primary">{runningAvg} km</p>
+          </div>
+        )}
+
+        <div className="space-y-3">
+          <div className="space-y-2">
+            <Label htmlFor="running">Kilometers Run Today</Label>
+            <Input
+              id="running"
+              type="number"
+              step="0.1"
+              min="0"
+              value={runningKm}
+              onChange={(e) => setRunningKm(e.target.value)}
+              placeholder="0.0"
+              className="bg-input/50 backdrop-blur-sm"
+            />
+          </div>
+          <Button
+            onClick={logRunning}
+            disabled={loading}
+            className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90"
+          >
+            Log Run
           </Button>
         </div>
       </Card>
