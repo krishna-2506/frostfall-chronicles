@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -14,12 +12,25 @@ export default function GlowUp() {
   const [loading, setLoading] = useState(true);
   const [overthinkingLevel, setOverthinkingLevel] = useState<number | null>(null);
   const [wastedTasks, setWastedTasks] = useState<number>(0);
-  const [didSkincare, setDidSkincare] = useState(false);
-  const [didHaircare, setDidHaircare] = useState(false);
+  const [skincareCount, setSkincareCount] = useState<number>(0);
+  const [haircareCount, setHaircareCount] = useState<number>(0);
+  const [weeklySkincareCount, setWeeklySkincareCount] = useState<number>(0);
+  const [weeklyHaircareCount, setWeeklyHaircareCount] = useState<number>(0);
 
   useEffect(() => {
     loadTodayData();
+    loadWeeklyData();
   }, []);
+
+  const getWeekStart = () => {
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    const diff = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // Monday is start of week
+    const monday = new Date(now);
+    monday.setDate(now.getDate() + diff);
+    monday.setHours(0, 0, 0, 0);
+    return monday.toISOString().split('T')[0];
+  };
 
   const loadTodayData = async () => {
     try {
@@ -40,8 +51,36 @@ export default function GlowUp() {
       if (data) {
         setOverthinkingLevel(data.overthinking_level);
         setWastedTasks(data.wasted_tasks || 0);
-        setDidSkincare(data.did_skincare || false);
-        setDidHaircare(data.did_haircare || false);
+        setSkincareCount(data.did_skincare || 0);
+        setHaircareCount(data.did_haircare || 0);
+      }
+    } catch (error: any) {
+      toast.error('Failed to load data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadWeeklyData = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const weekStart = getWeekStart();
+
+      const { data, error } = await supabase
+        .from('glow_up_logs')
+        .select('did_skincare, did_haircare')
+        .eq('user_id', user.id)
+        .gte('log_date', weekStart);
+
+      if (error) throw error;
+
+      if (data) {
+        const totalSkincare = data.reduce((sum, log) => sum + (log.did_skincare || 0), 0);
+        const totalHaircare = data.reduce((sum, log) => sum + (log.did_haircare || 0), 0);
+        setWeeklySkincareCount(totalSkincare);
+        setWeeklyHaircareCount(totalHaircare);
       }
     } catch (error: any) {
       toast.error('Failed to load data');
@@ -74,6 +113,53 @@ export default function GlowUp() {
       toast.success('Saved!');
     } catch (error: any) {
       toast.error('Failed to save');
+    }
+  };
+
+  const incrementCount = async (field: 'did_skincare' | 'did_haircare') => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const today = new Date().toISOString().split('T')[0];
+
+      // Get current value for today
+      const { data: existing } = await supabase
+        .from('glow_up_logs')
+        .select(field)
+        .eq('user_id', user.id)
+        .eq('log_date', today)
+        .maybeSingle();
+
+      const currentValue = existing?.[field] || 0;
+      const newValue = currentValue + 1;
+
+      const updateData: any = {
+        user_id: user.id,
+        log_date: today,
+        [field]: newValue
+      };
+
+      const { error } = await supabase
+        .from('glow_up_logs')
+        .upsert(updateData, {
+          onConflict: 'user_id,log_date'
+        });
+
+      if (error) throw error;
+
+      // Update local state
+      if (field === 'did_skincare') {
+        setSkincareCount(newValue);
+        setWeeklySkincareCount(prev => prev + 1);
+      } else {
+        setHaircareCount(newValue);
+        setWeeklyHaircareCount(prev => prev + 1);
+      }
+
+      toast.success('Count updated!');
+    } catch (error: any) {
+      toast.error('Failed to update count');
     }
   };
 
@@ -199,18 +285,23 @@ export default function GlowUp() {
               <Droplet className="h-6 w-6 text-primary" />
               <h2 className="text-2xl font-bold">Skincare</h2>
             </div>
-            <div className="flex items-center justify-between">
-              <Label htmlFor="skincare" className="text-lg">
-                Did you do your skincare routine today?
-              </Label>
-              <Switch
-                id="skincare"
-                checked={didSkincare}
-                onCheckedChange={(checked) => {
-                  setDidSkincare(checked);
-                  saveData('did_skincare', checked);
-                }}
-              />
+            <div className="space-y-4">
+              <div className="text-center">
+                <p className="text-sm text-muted-foreground mb-2">This week</p>
+                <p className="text-4xl font-bold text-primary">
+                  {weeklySkincareCount}
+                </p>
+                <p className="text-sm text-muted-foreground mt-1">times</p>
+              </div>
+              <div className="flex items-center justify-between pt-4 border-t">
+                <span className="text-sm text-muted-foreground">Today: {skincareCount}</span>
+                <Button
+                  onClick={() => incrementCount('did_skincare')}
+                  size="sm"
+                >
+                  +1 Skincare
+                </Button>
+              </div>
             </div>
           </Card>
 
@@ -220,18 +311,23 @@ export default function GlowUp() {
               <Scissors className="h-6 w-6 text-primary" />
               <h2 className="text-2xl font-bold">Haircare</h2>
             </div>
-            <div className="flex items-center justify-between">
-              <Label htmlFor="haircare" className="text-lg">
-                Did you do your haircare routine today?
-              </Label>
-              <Switch
-                id="haircare"
-                checked={didHaircare}
-                onCheckedChange={(checked) => {
-                  setDidHaircare(checked);
-                  saveData('did_haircare', checked);
-                }}
-              />
+            <div className="space-y-4">
+              <div className="text-center">
+                <p className="text-sm text-muted-foreground mb-2">This week</p>
+                <p className="text-4xl font-bold text-primary">
+                  {weeklyHaircareCount}
+                </p>
+                <p className="text-sm text-muted-foreground mt-1">times</p>
+              </div>
+              <div className="flex items-center justify-between pt-4 border-t">
+                <span className="text-sm text-muted-foreground">Today: {haircareCount}</span>
+                <Button
+                  onClick={() => incrementCount('did_haircare')}
+                  size="sm"
+                >
+                  +1 Haircare
+                </Button>
+              </div>
             </div>
           </Card>
         </div>

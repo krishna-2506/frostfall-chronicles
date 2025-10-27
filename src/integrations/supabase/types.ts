@@ -87,8 +87,8 @@ export type Database = {
       glow_up_logs: {
         Row: {
           created_at: string
-          did_haircare: boolean | null
-          did_skincare: boolean | null
+          did_haircare: number | null
+          did_skincare: number | null
           id: string
           log_date: string
           overthinking_level: number | null
@@ -97,8 +97,8 @@ export type Database = {
         }
         Insert: {
           created_at?: string
-          did_haircare?: boolean | null
-          did_skincare?: boolean | null
+          did_haircare?: number | null
+          did_skincare?: number | null
           id?: string
           log_date?: string
           overthinking_level?: number | null
@@ -107,8 +107,8 @@ export type Database = {
         }
         Update: {
           created_at?: string
-          did_haircare?: boolean | null
-          did_skincare?: boolean | null
+          did_haircare?: number | null
+          did_skincare?: number | null
           id?: string
           log_date?: string
           overthinking_level?: number | null
