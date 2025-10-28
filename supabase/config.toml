@@ -1,1 +1,10 @@
 project_id = "tvzniwbtkxcoscemvdwb"
+
+[functions.google-oauth-callback]
+verify_jwt = false
+
+[functions.google-tasks-sync]
+verify_jwt = true
+
+[functions.google-client-config]
+verify_jwt = false

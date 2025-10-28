@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Progress } from '@/components/ui/progress';
 import { toast } from 'sonner';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Loader2 } from 'lucide-react';
 
 interface Mission {
   id: string;
@@ -24,11 +24,14 @@ interface Task {
 
 const Missions = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [mission, setMission] = useState<Mission | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskDescription, setNewTaskDescription] = useState('');
   const [timeRemaining, setTimeRemaining] = useState('');
   const [loading, setLoading] = useState(true);
+  const [isGoogleConnected, setIsGoogleConnected] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
 
   // Calculate current 4-day period based on Winter Arc start date (May 26, 2026)
   const calculateCurrentPeriod = () => {
@@ -198,8 +201,97 @@ const Missions = () => {
     );
   };
 
+  const checkGoogleConnection = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from('google_tokens')
+        .select('id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      setIsGoogleConnected(!!data && !error);
+    } catch (error) {
+      console.error('Error checking Google connection:', error);
+    }
+  };
+
+  const connectGoogleAccount = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      // Fetch Google Client ID from backend
+      const { data: configData, error: configError } = await supabase.functions.invoke('google-client-config');
+      
+      if (configError || !configData?.clientId) {
+        toast.error('Google integration not configured');
+        return;
+      }
+
+      const REDIRECT_URI = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/google-oauth-callback`;
+      
+      const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+      authUrl.searchParams.append('client_id', configData.clientId);
+      authUrl.searchParams.append('redirect_uri', REDIRECT_URI);
+      authUrl.searchParams.append('response_type', 'code');
+      authUrl.searchParams.append('scope', 'https://www.googleapis.com/auth/tasks');
+      authUrl.searchParams.append('access_type', 'offline');
+      authUrl.searchParams.append('prompt', 'consent');
+      authUrl.searchParams.append('state', user.id);
+
+      window.location.href = authUrl.toString();
+    } catch (error) {
+      console.error('Error initiating Google OAuth:', error);
+      toast.error('Failed to connect Google account');
+    }
+  };
+
+  const syncToGoogleTasks = async () => {
+    if (!isGoogleConnected) {
+      toast.error('Please connect your Google account first');
+      return;
+    }
+
+    setIsSyncing(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast.error('Not authenticated');
+        return;
+      }
+
+      const { data, error } = await supabase.functions.invoke('google-tasks-sync', {
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+
+      if (error) throw error;
+
+      toast.success(data.message || 'Tasks synced successfully');
+      await loadMission(); // Reload to get updated google_task_id values
+    } catch (error) {
+      console.error('Error syncing to Google Tasks:', error);
+      toast.error('Failed to sync tasks');
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
   useEffect(() => {
     loadMission();
+    checkGoogleConnection();
+    
+    // Check for OAuth callback success
+    if (searchParams.get('google_connected') === 'true') {
+      toast.success('Google account connected successfully');
+      setIsGoogleConnected(true);
+      // Remove query param
+      window.history.replaceState({}, '', '/missions');
+    }
   }, []);
 
   useEffect(() => {
@@ -226,11 +318,43 @@ const Missions = () => {
       <div className="mx-auto max-w-4xl space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-4xl font-bold">4-Day Missions</h1>
-          <Button variant="outline" onClick={() => navigate('/')}>
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Dashboard
-          </Button>
+          <div className="flex gap-2">
+            {!isGoogleConnected ? (
+              <Button variant="secondary" onClick={connectGoogleAccount}>
+                Connect Google Tasks
+              </Button>
+            ) : (
+              <Button
+                variant="secondary"
+                onClick={syncToGoogleTasks}
+                disabled={isSyncing || tasks.length === 0}
+              >
+                {isSyncing ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Syncing...
+                  </>
+                ) : (
+                  'Sync to Google Tasks'
+                )}
+              </Button>
+            )}
+            <Button variant="outline" onClick={() => navigate('/')}>
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Dashboard
+            </Button>
+          </div>
         </div>
+
+        {isGoogleConnected && (
+          <Card className="bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800">
+            <CardContent className="py-3">
+              <p className="text-sm text-green-700 dark:text-green-300">
+                ✓ Google Tasks connected
+              </p>
+            </CardContent>
+          </Card>
+        )}
 
         {mission && (
           <>

@@ -125,6 +125,36 @@ export type Database = {
           },
         ]
       }
+      google_tokens: {
+        Row: {
+          access_token: string
+          created_at: string
+          expires_at: string
+          id: string
+          refresh_token: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          access_token: string
+          created_at?: string
+          expires_at: string
+          id?: string
+          refresh_token: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          access_token?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          refresh_token?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       health_logs: {
         Row: {
           created_at: string
@@ -164,6 +194,7 @@ export type Database = {
         Row: {
           created_at: string
           description: string
+          google_task_id: string | null
           id: string
           is_completed: boolean
           mission_id: string
@@ -172,6 +203,7 @@ export type Database = {
         Insert: {
           created_at?: string
           description: string
+          google_task_id?: string | null
           id?: string
           is_completed?: boolean
           mission_id: string
@@ -180,6 +212,7 @@ export type Database = {
         Update: {
           created_at?: string
           description?: string
+          google_task_id?: string | null
           id?: string
           is_completed?: boolean
           mission_id?: string
