@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { LogOut, Sparkles, Brain, ListTodo, Droplet, Scissors } from 'lucide-react';
+import { LogOut, Brain, ListTodo, Droplet, Scissors } from 'lucide-react';
 
 export default function GlowUp() {
   const navigate = useNavigate();
@@ -184,15 +184,18 @@ export default function GlowUp() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
+      <header className="relative border-b border-border bg-card backdrop-blur-sm shadow-[var(--shadow-tactical)]">
+        <div className="absolute right-8 top-2 rotate-12 opacity-30">
+          <span className="text-xs font-bold text-success tracking-widest border-2 border-success px-2 py-1">
+            CLASSIFIED
+          </span>
+        </div>
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent shadow-[var(--glow-frost)]">
-              <Sparkles className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Glow Up
+          <div>
+            <h1 className="text-xl font-bold tracking-tight text-foreground uppercase">
+              Mental Operations
             </h1>
+            <p className="text-xs text-muted-foreground font-mono">PSYCHOLOGICAL WARFARE DIVISION</p>
           </div>
           <div className="flex gap-2">
             <Button
@@ -200,16 +203,16 @@ export default function GlowUp() {
               variant="outline"
               size="sm"
             >
-              Dashboard
+              Mission Control
             </Button>
             <Button
               onClick={handleLogout}
-              variant="outline"
+              variant="destructive"
               size="sm"
               className="gap-2"
             >
               <LogOut className="h-4 w-4" />
-              Logout
+              Extract
             </Button>
           </div>
         </div>
@@ -219,13 +222,18 @@ export default function GlowUp() {
       <main className="container mx-auto px-4 py-8">
         <div className="grid gap-6 md:grid-cols-2">
           {/* Overthinking Meter */}
-          <Card className="p-6">
+          <Card className="p-6 relative">
+            <div className="absolute top-4 right-4 rotate-12 opacity-40">
+              <span className="text-[10px] font-bold text-primary tracking-widest border border-primary px-1.5 py-0.5">
+                TOP SECRET
+              </span>
+            </div>
             <div className="flex items-center gap-3 mb-4">
               <Brain className="h-6 w-6 text-primary" />
-              <h2 className="text-2xl font-bold">Overthinking Level</h2>
+              <h2 className="text-2xl font-bold uppercase">Threat Level</h2>
             </div>
             <div className="space-y-4">
-              <p className="text-sm text-muted-foreground">Rate your overthinking today (1-5)</p>
+              <p className="text-sm text-muted-foreground font-mono">Overthinking assessment (1-5)</p>
               <div className="grid grid-cols-5 gap-2">
                 {[1, 2, 3, 4, 5].map((level) => (
                   <Button
@@ -250,14 +258,19 @@ export default function GlowUp() {
           </Card>
 
           {/* Wasted Tasks Counter */}
-          <Card className="p-6">
+          <Card className="p-6 relative">
+            <div className="absolute top-4 right-4 rotate-12 opacity-40">
+              <span className="text-[10px] font-bold text-destructive tracking-widest border border-destructive px-1.5 py-0.5">
+                CRITICAL
+              </span>
+            </div>
             <div className="flex items-center gap-3 mb-4">
-              <ListTodo className="h-6 w-6 text-primary" />
-              <h2 className="text-2xl font-bold">Wasted Tasks</h2>
+              <ListTodo className="h-6 w-6 text-destructive" />
+              <h2 className="text-2xl font-bold uppercase">Mission Failures</h2>
             </div>
             <div className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                How many tasks did overthinking cost you today?
+              <p className="text-sm text-muted-foreground font-mono">
+                Objectives compromised by overthinking
               </p>
               <div className="flex gap-2">
                 <Input
@@ -273,8 +286,8 @@ export default function GlowUp() {
                   Save
                 </Button>
               </div>
-              <p className="text-center text-3xl font-bold text-primary">
-                {wastedTasks} tasks
+              <p className="text-center text-3xl font-bold text-destructive font-mono">
+                {wastedTasks} objectives
               </p>
             </div>
           </Card>
@@ -282,24 +295,25 @@ export default function GlowUp() {
           {/* Skincare */}
           <Card className="p-6">
             <div className="flex items-center gap-3 mb-4">
-              <Droplet className="h-6 w-6 text-primary" />
-              <h2 className="text-2xl font-bold">Skincare</h2>
+              <Droplet className="h-6 w-6 text-tech" />
+              <h2 className="text-2xl font-bold uppercase">Skincare Ops</h2>
             </div>
             <div className="space-y-4">
               <div className="text-center">
-                <p className="text-sm text-muted-foreground mb-2">This week</p>
-                <p className="text-4xl font-bold text-primary">
+                <p className="text-sm text-muted-foreground mb-2 font-mono uppercase tracking-wider">This week</p>
+                <p className="text-4xl font-bold text-tech font-mono">
                   {weeklySkincareCount}
                 </p>
-                <p className="text-sm text-muted-foreground mt-1">times</p>
+                <p className="text-sm text-muted-foreground mt-1 font-mono">completed</p>
               </div>
               <div className="flex items-center justify-between pt-4 border-t">
-                <span className="text-sm text-muted-foreground">Today: {skincareCount}</span>
+                <span className="text-sm text-muted-foreground font-mono">Today: {skincareCount}</span>
                 <Button
                   onClick={() => incrementCount('did_skincare')}
                   size="sm"
+                  className="uppercase"
                 >
-                  +1 Skincare
+                  +1 Complete
                 </Button>
               </div>
             </div>
@@ -308,24 +322,25 @@ export default function GlowUp() {
           {/* Haircare */}
           <Card className="p-6">
             <div className="flex items-center gap-3 mb-4">
-              <Scissors className="h-6 w-6 text-primary" />
-              <h2 className="text-2xl font-bold">Haircare</h2>
+              <Scissors className="h-6 w-6 text-success" />
+              <h2 className="text-2xl font-bold uppercase">Haircare Ops</h2>
             </div>
             <div className="space-y-4">
               <div className="text-center">
-                <p className="text-sm text-muted-foreground mb-2">This week</p>
-                <p className="text-4xl font-bold text-primary">
+                <p className="text-sm text-muted-foreground mb-2 font-mono uppercase tracking-wider">This week</p>
+                <p className="text-4xl font-bold text-success font-mono">
                   {weeklyHaircareCount}
                 </p>
-                <p className="text-sm text-muted-foreground mt-1">times</p>
+                <p className="text-sm text-muted-foreground mt-1 font-mono">completed</p>
               </div>
               <div className="flex items-center justify-between pt-4 border-t">
-                <span className="text-sm text-muted-foreground">Today: {haircareCount}</span>
+                <span className="text-sm text-muted-foreground font-mono">Today: {haircareCount}</span>
                 <Button
                   onClick={() => incrementCount('did_haircare')}
                   size="sm"
+                  className="uppercase"
                 >
-                  +1 Haircare
+                  +1 Complete
                 </Button>
               </div>
             </div>

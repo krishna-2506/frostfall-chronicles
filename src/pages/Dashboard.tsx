@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { LogOut, Snowflake, Timer, BookOpen, Activity, Flame, Target, Zap, Star, Sparkles } from 'lucide-react';
+import { LogOut, Shield, Timer, BookOpen, Activity, Flame, Target, Zap, Star, Sparkles } from 'lucide-react';
 import { Countdown } from '@/components/Countdown';
 import { CourseTracker } from '@/components/CourseTracker';
 import { HealthTracker } from '@/components/HealthTracker';
@@ -35,24 +35,32 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
+      <header className="relative border-b border-border bg-card backdrop-blur-sm shadow-[var(--shadow-tactical)]">
+        <div className="absolute right-8 top-2 rotate-12 opacity-30">
+          <span className="text-xs font-bold text-primary tracking-widest border-2 border-primary px-2 py-1">
+            CLASSIFIED
+          </span>
+        </div>
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent shadow-[var(--glow-frost)]">
-              <Snowflake className="h-5 w-5 text-primary-foreground" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-gradient-alert shadow-[var(--glow-alert)]">
+              <Shield className="h-5 w-5 text-white" />
             </div>
-            <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Winter Arc
-            </h1>
+            <div>
+              <h1 className="text-xl font-bold tracking-tight text-foreground uppercase">
+                Mission Impossible
+              </h1>
+              <p className="text-xs text-muted-foreground font-mono">WINTER ARC PROTOCOL</p>
+            </div>
           </div>
           <Button
             onClick={handleLogout}
-            variant="outline"
+            variant="destructive"
             size="sm"
             className="gap-2"
           >
             <LogOut className="h-4 w-4" />
-            Logout
+            Extract
           </Button>
         </div>
       </header>
@@ -60,6 +68,7 @@ export default function Dashboard() {
       {/* Navigation Buttons */}
       <div className="border-b border-border bg-card/30 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-3">
+          <p className="text-xs text-muted-foreground mb-2 font-mono uppercase tracking-wider">Mission Control</p>
           <div className="flex flex-wrap gap-2">
             <Button
               variant="outline"

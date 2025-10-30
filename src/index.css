@@ -8,45 +8,54 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Winter Arc Theme - Deep Ice Blues */
-    --background: 220 25% 10%;
-    --foreground: 210 100% 98%;
+    /* Mission Impossible Theme - Tactical Dark */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
 
-    --card: 220 20% 14%;
-    --card-foreground: 210 100% 98%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 220 20% 14%;
-    --popover-foreground: 210 100% 98%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 200 100% 60%;
-    --primary-foreground: 220 25% 10%;
+    --primary: 0 84% 60%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 220 15% 20%;
-    --secondary-foreground: 210 100% 98%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 220 15% 22%;
-    --muted-foreground: 210 20% 70%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 190 100% 50%;
-    --accent-foreground: 220 25% 10%;
+    --accent: 45 96% 56%;
+    --accent-foreground: 0 0% 4%;
 
-    --destructive: 0 70% 55%;
-    --destructive-foreground: 210 100% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 220 20% 25%;
-    --input: 220 20% 20%;
-    --ring: 200 100% 60%;
+    --border: 0 0% 20%;
+    --input: 0 0% 12%;
+    --ring: 0 84% 60%;
 
-    --radius: 0.75rem;
+    --success: 45 96% 56%;
+    --success-foreground: 0 0% 4%;
 
-    /* Winter gradients */
-    --gradient-frost: linear-gradient(135deg, hsl(200 100% 60%) 0%, hsl(190 100% 50%) 100%);
-    --gradient-ice: linear-gradient(180deg, hsl(220 25% 10%) 0%, hsl(220 20% 14%) 100%);
-    --gradient-aurora: linear-gradient(135deg, hsl(200 100% 60% / 0.2) 0%, hsl(280 80% 60% / 0.1) 100%);
+    --tech: 217 91% 60%;
+    --tech-foreground: 0 0% 98%;
+
+    --radius: 0.5rem;
+
+    /* Mission gradients */
+    --gradient-alert: linear-gradient(135deg, hsl(0 84% 60%) 0%, hsl(0 84% 45%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(45 96% 56%) 0%, hsl(45 96% 45%) 100%);
+    --gradient-tech: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(217 91% 45%) 100%);
+    --gradient-tactical: linear-gradient(180deg, hsl(0 0% 4%) 0%, hsl(0 0% 8%) 100%);
     
-    /* Glow effects */
-    --glow-frost: 0 0 40px hsl(200 100% 60% / 0.3);
-    --glow-soft: 0 10px 40px hsl(200 100% 60% / 0.1);
+    /* Tactical effects */
+    --glow-alert: 0 0 30px hsl(0 84% 60% / 0.3);
+    --glow-success: 0 0 30px hsl(45 96% 56% / 0.3);
+    --glow-tech: 0 0 30px hsl(217 91% 60% / 0.3);
+    --shadow-tactical: 0 10px 40px hsl(0 0% 0% / 0.5);
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
