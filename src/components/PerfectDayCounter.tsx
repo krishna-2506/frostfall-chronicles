@@ -61,9 +61,10 @@ export const PerfectDayCounter = () => {
   }
 
   return (
-    <div className="flex items-center justify-center gap-2 py-6 text-sm text-muted-foreground">
-      <Calendar className="h-4 w-4" />
-      <p>Total Perfect Days achieved: <span className="font-semibold text-foreground">{perfectDays}</span></p>
+    <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground">
+      <Calendar className="h-3.5 w-3.5" />
+      <span className="font-semibold text-foreground">{perfectDays}</span>
+      <span>Perfect Days</span>
     </div>
   );
 };

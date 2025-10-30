@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_streaks: {
+        Row: {
+          current_streak: number
+          last_checkin_date: string
+          streak_type: string
+          user_id: string
+        }
+        Insert: {
+          current_streak?: number
+          last_checkin_date: string
+          streak_type: string
+          user_id: string
+        }
+        Update: {
+          current_streak?: number
+          last_checkin_date?: string
+          streak_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       course_progress: {
         Row: {
           completed: boolean
@@ -299,12 +320,61 @@ export type Database = {
           },
         ]
       }
+      user_stats: {
+        Row: {
+          created_at: string
+          total_xp: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          total_xp?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          total_xp?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      xp_logs: {
+        Row: {
+          amount: number
+          created_at: string
+          id: number
+          source_action: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: never
+          source_action: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: never
+          source_action?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      award_xp: {
+        Args: { action_source: string; amount_to_add: number }
+        Returns: undefined
+      }
+      handle_activity_checkin: {
+        Args: { streak_type_to_check: string }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

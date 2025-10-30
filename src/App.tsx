@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthGuard } from "./components/AuthGuard";
+import { Header } from "./components/Header";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import Missions from "./pages/Missions";
@@ -11,6 +12,13 @@ import GlowUp from "./pages/GlowUp";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
+
+const AppLayout = ({ children }: { children: React.ReactNode }) => (
+  <>
+    <Header />
+    {children}
+  </>
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -20,9 +28,9 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/auth" element={<Auth />} />
-          <Route path="/" element={<AuthGuard><Dashboard /></AuthGuard>} />
-          <Route path="/missions" element={<AuthGuard><Missions /></AuthGuard>} />
-          <Route path="/glow-up" element={<AuthGuard><GlowUp /></AuthGuard>} />
+          <Route path="/" element={<AuthGuard><AppLayout><Dashboard /></AppLayout></AuthGuard>} />
+          <Route path="/missions" element={<AuthGuard><AppLayout><Missions /></AppLayout></AuthGuard>} />
+          <Route path="/glow-up" element={<AuthGuard><AppLayout><GlowUp /></AppLayout></AuthGuard>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
