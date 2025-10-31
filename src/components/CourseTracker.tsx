@@ -86,6 +86,13 @@ export const CourseTracker = () => {
         if (error) throw error;
 
         setCompletedVideos(prev => new Set(prev).add(key));
+
+        // Award XP for completing a video
+        await supabase.rpc('award_xp', {
+          amount_to_add: 5,
+          action_source: `video: ${videoName.substring(0, 30)}...`,
+        });
+        toast.success('+5 XP');
       }
     } catch (error: any) {
       toast.error('Failed to update progress');
@@ -139,33 +146,33 @@ export const CourseTracker = () => {
   }
 
   return (
-    <Card className="border-primary/30 bg-gradient-to-br from-card to-card/50 p-6 shadow-[var(--glow-soft)]">
-      <div className="mb-6 flex items-center gap-3">
-        <BookOpen className="h-6 w-6 text-primary" />
-        <h2 className="text-2xl font-bold tracking-tight">Course Progress</h2>
+    <Card className="border-tech/20">
+      <div className="mb-6 flex items-center gap-3 p-6 pb-0">
+        <BookOpen className="h-6 w-6 text-tech" />
+        <h2 className="text-xl font-bold uppercase tracking-wider">DS Course Progress</h2>
       </div>
 
-      <div className="mb-6 space-y-2">
+      <div className="mb-6 px-6 space-y-2">
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground">Overall Progress</span>
-          <span className="font-semibold text-primary">{completedCount} / {totalVideos} videos</span>
+          <span className="font-mono">{completedCount} / {totalVideos} videos</span>
         </div>
-        <Progress value={overallProgress} className="h-3" />
+        <Progress value={overallProgress} className="h-2" />
       </div>
 
       {/* Search Input */}
-      <div className="mb-4 relative">
+      <div className="mb-4 px-6 relative">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           type="text"
           placeholder="Search sections or videos..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-9 bg-input/50 backdrop-blur-sm"
+          className="pl-9"
         />
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-3 px-6 pb-6">
         {filteredSections.length === 0 ? (
           <div className="py-8 text-center text-muted-foreground">
             No sections or videos found matching "{searchQuery}"
