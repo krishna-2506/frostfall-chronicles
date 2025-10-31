@@ -39,7 +39,7 @@ export const Header = () => {
         {/* Left: Brand & Navigation */}
         <div className="flex items-center gap-8">
           <h1 className="text-xl font-bold uppercase tracking-tight">
-            Frostfall Chronicles
+            Winter Arc
           </h1>
           <nav className="hidden md:flex items-center gap-1">
             <NavLink to="/" className={navLinkClass}>

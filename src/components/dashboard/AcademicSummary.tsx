@@ -38,6 +38,19 @@ export const AcademicSummary = () => {
 
       if (error) throw error;
 
+      // Build a set of all valid academic module names from firstsem.json
+      const validModules = new Set<string>();
+      Object.values(semesterData as SemesterData).forEach((course) => {
+        Object.keys(course.modules).forEach((moduleName) => {
+          validModules.add(moduleName);
+        });
+      });
+
+      // Only count progress that matches academic modules
+      const academicProgress = data?.filter(item => 
+        validModules.has(item.section_name)
+      ) || [];
+
       let total = 0;
       Object.values(semesterData as SemesterData).forEach((course) => {
         Object.values(course.modules).forEach((topics) => {
@@ -45,7 +58,7 @@ export const AcademicSummary = () => {
         });
       });
 
-      setCompletedCount(data?.length || 0);
+      setCompletedCount(academicProgress.length);
       setTotalCount(total);
     } catch (error: any) {
       console.error('Failed to load progress:', error);

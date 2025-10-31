@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
 import courseData from '@/data/course_tracker.json';
-import { BookOpen, ChevronDown, ChevronRight, Search } from 'lucide-react';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Terminal } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface Video {
   name: string;
@@ -15,11 +13,14 @@ interface Video {
   duration_formatted: string;
 }
 
+type CourseData = {
+  [sectionName: string]: Video[];
+};
+
 export const CourseTracker = () => {
   const [completedVideos, setCompletedVideos] = useState<Set<string>>(new Set());
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [nextTopics, setNextTopics] = useState<{ section: string; video: Video }[]>([]);
 
   useEffect(() => {
     loadProgress();
@@ -42,205 +43,88 @@ export const CourseTracker = () => {
         data?.map(item => `${item.section_name}|||${item.video_name}`) || []
       );
       setCompletedVideos(completed);
+
+      // Find next uncompleted topics
+      const next: { section: string; video: Video }[] = [];
+      for (const [section, videos] of Object.entries(courseData as CourseData)) {
+        for (const video of videos) {
+          const key = `${section}|||${video.name}`;
+          if (!completed.has(key)) {
+            next.push({ section, video });
+            if (next.length >= 5) break;
+          }
+        }
+        if (next.length >= 5) break;
+      }
+      setNextTopics(next);
     } catch (error: any) {
-      toast.error('Failed to load progress');
+      console.error('Failed to load progress');
     } finally {
       setLoading(false);
     }
   };
 
-  const toggleVideo = async (sectionName: string, videoName: string) => {
-    const key = `${sectionName}|||${videoName}`;
-    const isCompleted = completedVideos.has(key);
-
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-
-      if (isCompleted) {
-        const { error } = await supabase
-          .from('course_progress')
-          .delete()
-          .eq('user_id', user.id)
-          .eq('section_name', sectionName)
-          .eq('video_name', videoName);
-
-        if (error) throw error;
-
-        setCompletedVideos(prev => {
-          const next = new Set(prev);
-          next.delete(key);
-          return next;
-        });
-      } else {
-        const { error } = await supabase
-          .from('course_progress')
-          .upsert({
-            user_id: user.id,
-            section_name: sectionName,
-            video_name: videoName,
-            completed: true,
-            completed_at: new Date().toISOString(),
-          });
-
-        if (error) throw error;
-
-        setCompletedVideos(prev => new Set(prev).add(key));
-
-        // Award XP for completing a video
-        await supabase.rpc('award_xp', {
-          amount_to_add: 5,
-          action_source: `video: ${videoName.substring(0, 30)}...`,
-        });
-        toast.success('+5 XP');
-      }
-    } catch (error: any) {
-      toast.error('Failed to update progress');
-    }
-  };
-
-  const calculateSectionProgress = (sectionName: string, videos: Video[]) => {
-    const completed = videos.filter(v => 
-      completedVideos.has(`${sectionName}|||${v.name}`)
-    ).length;
-    return (completed / videos.length) * 100;
-  };
-
-  // Filter sections and videos based on search query
-  const filteredSections = Object.entries(courseData).filter(([section, videos]) => {
-    if (!searchQuery.trim()) return true;
-    
-    const query = searchQuery.toLowerCase();
-    const sectionMatch = section.toLowerCase().includes(query);
-    const videoMatch = (videos as Video[]).some(v => 
-      v.name.toLowerCase().includes(query)
-    );
-    
-    return sectionMatch || videoMatch;
-  });
-
-  const totalVideos = Object.values(courseData).flat().length;
+  const totalVideos = Object.values(courseData as CourseData).flat().length;
   const completedCount = completedVideos.size;
   const overallProgress = (completedCount / totalVideos) * 100;
 
-  const toggleSection = (section: string) => {
-    setExpandedSections(prev => {
-      const next = new Set(prev);
-      if (next.has(section)) {
-        next.delete(section);
-      } else {
-        next.add(section);
-      }
-      return next;
-    });
-  };
-
   if (loading) {
     return (
-      <Card className="border-primary/30 bg-gradient-to-br from-card to-card/50 p-6 shadow-[var(--glow-soft)]">
-        <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-        </div>
+      <Card className="border-tech/20">
+        <CardContent className="pt-6">
+          <div className="flex items-center justify-center py-12">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          </div>
+        </CardContent>
       </Card>
     );
   }
 
   return (
     <Card className="border-tech/20">
-      <div className="mb-6 flex items-center gap-3 p-6 pb-0">
-        <BookOpen className="h-6 w-6 text-tech" />
-        <h2 className="text-xl font-bold uppercase tracking-wider">DS Course Progress</h2>
-      </div>
-
-      <div className="mb-6 px-6 space-y-2">
-        <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Overall Progress</span>
-          <span className="font-mono">{completedCount} / {totalVideos} videos</span>
-        </div>
-        <Progress value={overallProgress} className="h-2" />
-      </div>
-
-      {/* Search Input */}
-      <div className="mb-4 px-6 relative">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          type="text"
-          placeholder="Search sections or videos..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-9"
-        />
-      </div>
-
-      <div className="space-y-3 px-6 pb-6">
-        {filteredSections.length === 0 ? (
-          <div className="py-8 text-center text-muted-foreground">
-            No sections or videos found matching "{searchQuery}"
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-lg uppercase tracking-wider">
+          <Terminal className="h-5 w-5 text-tech" />
+          Data Arsenal
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="space-y-2">
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Overall Progress</span>
+            <span className="font-mono">
+              {completedCount} / {totalVideos} videos
+            </span>
           </div>
-        ) : (
-          filteredSections.map(([section, videos]) => {
-          const progress = calculateSectionProgress(section, videos as Video[]);
-          const isExpanded = expandedSections.has(section);
+          <Progress value={overallProgress} className="h-2" />
+          <div className="text-right text-xs text-muted-foreground">
+            {Math.round(overallProgress)}% Complete
+          </div>
+        </div>
 
-          return (
-            <Collapsible key={section} open={isExpanded} onOpenChange={() => toggleSection(section)}>
-              <div className="rounded-lg border border-border bg-secondary/30 backdrop-blur-sm">
-                <CollapsibleTrigger className="w-full p-4 text-left transition-colors hover:bg-secondary/50">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      {isExpanded ? (
-                        <ChevronDown className="h-4 w-4 text-primary" />
-                      ) : (
-                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                      )}
-                      <span className="font-medium">{section}</span>
-                    </div>
-                    <span className="text-sm text-primary font-semibold">{Math.round(progress)}%</span>
+        {nextTopics.length > 0 && (
+          <div className="space-y-2 rounded-lg border border-border/50 bg-secondary/20 p-3">
+            <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Next Targets
+            </div>
+            {nextTopics.map(({ section, video }, idx) => (
+              <div key={`${section}|||${video.name}`} className="text-sm">
+                <div className="flex items-start gap-2">
+                  <span className="text-primary font-mono">{idx + 1}.</span>
+                  <div className="flex-1">
+                    <div className="font-medium">{video.name}</div>
+                    <div className="text-xs text-muted-foreground">{section}</div>
                   </div>
-                  <Progress value={progress} className="mt-2 h-1.5" />
-                </CollapsibleTrigger>
-
-                <CollapsibleContent>
-                  <div className="border-t border-border p-4 space-y-2">
-                    {(videos as Video[])
-                      .filter(video => {
-                        if (!searchQuery.trim()) return true;
-                        return video.name.toLowerCase().includes(searchQuery.toLowerCase());
-                      })
-                      .map((video) => {
-                        const key = `${section}|||${video.name}`;
-                        const isChecked = completedVideos.has(key);
-
-                        return (
-                          <div
-                            key={video.name}
-                            className="flex items-start gap-3 rounded-md p-2 transition-colors hover:bg-secondary/50"
-                          >
-                            <Checkbox
-                              id={key}
-                              checked={isChecked}
-                              onCheckedChange={() => toggleVideo(section, video.name)}
-                              className="mt-0.5"
-                            />
-                            <label
-                              htmlFor={key}
-                              className="flex-1 cursor-pointer text-sm"
-                            >
-                              <div className={isChecked ? 'line-through text-muted-foreground' : ''}>
-                                {video.name}
-                              </div>
-                              <div className="text-xs text-muted-foreground">{video.duration_formatted}</div>
-                            </label>
-                          </div>
-                        );
-                      })}
-                  </div>
-                </CollapsibleContent>
+                </div>
               </div>
-            </Collapsible>
-          );
-        }))}
-      </div>
+            ))}
+          </div>
+        )}
+
+        <Button asChild className="w-full" variant="outline">
+          <Link to="/ds-course">View Full Arsenal</Link>
+        </Button>
+      </CardContent>
     </Card>
   );
 };

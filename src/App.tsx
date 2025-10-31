@@ -8,8 +8,9 @@ import { Header } from "./components/Header";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import Missions from "./pages/Missions";
-import Semester from "./pages/Semester";
-import XpLog from "./pages/XpLog";
+import Semester from './pages/Semester';
+import XpLog from './pages/XpLog';
+import DsCourse from './pages/DsCourse';
 import GlowUp from "./pages/GlowUp";
 import NotFound from "./pages/NotFound";
 
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/missions" element={<AuthGuard><AppLayout><Missions /></AppLayout></AuthGuard>} />
           <Route path="/semester" element={<AuthGuard><AppLayout><Semester /></AppLayout></AuthGuard>} />
           <Route path="/xp-log" element={<AuthGuard><AppLayout><XpLog /></AppLayout></AuthGuard>} />
+          <Route path="/ds-course" element={<AuthGuard><AppLayout><DsCourse /></AppLayout></AuthGuard>} />
           <Route path="/glow-up" element={<AuthGuard><AppLayout><GlowUp /></AppLayout></AuthGuard>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
