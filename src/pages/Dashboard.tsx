@@ -1,10 +1,10 @@
 import { Countdown } from '@/components/Countdown';
-import { CourseTracker } from '@/components/CourseTracker';
 import { DailyLog } from '@/components/DailyLog';
 import { DayRatingTracker } from '@/components/DayRatingTracker';
 import { ActiveMission } from '@/components/ActiveMission';
 import { DailyStreakTracker } from '@/components/DailyStreakTracker';
 import { VitalsMonitor } from '@/components/VitalsMonitor';
+import { AcademicSummary } from '@/components/dashboard/AcademicSummary';
 
 export default function Dashboard() {
   return (
@@ -27,7 +27,7 @@ export default function Dashboard() {
 
           {/* Column 2: THE ARC */}
           <div className="space-y-6">
-            <CourseTracker />
+            <AcademicSummary />
             <ActiveMission />
           </div>
 

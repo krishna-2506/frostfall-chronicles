@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Progress } from '@/components/ui/progress';
 import {
@@ -9,6 +10,7 @@ import {
 } from '@/components/ui/tooltip';
 
 export const LevelTracker = () => {
+  const navigate = useNavigate();
   const [totalXp, setTotalXp] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -57,7 +59,10 @@ export const LevelTracker = () => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div className="relative h-12 w-12 cursor-pointer">
+          <div 
+            className="relative h-12 w-12 cursor-pointer"
+            onClick={() => navigate('/xp-log')}
+          >
             {/* Circular progress */}
             <svg className="h-12 w-12 -rotate-90 transform">
               <circle
