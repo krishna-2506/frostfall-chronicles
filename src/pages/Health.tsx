@@ -2,6 +2,7 @@ import { VitalsMonitor } from '@/components/VitalsMonitor';
 import { DailyStreakTracker } from '@/components/DailyStreakTracker';
 import { StreakTracker } from '@/components/StreakTracker';
 import { NoFapStreakTracker } from '@/components/NoFapStreakTracker';
+import { HealthStreakCard } from '@/components/HealthStreakCard';
 import { Activity } from 'lucide-react';
 
 export default function Health() {
@@ -30,6 +31,7 @@ export default function Health() {
 
           {/* Streak Trackers - Stacked in 1 column */}
           <div className="space-y-6">
+            <HealthStreakCard />
             <DailyStreakTracker />
             <StreakTracker />
             <NoFapStreakTracker />

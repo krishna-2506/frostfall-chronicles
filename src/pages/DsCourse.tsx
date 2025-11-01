@@ -138,7 +138,7 @@ export default function DsCourse() {
           <div className="mb-4 flex items-center gap-3">
             <Terminal className="h-8 w-8 text-tech" />
             <h1 className="text-3xl font-bold uppercase tracking-wider">
-              Data Arsenal - Full Intel
+              ML Intelligence - Full Intel
             </h1>
           </div>
           <Card className="border-tech/20">

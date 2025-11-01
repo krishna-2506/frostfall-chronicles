@@ -11,6 +11,7 @@ export const DailyLog = () => {
   const [wakeupTime, setWakeupTime] = useState('');
   const [pushups, setPushups] = useState('');
   const [runningKm, setRunningKm] = useState('');
+  const [dumbbellReps, setDumbbellReps] = useState('');
   const [workHours, setWorkHours] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -40,6 +41,8 @@ export const DailyLog = () => {
           setPushups(log.value.toString());
         } else if (log.log_type === 'running_km') {
           setRunningKm(log.value.toString());
+        } else if (log.log_type === 'dumbbell_reps') {
+          setDumbbellReps(log.value.toString());
         } else if (log.log_type === 'work_hours') {
           setWorkHours((log.value / 100).toString());
         }
@@ -105,6 +108,22 @@ export const DailyLog = () => {
         if (parseFloat(runningKm) >= 2) {
           await supabase.rpc('award_xp', { amount_to_add: 10, action_source: 'log_running' });
           await supabase.rpc('handle_activity_checkin', { streak_type_to_check: 'running' });
+          totalXp += 10;
+        }
+      }
+
+      // Log dumbbell reps
+      if (dumbbellReps && parseInt(dumbbellReps) > 0) {
+        await supabase.from('health_logs').upsert({
+          user_id: user.id,
+          log_type: 'dumbbell_reps',
+          value: parseInt(dumbbellReps),
+          log_date: today,
+        });
+
+        if (parseInt(dumbbellReps) >= 30) {
+          await supabase.rpc('award_xp', { amount_to_add: 10, action_source: 'log_dumbbells' });
+          await supabase.rpc('handle_activity_checkin', { streak_type_to_check: 'dumbbells' });
           totalXp += 10;
         }
       }
@@ -191,6 +210,22 @@ export const DailyLog = () => {
             value={runningKm}
             onChange={(e) => setRunningKm(e.target.value)}
             placeholder="0.0"
+            className="bg-input/50"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="dumbbells" className="flex items-center gap-2">
+            <Activity className="h-4 w-4" />
+            Dumbbell Reps
+          </Label>
+          <Input
+            id="dumbbells"
+            type="number"
+            min="0"
+            value={dumbbellReps}
+            onChange={(e) => setDumbbellReps(e.target.value)}
+            placeholder="0"
             className="bg-input/50"
           />
         </div>

@@ -1,5 +1,6 @@
 import { Countdown } from '@/components/Countdown';
 import { CourseTracker } from '@/components/CourseTracker';
+import { DsaTracker } from '@/components/DsaTracker';
 import { DailyLog } from '@/components/DailyLog';
 import { DayRatingTracker } from '@/components/DayRatingTracker';
 import { ActiveMission } from '@/components/ActiveMission';
@@ -28,6 +29,7 @@ export default function Dashboard() {
           <div className="space-y-6">
             <AcademicSummary />
             <CourseTracker />
+            <DsaTracker />
             <ActiveMission />
           </div>
 
