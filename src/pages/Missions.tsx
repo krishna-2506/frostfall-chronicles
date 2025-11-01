@@ -148,9 +148,28 @@ const Missions = () => {
 
       if (error) throw error;
 
-      setTasks(tasks.map(task =>
+      // Award XP if completing the task
+      if (!currentStatus) {
+        await supabase.rpc('award_xp', { amount_to_add: 25, action_source: 'mission_task_complete' });
+        toast.success('Task completed! +25 XP 🎯');
+      }
+
+      const updatedTasks = tasks.map(task =>
         task.id === taskId ? { ...task, is_completed: !currentStatus } : task
-      ));
+      );
+      setTasks(updatedTasks);
+
+      // Check if all tasks are completed and mission is locked
+      if (mission?.is_locked) {
+        const allCompleted = updatedTasks.every(task => task.is_completed);
+        if (allCompleted && updatedTasks.length > 0) {
+          toast.success('🎉 All objectives complete! Mission accomplished!');
+          // Reload to get next period's mission
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }
+      }
     } catch (error) {
       console.error('Error toggling task:', error);
       toast.error('Failed to update task');
@@ -184,8 +203,14 @@ const Missions = () => {
     const now = new Date();
     const diff = endDate.getTime() - now.getTime();
 
+    // If mission period has ended, reload to get next period
     if (diff <= 0) {
       setTimeRemaining('00:00:00');
+      // Auto-reload to next period
+      setTimeout(() => {
+        toast.info('Mission period ended. Loading next operation...');
+        window.location.reload();
+      }, 1000);
       return;
     }
 

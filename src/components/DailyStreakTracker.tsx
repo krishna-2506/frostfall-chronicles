@@ -25,11 +25,12 @@ export const DailyStreakTracker = () => {
 
       const allStreaks: Streak[] = [];
 
-      // Load activity streaks (new gamification system)
+      // Load activity streaks (new gamification system) - EXCLUDING health streaks
       const { data: activityStreaks } = await supabase
         .from('activity_streaks')
         .select('streak_type, current_streak')
-        .eq('user_id', user.id);
+        .eq('user_id', user.id)
+        .not('streak_type', 'in', '(pushups,running,dumbbells)'); // Exclude health streaks shown elsewhere
 
       activityStreaks?.forEach(streak => {
         let label = streak.streak_type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
@@ -43,29 +44,19 @@ export const DailyStreakTracker = () => {
         });
       });
 
-      // Load old streaks (NoFap, Junk Food)
+      // Load old streaks ONLY for junk_food (nofap is handled by NoFapStreakTracker)
       const { data: oldStreaks } = await supabase
         .from('streaks')
         .select('streak_type, current_streak')
-        .eq('user_id', user.id);
+        .eq('user_id', user.id)
+        .eq('streak_type', 'junk_food'); // Only junk food
 
       oldStreaks?.forEach(streak => {
-        let label = '';
-        let icon = '🔥';
-        
-        if (streak.streak_type === 'nofap') {
-          label = 'Mental Clarity (NoFap)';
-          icon = '⚡';
-        } else if (streak.streak_type === 'junk_food') {
-          label = 'No Junk Food';
-          icon = '🥗';
-        }
-        
         allStreaks.push({
           type: streak.streak_type,
           count: streak.current_streak,
-          icon,
-          label
+          icon: '🥗',
+          label: 'No Junk Food'
         });
       });
 

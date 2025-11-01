@@ -50,9 +50,23 @@ export const ActiveMission = () => {
 
       const period = calculateCurrentPeriod();
 
+      // Check if current date is within valid period
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const periodEnd = new Date(period.end);
+      periodEnd.setHours(23, 59, 59, 999);
+
+      // If we're past the period end, don't show mission
+      if (today > periodEnd) {
+        setMissionId(null);
+        setTasks([]);
+        setLoading(false);
+        return;
+      }
+
       const { data: mission } = await supabase
         .from('missions')
-        .select('id')
+        .select('id, is_locked')
         .eq('user_id', user.id)
         .eq('start_date', period.start)
         .maybeSingle();
