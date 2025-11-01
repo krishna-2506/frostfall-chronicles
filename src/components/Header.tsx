@@ -51,6 +51,12 @@ export const Header = () => {
             <NavLink to="/semester" className={navLinkClass}>
               Academics
             </NavLink>
+            <NavLink to="/dsa-tracker" className={navLinkClass}>
+              DSA
+            </NavLink>
+            <NavLink to="/health" className={navLinkClass}>
+              Health
+            </NavLink>
             <NavLink to="/glow-up" className={navLinkClass}>
               Mental Ops
             </NavLink>

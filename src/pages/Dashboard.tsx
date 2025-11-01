@@ -4,7 +4,6 @@ import { DailyLog } from '@/components/DailyLog';
 import { DayRatingTracker } from '@/components/DayRatingTracker';
 import { ActiveMission } from '@/components/ActiveMission';
 import { DailyStreakTracker } from '@/components/DailyStreakTracker';
-import { VitalsMonitor } from '@/components/VitalsMonitor';
 import { AcademicSummary } from '@/components/dashboard/AcademicSummary';
 
 export default function Dashboard() {
@@ -23,7 +22,6 @@ export default function Dashboard() {
           {/* Column 1: THE DAILY LOG */}
           <div className="space-y-6">
             <DailyLog />
-            <DayRatingTracker />
           </div>
 
           {/* Column 2: THE ARC */}
@@ -36,7 +34,7 @@ export default function Dashboard() {
           {/* Column 3: THE CHRONICLE */}
           <div className="space-y-6">
             <DailyStreakTracker />
-            <VitalsMonitor />
+            <DayRatingTracker />
           </div>
         </div>
       </main>

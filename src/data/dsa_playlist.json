@@ -1,0 +1,819 @@
+{
+    "DSA Playlist in C++": [
+        {
+            "name": "Lecture 01: Introduction To Programming for Beginners",
+            "duration_seconds": 4527,
+            "duration_formatted": "01:15:27"
+        },
+        {
+            "name": "Lecture 02: Introduction to FlowCharts and PseudoCode in Programming",
+            "duration_seconds": 5024,
+            "duration_formatted": "01:23:44"
+        },
+        {
+            "name": "Lecture 03: Start C++ from Zero and Write Your First Program",
+            "duration_seconds": 5088,
+            "duration_formatted": "01:24:48"
+        },
+        {
+            "name": "Lecture 04: If Else Statement in c++ || Loop in C++",
+            "duration_seconds": 7071,
+            "duration_formatted": "01:57:51"
+        },
+        {
+            "name": "Lecture 05: For Loop in c++ Advance || Prime Number || Factorial || Fibonacci || Sum of n number",
+            "duration_seconds": 5147,
+            "duration_formatted": "01:25:47"
+        },
+        {
+            "name": "Lecture 06: Solve Any Pattern Problem With Simple Trick Part-1",
+            "duration_seconds": 5358,
+            "duration_formatted": "01:29:18"
+        },
+        {
+            "name": "Lecture 07: Solve Any Pattern Problem with Simple Trick Part-2",
+            "duration_seconds": 3788,
+            "duration_formatted": "01:03:08"
+        },
+        {
+            "name": "Lecture 08: Solve HARD Pattern Print Problem with Simple Trick",
+            "duration_seconds": 3724,
+            "duration_formatted": "01:02:04"
+        },
+        {
+            "name": "Lecture 09: Top 5 Advance Pattern Print Problems",
+            "duration_seconds": 6340,
+            "duration_formatted": "01:45:40"
+        },
+        {
+            "name": "Lecture 10: Operators in C++ with implementation",
+            "duration_seconds": 5385,
+            "duration_formatted": "01:29:45"
+        },
+        {
+            "name": "Lecture 11: While and Do while Loop || Switch || break || Continue in C++",
+            "duration_seconds": 4770,
+            "duration_formatted": "01:19:30"
+        },
+        {
+            "name": "Lecture 12: Binary To Decimal || Decimal To Binary || Decimal To Octal || Binary To Octal Conversion",
+            "duration_seconds": 3936,
+            "duration_formatted": "01:05:36"
+        },
+        {
+            "name": "Lecture 13: Write Your First Program On LeetCode",
+            "duration_seconds": 4735,
+            "duration_formatted": "01:18:55"
+        },
+        {
+            "name": "Lecture 14: Functions in C++ || Pass by Value || Pass by Reference",
+            "duration_seconds": 5177,
+            "duration_formatted": "01:26:17"
+        },
+        {
+            "name": "C++ Series Problem Solving",
+            "duration_seconds": 4760,
+            "duration_formatted": "01:19:20"
+        },
+        {
+            "name": "Introduction To Arrays in C++",
+            "duration_seconds": 4986,
+            "duration_formatted": "01:23:06"
+        },
+        {
+            "name": "Lecture 17: Master Arrays By Solving Problems",
+            "duration_seconds": 3811,
+            "duration_formatted": "01:03:31"
+        },
+        {
+            "name": "Lecture 18: Time and Space Complexity From Zero To Advance",
+            "duration_seconds": 4864,
+            "duration_formatted": "01:21:04"
+        },
+        {
+            "name": "Lecture 19: SELECTION SORT Algorithm with Theory and Code",
+            "duration_seconds": 2902,
+            "duration_formatted": "00:48:22"
+        },
+        {
+            "name": "Lecture 20: Bubble Sort with Theory and Code",
+            "duration_seconds": 3271,
+            "duration_formatted": "00:54:31"
+        },
+        {
+            "name": "Lecture 21: Insertion Sort with Theory and Code",
+            "duration_seconds": 2853,
+            "duration_formatted": "00:47:33"
+        },
+        {
+            "name": "Lecture 22: Binary Search with Theory and Code",
+            "duration_seconds": 3420,
+            "duration_formatted": "00:57:00"
+        },
+        {
+            "name": "Lecture 23: Binary Search Different Problem || Search Insert Position || Sqrt(x) || Count occurrence",
+            "duration_seconds": 4215,
+            "duration_formatted": "01:10:15"
+        },
+        {
+            "name": "Lecture 24: Search in a Rotated Array | Peak index in a Mountain Array | Kth Missing Positive Number",
+            "duration_seconds": 5675,
+            "duration_formatted": "01:34:35"
+        },
+        {
+            "name": "Lecture 25: Binary Search Top Interview Problem | Book Allocation | Painter Partition | Ship Package",
+            "duration_seconds": 4393,
+            "duration_formatted": "01:13:13"
+        },
+        {
+            "name": "Lecture 26: Binary Search Hard Interview Problem || Aggressive Cow || KOKO Eating Banana",
+            "duration_seconds": 5285,
+            "duration_formatted": "01:28:05"
+        },
+        {
+            "name": "Lecture 27: What is STL || Vector in C++",
+            "duration_seconds": 5053,
+            "duration_formatted": "01:24:13"
+        },
+        {
+            "name": "Lecture 28: Two Pointer in C++ | TWO SUM | Pair Sum | Pair Difference | Move 0 to end",
+            "duration_seconds": 6182,
+            "duration_formatted": "01:43:02"
+        },
+        {
+            "name": "Lecture 29: Kadane's  Algorithm || Prefix and Suffix Sum || Array into 2 equal Sum Subarray",
+            "duration_seconds": 4582,
+            "duration_formatted": "01:16:22"
+        },
+        {
+            "name": "Lecture 30: Trapping Rain Water || 3 SUM || 4 SUM",
+            "duration_seconds": 4453,
+            "duration_formatted": "01:14:13"
+        },
+        {
+            "name": "Lecture 31: Introduction To 2D Arrays in C++",
+            "duration_seconds": 5101,
+            "duration_formatted": "01:25:01"
+        },
+        {
+            "name": "Lecture 32: 2D Arrays Interview Problems || Wave Form || Spiral Form || Transpose Matrix",
+            "duration_seconds": 5423,
+            "duration_formatted": "01:30:23"
+        },
+        {
+            "name": "Lecture 33: Rotate Image | Rotate by 90 degree | Rotate Matrix Element Clockwise |Rotate Matrix 180",
+            "duration_seconds": 3696,
+            "duration_formatted": "01:01:36"
+        },
+        {
+            "name": "Lecture 34: Binary Search in 2D Arrays || Search in a sorted row-col wise Matrix",
+            "duration_seconds": 3727,
+            "duration_formatted": "01:02:07"
+        },
+        {
+            "name": "Lecture 35: Majority Elements || Count Frequency of element | Find Missing and Repeating elements",
+            "duration_seconds": 5458,
+            "duration_formatted": "01:30:58"
+        },
+        {
+            "name": "Introductions To STRINGS in C++",
+            "duration_seconds": 3135,
+            "duration_formatted": "00:52:15"
+        },
+        {
+            "name": "String Interviews Problem Solving || Sort a String",
+            "duration_seconds": 4441,
+            "duration_formatted": "01:14:01"
+        },
+        {
+            "name": "Lecture 38: Longest Palindrome || Sorting the Sentence",
+            "duration_seconds": 3299,
+            "duration_formatted": "00:54:59"
+        },
+        {
+            "name": "Lecture 39: Strings Interview Problems on LeetCode || Add Strings || Sort Vowels in a String",
+            "duration_seconds": 4085,
+            "duration_formatted": "01:08:05"
+        },
+        {
+            "name": "Lecture 40: Factorial of Large Number || Integer to Roman || Roman to Integer",
+            "duration_seconds": 3602,
+            "duration_formatted": "01:00:02"
+        },
+        {
+            "name": "Lecture 41: Sliding Window Protocol on Strings",
+            "duration_seconds": 4774,
+            "duration_formatted": "01:19:34"
+        },
+        {
+            "name": "Lecture 42: KMP Algorithm || Longest Prefix Suffix",
+            "duration_seconds": 3966,
+            "duration_formatted": "01:06:06"
+        },
+        {
+            "name": "Lecture 43: String Matching || KMP Algorithm",
+            "duration_seconds": 2942,
+            "duration_formatted": "00:49:02"
+        },
+        {
+            "name": "Lecture 44: Strings HARD Problems For Coding Round",
+            "duration_seconds": 3650,
+            "duration_formatted": "01:00:50"
+        },
+        {
+            "name": "Pointers in C++ || Introduction to Pointers in C+",
+            "duration_seconds": 3032,
+            "duration_formatted": "00:50:32"
+        },
+        {
+            "name": "Pointers Relationship with array || Arithmetic Pointers",
+            "duration_seconds": 3171,
+            "duration_formatted": "00:52:51"
+        },
+        {
+            "name": "Lecture 47: Pointers with Character Arrays and Functions",
+            "duration_seconds": 3987,
+            "duration_formatted": "01:06:27"
+        },
+        {
+            "name": "Lecture 48: Double Pointer and Multiple Pointers in C++",
+            "duration_seconds": 3695,
+            "duration_formatted": "01:01:35"
+        },
+        {
+            "name": "Lecture 49: Memory Management || Static vs Dynamic Memory Allocation",
+            "duration_seconds": 2782,
+            "duration_formatted": "00:46:22"
+        },
+        {
+            "name": "Lecture 50: Dynamic Memory Allocation of 2D and 3D Arrays in C++",
+            "duration_seconds": 3561,
+            "duration_formatted": "00:59:21"
+        },
+        {
+            "name": "Lecture 51: Introduction To Recursion From Basic To Advance",
+            "duration_seconds": 5258,
+            "duration_formatted": "01:27:38"
+        },
+        {
+            "name": "Lecture 52: How To Solve Recursion Problem from 4 different Method",
+            "duration_seconds": 4151,
+            "duration_formatted": "01:09:11"
+        },
+        {
+            "name": "Lecture 53: Recursion: Factorial of a Number | Sum of N numbers | Power of number | Sum of Square",
+            "duration_seconds": 3580,
+            "duration_formatted": "00:59:40"
+        },
+        {
+            "name": "Lecture 54: Recursion Problems on Leetcode",
+            "duration_seconds": 3464,
+            "duration_formatted": "00:57:44"
+        },
+        {
+            "name": "Lecture 55: Recursion in Arrays",
+            "duration_seconds": 3609,
+            "duration_formatted": "01:00:09"
+        },
+        {
+            "name": "Lecture 56: Recursion in Strings",
+            "duration_seconds": 2625,
+            "duration_formatted": "00:43:45"
+        },
+        {
+            "name": "Lecture 57: Recursion in Binary Search",
+            "duration_seconds": 2936,
+            "duration_formatted": "00:48:56"
+        },
+        {
+            "name": "Lecture 58: Time Complexity and Space Complexity in Recursion",
+            "duration_seconds": 5123,
+            "duration_formatted": "01:25:23"
+        },
+        {
+            "name": "Lecture 59: Merge Sort Algorithm",
+            "duration_seconds": 4816,
+            "duration_formatted": "01:20:16"
+        },
+        {
+            "name": "Lecture 60: Quick Sort Algorithm",
+            "duration_seconds": 3588,
+            "duration_formatted": "00:59:48"
+        },
+        {
+            "name": "Lecture 61: Recursion on Subsequence || Print All Subsequence || Generate Parentheses",
+            "duration_seconds": 5358,
+            "duration_formatted": "01:29:18"
+        },
+        {
+            "name": "Lecture 62: Recursion on Subset Sum || Target Sum",
+            "duration_seconds": 3864,
+            "duration_formatted": "01:04:24"
+        },
+        {
+            "name": "Lecture 63: Recursion Perfect Sum Problem || Target Sum with Repetition",
+            "duration_seconds": 3813,
+            "duration_formatted": "01:03:33"
+        },
+        {
+            "name": "Lecture 64: Permutation of Arrays and Strings",
+            "duration_seconds": 3619,
+            "duration_formatted": "01:00:19"
+        },
+        {
+            "name": "Lecture 65: Permutation with repetition || Ways to Sum N",
+            "duration_seconds": 3255,
+            "duration_formatted": "00:54:15"
+        },
+        {
+            "name": "Lecture 66: Tower of Hanoi || Code part and Dry Run",
+            "duration_seconds": 2851,
+            "duration_formatted": "00:47:31"
+        },
+        {
+            "name": "Lecture 67: Josephus Problem || Predict the winner",
+            "duration_seconds": 2970,
+            "duration_formatted": "00:49:30"
+        },
+        {
+            "name": "Lecture 68: Recursion Rat in a Maze Problem",
+            "duration_seconds": 4492,
+            "duration_formatted": "01:14:52"
+        },
+        {
+            "name": "Lecture 69: Print N-bit binary numbers having more 1s than 0s",
+            "duration_seconds": 1914,
+            "duration_formatted": "00:31:54"
+        },
+        {
+            "name": "Lecture 70: Object Oriented Programming in C++",
+            "duration_seconds": 4343,
+            "duration_formatted": "01:12:23"
+        },
+        {
+            "name": "Lecture 71: Constructor and Destructor in C++",
+            "duration_seconds": 3810,
+            "duration_formatted": "01:03:30"
+        },
+        {
+            "name": "Lecture 72: Object Oriented Programming: Static data Member and Function | Encapsulation",
+            "duration_seconds": 4048,
+            "duration_formatted": "01:07:28"
+        },
+        {
+            "name": "Lecture 73: Inheritance | Access Modifier | Real Life Example",
+            "duration_seconds": 3017,
+            "duration_formatted": "00:50:17"
+        },
+        {
+            "name": "Lecture 74: Type of Inheritance in C++ | Single Inheritance | Multiple | Hybrid | Multipath",
+            "duration_seconds": 4280,
+            "duration_formatted": "01:11:20"
+        },
+        {
+            "name": "Lecture 75: Polymorphism and Virtual Function in C++",
+            "duration_seconds": 3392,
+            "duration_formatted": "00:56:32"
+        },
+        {
+            "name": "Lecture 76: Exception Handling in C++",
+            "duration_seconds": 3637,
+            "duration_formatted": "01:00:37"
+        },
+        {
+            "name": "Lecture 77: File Handling in C++",
+            "duration_seconds": 1841,
+            "duration_formatted": "00:30:41"
+        },
+        {
+            "name": "Lecture 78: Introduction To Linked List | Traversal and Insertion in a Linked List",
+            "duration_seconds": 8312,
+            "duration_formatted": "02:18:32"
+        },
+        {
+            "name": "Lecture 79: Deletion in a Singly Linked List | Deletion in Constant Time",
+            "duration_seconds": 4229,
+            "duration_formatted": "01:10:29"
+        },
+        {
+            "name": "Lecture 80: Reverse a Linked List | Middle of Linked List | Rotate Linked List",
+            "duration_seconds": 3752,
+            "duration_formatted": "01:02:32"
+        },
+        {
+            "name": "Lecture 81: Linked List LeetCode Problem:  Remove Every Kth Node | Rotate List | Palindrome List",
+            "duration_seconds": 5205,
+            "duration_formatted": "01:26:45"
+        },
+        {
+            "name": "Lecture 82: Introduction to Doubly Linked List || Insertion and Deletion in Doubly Linked List",
+            "duration_seconds": 6471,
+            "duration_formatted": "01:47:51"
+        },
+        {
+            "name": "Lecture 83: LinkedList Problems: Remove Duplicates | Merge 2 Sorted LinkedList | Sort a LinkedList",
+            "duration_seconds": 4064,
+            "duration_formatted": "01:07:44"
+        },
+        {
+            "name": "Lecture 84: Circular Linked List: Detect Loop in Linked List || Find Length of Loop",
+            "duration_seconds": 4102,
+            "duration_formatted": "01:08:22"
+        },
+        {
+            "name": "Lecture 85: Hard Problem: Detect and Remove Loop in LinkedList",
+            "duration_seconds": 4270,
+            "duration_formatted": "01:11:10"
+        },
+        {
+            "name": "Lecture 86: Add two numbers represented by linked lists | Reverse a Linked List in groups",
+            "duration_seconds": 4565,
+            "duration_formatted": "01:16:05"
+        },
+        {
+            "name": "Lecture 87: Hard Problem on Linked List: Flattening a Linked List | Merge K Sorted Linked List",
+            "duration_seconds": 4046,
+            "duration_formatted": "01:07:26"
+        },
+        {
+            "name": "Lecture 88: LinkedList Series End Here: Clone a linked list with next and random pointer",
+            "duration_seconds": 4588,
+            "duration_formatted": "01:16:28"
+        },
+        {
+            "name": "Coding Battles : Arrays vs. Linked Lists Showdown",
+            "duration_seconds": 1041,
+            "duration_formatted": "00:17:21"
+        },
+        {
+            "name": "Lecture 89: Introduction To STACK || Implement Stack Using Arrays and LinkedList",
+            "duration_seconds": 5430,
+            "duration_formatted": "01:30:30"
+        },
+        {
+            "name": "Lecture 90: STACK : Valid Parentheses | Print Bracket Number | Reverse Array | Get min at pop",
+            "duration_seconds": 7583,
+            "duration_formatted": "02:06:23"
+        },
+        {
+            "name": "Lecture 91: Stack Problem: Next Greater Element | Next Smaller Element | Stock Span Problem",
+            "duration_seconds": 6378,
+            "duration_formatted": "01:46:18"
+        },
+        {
+            "name": "Lecture 92: Stack Problem: Largest Rectangle in Histogram | Maximal Rectangle",
+            "duration_seconds": 4613,
+            "duration_formatted": "01:16:53"
+        },
+        {
+            "name": "Lecture 93:  The Celebrity Problem",
+            "duration_seconds": 1867,
+            "duration_formatted": "00:31:07"
+        },
+        {
+            "name": "Lecture 94: Stack Hard: Maximum of minimum for every window Size | Get Minimum Element from Stack",
+            "duration_seconds": 6716,
+            "duration_formatted": "01:51:56"
+        },
+        {
+            "name": "Lecture 95: Implement two stacks in an array | N Stack in an Array",
+            "duration_seconds": 3490,
+            "duration_formatted": "00:58:10"
+        },
+        {
+            "name": "Lecture 96: Introduction To Queue || Implement Queue with Array and LinkedList || Circular Queue",
+            "duration_seconds": 5661,
+            "duration_formatted": "01:34:21"
+        },
+        {
+            "name": "Lecture 97: Print all Elements in Queue | Implement Queue using Stack | Implement Stack using Queue",
+            "duration_seconds": 5561,
+            "duration_formatted": "01:32:41"
+        },
+        {
+            "name": "Lecture 98: Queues with Sliding Window Problems",
+            "duration_seconds": 4672,
+            "duration_formatted": "01:17:52"
+        },
+        {
+            "name": "Introduction to Deque and implementation",
+            "duration_seconds": 5104,
+            "duration_formatted": "01:25:04"
+        },
+        {
+            "name": "Queue Hard: Sliding Window Maximum | Minimum Number of K Consecutive Bit Flips",
+            "duration_seconds": 6592,
+            "duration_formatted": "01:49:52"
+        },
+        {
+            "name": "Introduction To Trees | Binary Tree in Data Structure",
+            "duration_seconds": 3615,
+            "duration_formatted": "01:00:15"
+        },
+        {
+            "name": "Binary Tree in Data Structure | Binary Tree Traversal | How to Create Binary Tree | DSA",
+            "duration_seconds": 5099,
+            "duration_formatted": "01:24:59"
+        },
+        {
+            "name": "Binary Tree Problems For Technical Interview | Size of Binary Tree | Height of Binary Tree",
+            "duration_seconds": 6278,
+            "duration_formatted": "01:44:38"
+        },
+        {
+            "name": "Binary Tree Problems: Mirror Tree | Two Nodes are Cousins | Check for Balanced Tree | Spiral Form",
+            "duration_seconds": 6307,
+            "duration_formatted": "01:45:07"
+        },
+        {
+            "name": "Binary Tree: Left View of Binary Tree | Right View of Binary Tree | Top View of Binary Tree",
+            "duration_seconds": 5805,
+            "duration_formatted": "01:36:45"
+        },
+        {
+            "name": "Binary Tree: PreOrder Traversal Iterative | PostOrder Traversal Iterative | InOrder Traversal",
+            "duration_seconds": 2829,
+            "duration_formatted": "00:47:09"
+        },
+        {
+            "name": "Binary Tree Problems: Construct Tree from Inorder & Preorder | Tree from Postorder and Inorder",
+            "duration_seconds": 4355,
+            "duration_formatted": "01:12:35"
+        },
+        {
+            "name": "Binary Tree Traversal: Vertical Traversal of Binary Tree | Diagonal Traversal | Boundary Traversal",
+            "duration_seconds": 5201,
+            "duration_formatted": "01:26:41"
+        },
+        {
+            "name": "Morris Traversal : Inorder Traversal | Flatten Binary Tree to LinkedList | Post Order | PreOrder",
+            "duration_seconds": 3626,
+            "duration_formatted": "01:00:26"
+        },
+        {
+            "name": "Burning Tree || Maximum Path Sum between 2 Special Nodes",
+            "duration_seconds": 5232,
+            "duration_formatted": "01:27:12"
+        },
+        {
+            "name": "Binary Search Tree in Data Structure || Implementation,  Insertion , Deletion and Search",
+            "duration_seconds": 5306,
+            "duration_formatted": "01:28:26"
+        },
+        {
+            "name": "Binary Search Tree Interview Problem | 5 Binary Search Tree Problems in One Shot",
+            "duration_seconds": 5118,
+            "duration_formatted": "01:25:18"
+        },
+        {
+            "name": "Binary Search Tree Problems for Coding Round",
+            "duration_seconds": 5333,
+            "duration_formatted": "01:28:53"
+        },
+        {
+            "name": "Binary Search Tree: LCA of BST | Find Common Nodes in 2 BST | Check whether BST contains Dead End",
+            "duration_seconds": 3786,
+            "duration_formatted": "01:03:06"
+        },
+        {
+            "name": "Binary Search Tree: Fixing Two nodes of a BST | Sorted Link List to BST | Merge two BST",
+            "duration_seconds": 5421,
+            "duration_formatted": "01:30:21"
+        },
+        {
+            "name": "Largest Binary Search Tree | Maximum Sum BST in Binary Tree | Leetcode",
+            "duration_seconds": 4764,
+            "duration_formatted": "01:19:24"
+        },
+        {
+            "name": "AVL Tree in Data Structure | AVL Tree Insertion | AVL Tree Search | AVL Tree Rotation",
+            "duration_seconds": 5900,
+            "duration_formatted": "01:38:20"
+        },
+        {
+            "name": "AVL Tree Deletion | (Theory + Dry Run + Code Implementation)",
+            "duration_seconds": 3298,
+            "duration_formatted": "00:54:58"
+        },
+        {
+            "name": "STL in C++",
+            "duration_seconds": 6750,
+            "duration_formatted": "01:52:30"
+        },
+        {
+            "name": "Heap Data Structure | Insertion and Deletion in Max Heap",
+            "duration_seconds": 4524,
+            "duration_formatted": "01:15:24"
+        },
+        {
+            "name": "Heap Sort | Build Heap in C++ | Priority Queue",
+            "duration_seconds": 4787,
+            "duration_formatted": "01:19:47"
+        },
+        {
+            "name": "Heap 6 Interview Problem | Height of Heap | Minimum Cost of ropes | Magician and Chocolates",
+            "duration_seconds": 4928,
+            "duration_formatted": "01:22:08"
+        },
+        {
+            "name": "Kth smallest element in an array | Kth Largest element in an array | Heap | Priority Queue",
+            "duration_seconds": 4098,
+            "duration_formatted": "01:08:18"
+        },
+        {
+            "name": "Merge two binary Max heaps | Is Binary Tree Heap | BST to max heap",
+            "duration_seconds": 3315,
+            "duration_formatted": "00:55:15"
+        },
+        {
+            "name": "Heap Hard Problem: Kth element in Matrix (5 Approaches) | Find median in a stream",
+            "duration_seconds": 4738,
+            "duration_formatted": "01:18:58"
+        },
+        {
+            "name": "Heap Interview Problem: Merge K Sorted Linked List | Merge K Sorted Arrays",
+            "duration_seconds": 5329,
+            "duration_formatted": "01:28:49"
+        },
+        {
+            "name": "Heap: Smallest Range Covering Elements from K Lists |  Construct Target Array With Multiple Sums",
+            "duration_seconds": 5428,
+            "duration_formatted": "01:30:28"
+        },
+        {
+            "name": "Sliding Window: Zero Sum Subarrays | Subarray Sum Equals K",
+            "duration_seconds": 3655,
+            "duration_formatted": "01:00:55"
+        },
+        {
+            "name": "Sliding Window: Subarray Sums Divisible by K | Subarray Product Less Than K",
+            "duration_seconds": 4155,
+            "duration_formatted": "01:09:15"
+        },
+        {
+            "name": "Sliding Window: Minimum Size Subarray Sum | Minimum Window Substring",
+            "duration_seconds": 4290,
+            "duration_formatted": "01:11:30"
+        },
+        {
+            "name": "Subarrays with K Different Integers | Count Subarrays Where Max Element Appears at Least K Times",
+            "duration_seconds": 5096,
+            "duration_formatted": "01:24:56"
+        },
+        {
+            "name": "Graph Data Structure | Real world Example to Explain Graph",
+            "duration_seconds": 2873,
+            "duration_formatted": "00:47:53"
+        },
+        {
+            "name": "Graph Representation in Data Structure | Adjacency Matrix and Adjacency List",
+            "duration_seconds": 3765,
+            "duration_formatted": "01:02:45"
+        },
+        {
+            "name": "BFS Traversal in Graph | DFS Traversal in Graph",
+            "duration_seconds": 4757,
+            "duration_formatted": "01:19:17"
+        },
+        {
+            "name": "Detect Cycle in an Undirected Graph | BFS + DFS",
+            "duration_seconds": 4305,
+            "duration_formatted": "01:11:45"
+        },
+        {
+            "name": "Topological Sort | Kahn's Algorithm",
+            "duration_seconds": 3299,
+            "duration_formatted": "00:54:59"
+        },
+        {
+            "name": "Detect Cycle in a Directed Graph | BFS + DFS",
+            "duration_seconds": 4584,
+            "duration_formatted": "01:16:24"
+        },
+        {
+            "name": "Bipartite Graph | BFS + DFS + Code + Real Life application",
+            "duration_seconds": 4408,
+            "duration_formatted": "01:13:28"
+        },
+        {
+            "name": "Graphs: Covid Spread | Find the number of Islands | Replace O's with X's",
+            "duration_seconds": 6582,
+            "duration_formatted": "01:49:42"
+        },
+        {
+            "name": "Graphs: Alien Dictionary | Parallel Courses 3 | Course Schedule | Prerequisite Tasks",
+            "duration_seconds": 5056,
+            "duration_formatted": "01:24:16"
+        },
+        {
+            "name": "Graph: Shortest Path in Undirected Graph",
+            "duration_seconds": 3381,
+            "duration_formatted": "00:56:21"
+        },
+        {
+            "name": "Graphs: Shortest Path in Directed Acyclic Graph",
+            "duration_seconds": 3798,
+            "duration_formatted": "01:03:18"
+        },
+        {
+            "name": "Dijkstra Algorithm | Intuition + Code + Dry Run + 2 Methods",
+            "duration_seconds": 6034,
+            "duration_formatted": "01:40:34"
+        },
+        {
+            "name": "Shortest Path in Weighted undirected graph",
+            "duration_seconds": 2169,
+            "duration_formatted": "00:36:09"
+        },
+        {
+            "name": "Bellman-Ford Algorithm | Distance from the Source",
+            "duration_seconds": 4170,
+            "duration_formatted": "01:09:30"
+        },
+        {
+            "name": "Floyd Warshall Algorithm | MultiSource Shortest Path Algorithm",
+            "duration_seconds": 4197,
+            "duration_formatted": "01:09:57"
+        },
+        {
+            "name": "Graphs: Knight Walk | Shortest Source to Destination Path in Binary Matrix | Find whether path exist",
+            "duration_seconds": 4310,
+            "duration_formatted": "01:11:50"
+        },
+        {
+            "name": "Euler Path and Euler Circuit in a Graph",
+            "duration_seconds": 4065,
+            "duration_formatted": "01:07:45"
+        },
+        {
+            "name": "Circle of Strings",
+            "duration_seconds": 3253,
+            "duration_formatted": "00:54:13"
+        },
+        {
+            "name": "Minimum Spanning Tree | Prim’s Algorithm",
+            "duration_seconds": 3888,
+            "duration_formatted": "01:04:48"
+        },
+        {
+            "name": "Kruskal's Algorithm | Disjoint set",
+            "duration_seconds": 5215,
+            "duration_formatted": "01:26:55"
+        },
+        {
+            "name": "Bridge in a Graph | Critical Connections in a Network",
+            "duration_seconds": 5469,
+            "duration_formatted": "01:31:09"
+        },
+        {
+            "name": "Articulation Point in a Graph | Tarjan's Algorithm",
+            "duration_seconds": 4244,
+            "duration_formatted": "01:10:44"
+        },
+        {
+            "name": "Hamiltonian Path | Hamiltonian Cycle",
+            "duration_seconds": 2144,
+            "duration_formatted": "00:35:44"
+        },
+        {
+            "name": "Strongly Connected Components | Kosaraju Algorithm | Tarjan Algorithm",
+            "duration_seconds": 7431,
+            "duration_formatted": "02:03:51"
+        },
+        {
+            "name": "BackTracking: N-Queens | M-Coloring Problem | Sudoku Solver",
+            "duration_seconds": 9241,
+            "duration_formatted": "02:34:01"
+        },
+        {
+            "name": "Greedy Algorithm From Basic To Advance",
+            "duration_seconds": 15978,
+            "duration_formatted": "04:26:18"
+        },
+        {
+            "name": "Hashing in Data Structure | Zero To Advance Level",
+            "duration_seconds": 5225,
+            "duration_formatted": "01:27:05"
+        },
+        {
+            "name": "Introduction To Dynamic Programming",
+            "duration_seconds": 3912,
+            "duration_formatted": "01:05:12"
+        },
+        {
+            "name": "Climbing Stairs | Dynamic Programming",
+            "duration_seconds": 4252,
+            "duration_formatted": "01:10:52"
+        },
+        {
+            "name": "Count number of hops | Min Cost Climbing Stairs",
+            "duration_seconds": 4800,
+            "duration_formatted": "01:20:00"
+        },
+        {
+            "name": "House Robber | House Robber 2",
+            "duration_seconds": 4452,
+            "duration_formatted": "01:14:12"
+        }
+    ]
+}
