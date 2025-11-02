@@ -3,6 +3,7 @@ import { DailyStreakTracker } from '@/components/DailyStreakTracker';
 import { StreakTracker } from '@/components/StreakTracker';
 import { NoFapStreakTracker } from '@/components/NoFapStreakTracker';
 import { HealthStreakCard } from '@/components/HealthStreakCard';
+import { GymTracker } from '@/components/GymTracker';
 import { Activity } from 'lucide-react';
 
 export default function Health() {
@@ -35,6 +36,7 @@ export default function Health() {
             <DailyStreakTracker />
             <StreakTracker />
             <NoFapStreakTracker />
+            <GymTracker />
           </div>
         </div>
       </div>

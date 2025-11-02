@@ -8,6 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Progress } from '@/components/ui/progress';
 import { toast } from 'sonner';
 import { ArrowLeft } from 'lucide-react';
+import { FailedMissions } from '@/components/FailedMissions';
 
 interface Mission {
   id: string;
@@ -176,8 +177,41 @@ const Missions = () => {
     }
   };
 
+  const handleMissionEnd = async () => {
+    if (!mission) return;
+
+    try {
+      const allCompleted = tasks.every(task => task.is_completed);
+      const newStatus = allCompleted && tasks.length > 0 ? 'completed' : 'failed';
+
+      await supabase
+        .from('missions')
+        .update({ status: newStatus })
+        .eq('id', mission.id);
+
+      if (newStatus === 'failed') {
+        toast.error('⚠️ Mission failed! It will appear in failed missions.');
+      }
+
+      // Reload to get next period
+      setTimeout(() => {
+        toast.info('Loading next operation...');
+        window.location.reload();
+      }, 2000);
+    } catch (error) {
+      console.error('Error ending mission:', error);
+      window.location.reload();
+    }
+  };
+
   const lockMission = async () => {
     if (!mission) return;
+
+    // Prevent locking with 0 tasks
+    if (tasks.length === 0) {
+      toast.error('Cannot lock mission with 0 tasks. Add at least one task first.');
+      return;
+    }
 
     try {
       const { error } = await supabase
@@ -188,7 +222,7 @@ const Missions = () => {
       if (error) throw error;
 
       setMission({ ...mission, is_locked: true });
-      toast.success('Mission locked');
+      toast.success('Mission locked - You can still add tasks but cannot remove them');
     } catch (error) {
       console.error('Error locking mission:', error);
       toast.error('Failed to lock mission');
@@ -203,14 +237,10 @@ const Missions = () => {
     const now = new Date();
     const diff = endDate.getTime() - now.getTime();
 
-    // If mission period has ended, reload to get next period
+    // If mission period has ended, handle mission completion/failure
     if (diff <= 0) {
       setTimeRemaining('00:00:00');
-      // Auto-reload to next period
-      setTimeout(() => {
-        toast.info('Mission period ended. Loading next operation...');
-        window.location.reload();
-      }, 1000);
+      handleMissionEnd();
       return;
     }
 
@@ -260,6 +290,8 @@ const Missions = () => {
           </Button>
         </div>
 
+        <FailedMissions />
+
         {mission && (
           <>
             <Card>
@@ -294,9 +326,8 @@ const Missions = () => {
                     value={newTaskDescription}
                     onChange={(e) => setNewTaskDescription(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && addTask()}
-                    disabled={mission.is_locked}
                   />
-                  <Button onClick={addTask} disabled={mission.is_locked || !newTaskDescription.trim()}>
+                  <Button onClick={addTask} disabled={!newTaskDescription.trim()}>
                     Add Task
                   </Button>
                 </div>

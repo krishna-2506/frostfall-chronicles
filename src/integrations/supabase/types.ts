@@ -146,6 +146,42 @@ export type Database = {
           },
         ]
       }
+      gym_logs: {
+        Row: {
+          created_at: string
+          exercise_name: string
+          id: string
+          log_date: string
+          muscle_group: string
+          reps: number
+          sets: number
+          user_id: string
+          weight: number
+        }
+        Insert: {
+          created_at?: string
+          exercise_name: string
+          id?: string
+          log_date?: string
+          muscle_group: string
+          reps?: number
+          sets?: number
+          user_id: string
+          weight?: number
+        }
+        Update: {
+          created_at?: string
+          exercise_name?: string
+          id?: string
+          log_date?: string
+          muscle_group?: string
+          reps?: number
+          sets?: number
+          user_id?: string
+          weight?: number
+        }
+        Relationships: []
+      }
       health_logs: {
         Row: {
           created_at: string
@@ -230,6 +266,7 @@ export type Database = {
           id: string
           is_locked: boolean
           start_date: string
+          status: string
           user_id: string
         }
         Insert: {
@@ -238,6 +275,7 @@ export type Database = {
           id?: string
           is_locked?: boolean
           start_date: string
+          status?: string
           user_id: string
         }
         Update: {
@@ -246,6 +284,7 @@ export type Database = {
           id?: string
           is_locked?: boolean
           start_date?: string
+          status?: string
           user_id?: string
         }
         Relationships: [
