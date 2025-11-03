@@ -15,6 +15,7 @@ interface Mission {
   start_date: string;
   end_date: string;
   is_locked: boolean;
+  status: string;
 }
 
 interface Task {
@@ -31,9 +32,9 @@ const Missions = () => {
   const [timeRemaining, setTimeRemaining] = useState('');
   const [loading, setLoading] = useState(true);
 
-  // Calculate current 4-day period based on Winter Arc start date (May 26, 2026)
+  // Calculate current 4-day period based on Winter Arc start date (Nov 1, 2024)
   const calculateCurrentPeriod = () => {
-    const arcStartDate = new Date('2026-05-26');
+    const arcStartDate = new Date('2024-11-01');
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
@@ -161,9 +162,15 @@ const Missions = () => {
       setTasks(updatedTasks);
 
       // Check if all tasks are completed and mission is locked
-      if (mission?.is_locked) {
+      if (mission?.is_locked && mission?.status === 'active') {
         const allCompleted = updatedTasks.every(task => task.is_completed);
         if (allCompleted && updatedTasks.length > 0) {
+          // Mark mission as completed
+          await supabase
+            .from('missions')
+            .update({ status: 'completed' })
+            .eq('id', mission.id);
+          
           toast.success('🎉 All objectives complete! Mission accomplished!');
           // Reload to get next period's mission
           setTimeout(() => {
@@ -178,7 +185,7 @@ const Missions = () => {
   };
 
   const handleMissionEnd = async () => {
-    if (!mission) return;
+    if (!mission || mission.status !== 'active') return;
 
     try {
       const allCompleted = tasks.every(task => task.is_completed);
@@ -191,16 +198,20 @@ const Missions = () => {
 
       if (newStatus === 'failed') {
         toast.error('⚠️ Mission failed! It will appear in failed missions.');
+      } else {
+        toast.success('🎉 Mission completed!');
       }
+
+      // Mark as ended locally to prevent multiple calls
+      setMission({ ...mission, status: newStatus });
 
       // Reload to get next period
       setTimeout(() => {
-        toast.info('Loading next operation...');
         window.location.reload();
       }, 2000);
     } catch (error) {
       console.error('Error ending mission:', error);
-      window.location.reload();
+      toast.error('Error processing mission end');
     }
   };
 
@@ -231,6 +242,9 @@ const Missions = () => {
 
   const updateCountdown = () => {
     if (!mission) return;
+
+    // Don't update countdown if mission is no longer active
+    if (mission.status !== 'active') return;
 
     const endDate = new Date(mission.end_date);
     endDate.setHours(23, 59, 59, 999);
