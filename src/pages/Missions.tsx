@@ -60,37 +60,80 @@ const Missions = () => {
 
       const period = calculateCurrentPeriod();
 
-      // Try to fetch existing ACTIVE mission for current period
-      const { data: existingMission, error: fetchError } = await supabase
+      // Fetch any mission for current period (any status)
+      const { data: currentMission, error: currentErr } = await supabase
         .from('missions')
         .select('*')
         .eq('user_id', user.id)
         .eq('start_date', period.start)
-        .eq('status', 'active')
         .maybeSingle();
 
-      if (fetchError) throw fetchError;
+      if (currentErr) throw currentErr;
 
-      if (existingMission) {
-        setMission(existingMission);
-        await loadTasks(existingMission.id);
-      } else {
-        // Create new mission for current period
-        const { data: newMission, error: createError } = await supabase
+      if (currentMission) {
+        if (currentMission.status === 'active') {
+          setMission(currentMission);
+          await loadTasks(currentMission.id);
+          return;
+        }
+
+        // If mission is completed or failed, move to NEXT 4-day period immediately
+        const nextStartDate = new Date(period.start);
+        nextStartDate.setDate(nextStartDate.getDate() + 4);
+        const nextEndDate = new Date(nextStartDate);
+        nextEndDate.setDate(nextEndDate.getDate() + 3);
+        const nextPeriod = {
+          start: nextStartDate.toISOString().split('T')[0],
+          end: nextEndDate.toISOString().split('T')[0]
+        };
+
+        // Check if next period mission already exists (any status)
+        const { data: nextMissionExisting } = await supabase
+          .from('missions')
+          .select('*')
+          .eq('user_id', user.id)
+          .eq('start_date', nextPeriod.start)
+          .maybeSingle();
+
+        if (nextMissionExisting) {
+          setMission(nextMissionExisting);
+          await loadTasks(nextMissionExisting.id);
+          return;
+        }
+
+        // Create new active mission for next period
+        const { data: createdNext, error: createNextErr } = await supabase
           .from('missions')
           .insert({
             user_id: user.id,
-            start_date: period.start,
-            end_date: period.end,
+            start_date: nextPeriod.start,
+            end_date: nextPeriod.end,
             status: 'active'
           })
           .select()
           .single();
 
-        if (createError) throw createError;
-        setMission(newMission);
+        if (createNextErr) throw createNextErr;
+        setMission(createdNext);
         setTasks([]);
+        return;
       }
+
+      // No mission exists for current period -> create it
+      const { data: newMission, error: createError } = await supabase
+        .from('missions')
+        .insert({
+          user_id: user.id,
+          start_date: period.start,
+          end_date: period.end,
+          status: 'active'
+        })
+        .select()
+        .single();
+
+      if (createError) throw createError;
+      setMission(newMission);
+      setTasks([]);
     } catch (error) {
       console.error('Error loading mission:', error);
       toast.error('Failed to load mission');

@@ -135,13 +135,13 @@ export const FailedMissions = () => {
               {new Date(mission.start_date).toLocaleDateString()} - {new Date(mission.end_date).toLocaleDateString()}
             </p>
             <div className="space-y-2">
-              {mission.tasks.map((task) => (
+              {mission.tasks.filter(t => !t.is_completed).map((task) => (
                 <div key={task.id} className="flex items-center gap-3">
                   <Checkbox
                     checked={task.is_completed}
                     onCheckedChange={() => toggleTask(mission.id, task.id, task.is_completed)}
                   />
-                  <span className={`text-sm ${task.is_completed ? 'line-through text-muted-foreground' : ''}`}>
+                  <span className="text-sm">
                     {task.description}
                   </span>
                 </div>
