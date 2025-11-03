@@ -28,33 +28,40 @@ export const FailedMissions = () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
+      // Get only the most recent failed mission
       const { data: missions, error } = await supabase
         .from('missions')
         .select('id, start_date, end_date')
         .eq('user_id', user.id)
         .eq('status', 'failed')
         .order('start_date', { ascending: false })
-        .limit(5);
+        .limit(1);
 
       if (error) throw error;
 
-      // Load tasks for each failed mission
-      const missionsWithTasks = await Promise.all(
-        (missions || []).map(async (mission) => {
-          const { data: tasks } = await supabase
-            .from('mission_tasks')
-            .select('id, description, is_completed')
-            .eq('mission_id', mission.id)
-            .order('created_at', { ascending: true });
+      if (!missions || missions.length === 0) {
+        setFailedMissions([]);
+        return;
+      }
 
-          return {
-            ...mission,
-            tasks: tasks || []
-          };
-        })
-      );
+      // Load tasks for the failed mission - only show incomplete tasks
+      const { data: tasks } = await supabase
+        .from('mission_tasks')
+        .select('id, description, is_completed')
+        .eq('mission_id', missions[0].id)
+        .order('created_at', { ascending: true });
 
-      setFailedMissions(missionsWithTasks);
+      // Only show if there are incomplete tasks
+      const incompleteTasks = (tasks || []).filter(task => !task.is_completed);
+      
+      if (incompleteTasks.length > 0) {
+        setFailedMissions([{
+          ...missions[0],
+          tasks: tasks || []
+        }]);
+      } else {
+        setFailedMissions([]);
+      }
     } catch (error: any) {
       console.error('Error loading failed missions:', error);
     }

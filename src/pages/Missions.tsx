@@ -60,12 +60,13 @@ const Missions = () => {
 
       const period = calculateCurrentPeriod();
 
-      // Try to fetch existing mission for current period
+      // Try to fetch existing ACTIVE mission for current period
       const { data: existingMission, error: fetchError } = await supabase
         .from('missions')
         .select('*')
         .eq('user_id', user.id)
         .eq('start_date', period.start)
+        .eq('status', 'active')
         .maybeSingle();
 
       if (fetchError) throw fetchError;
@@ -80,7 +81,8 @@ const Missions = () => {
           .insert({
             user_id: user.id,
             start_date: period.start,
-            end_date: period.end
+            end_date: period.end,
+            status: 'active'
           })
           .select()
           .single();
@@ -304,8 +306,6 @@ const Missions = () => {
           </Button>
         </div>
 
-        <FailedMissions />
-
         {mission && (
           <>
             <Card>
@@ -382,6 +382,8 @@ const Missions = () => {
             </Card>
           </>
         )}
+
+        <FailedMissions />
       </div>
     </div>
   );
