@@ -221,25 +221,49 @@ export type Database = {
         Row: {
           created_at: string
           description: string
+          due_date: string | null
+          estimated_pomodoros: number | null
           id: string
           is_completed: boolean
+          is_recurring: boolean | null
           mission_id: string
+          notes: string | null
+          parent_task_id: string | null
+          priority: string | null
+          recurrence_pattern: string | null
+          reminder_time: string | null
           user_id: string
         }
         Insert: {
           created_at?: string
           description: string
+          due_date?: string | null
+          estimated_pomodoros?: number | null
           id?: string
           is_completed?: boolean
+          is_recurring?: boolean | null
           mission_id: string
+          notes?: string | null
+          parent_task_id?: string | null
+          priority?: string | null
+          recurrence_pattern?: string | null
+          reminder_time?: string | null
           user_id: string
         }
         Update: {
           created_at?: string
           description?: string
+          due_date?: string | null
+          estimated_pomodoros?: number | null
           id?: string
           is_completed?: boolean
+          is_recurring?: boolean | null
           mission_id?: string
+          notes?: string | null
+          parent_task_id?: string | null
+          priority?: string | null
+          recurrence_pattern?: string | null
+          reminder_time?: string | null
           user_id?: string
         }
         Relationships: [
@@ -248,6 +272,13 @@ export type Database = {
             columns: ["mission_id"]
             isOneToOne: false
             referencedRelation: "missions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mission_tasks_parent_task_id_fkey"
+            columns: ["parent_task_id"]
+            isOneToOne: false
+            referencedRelation: "mission_tasks"
             referencedColumns: ["id"]
           },
           {
@@ -296,6 +327,89 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      pomodoro_sessions: {
+        Row: {
+          completed: boolean
+          created_at: string
+          duration_minutes: number
+          ended_at: string | null
+          id: string
+          session_type: string
+          started_at: string
+          task_id: string | null
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          created_at?: string
+          duration_minutes?: number
+          ended_at?: string | null
+          id?: string
+          session_type?: string
+          started_at?: string
+          task_id?: string | null
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          created_at?: string
+          duration_minutes?: number
+          ended_at?: string | null
+          id?: string
+          session_type?: string
+          started_at?: string
+          task_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pomodoro_sessions_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "mission_tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pomodoro_settings: {
+        Row: {
+          auto_start_breaks: boolean
+          auto_start_pomodoros: boolean
+          created_at: string
+          long_break_duration: number
+          notification_sound: string | null
+          sessions_before_long_break: number
+          short_break_duration: number
+          updated_at: string
+          user_id: string
+          work_duration: number
+        }
+        Insert: {
+          auto_start_breaks?: boolean
+          auto_start_pomodoros?: boolean
+          created_at?: string
+          long_break_duration?: number
+          notification_sound?: string | null
+          sessions_before_long_break?: number
+          short_break_duration?: number
+          updated_at?: string
+          user_id: string
+          work_duration?: number
+        }
+        Update: {
+          auto_start_breaks?: boolean
+          auto_start_pomodoros?: boolean
+          created_at?: string
+          long_break_duration?: number
+          notification_sound?: string | null
+          sessions_before_long_break?: number
+          short_break_duration?: number
+          updated_at?: string
+          user_id?: string
+          work_duration?: number
+        }
+        Relationships: []
       }
       profiles: {
         Row: {

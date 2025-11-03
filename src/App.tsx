@@ -14,6 +14,9 @@ import DsCourse from './pages/DsCourse';
 import DsaTracker from './pages/DsaTracker';
 import Health from './pages/Health';
 import GlowUp from "./pages/GlowUp";
+import Focus from "./pages/Focus";
+import Tasks from "./pages/Tasks";
+import Statistics from "./pages/Statistics";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +44,9 @@ const App = () => (
           <Route path="/dsa-tracker" element={<AuthGuard><AppLayout><DsaTracker /></AppLayout></AuthGuard>} />
           <Route path="/health" element={<AuthGuard><AppLayout><Health /></AppLayout></AuthGuard>} />
           <Route path="/glow-up" element={<AuthGuard><AppLayout><GlowUp /></AppLayout></AuthGuard>} />
+          <Route path="/focus" element={<AuthGuard><AppLayout><Focus /></AppLayout></AuthGuard>} />
+          <Route path="/tasks" element={<AuthGuard><AppLayout><Tasks /></AppLayout></AuthGuard>} />
+          <Route path="/statistics" element={<AuthGuard><AppLayout><Statistics /></AppLayout></AuthGuard>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
