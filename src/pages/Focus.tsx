@@ -164,6 +164,7 @@ export default function Focus() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
+    // Try active mission first
     const { data: missions } = await supabase
       .from('missions')
       .select('id')
@@ -178,8 +179,21 @@ export default function Focus() {
         .eq('mission_id', missions.id)
         .eq('is_completed', false);
 
-      if (tasksData) setTasks(tasksData);
+      if (tasksData && tasksData.length > 0) {
+        setTasks(tasksData);
+        return;
+      }
     }
+
+    // Fallback: show all incomplete tasks for the user
+    const { data: allTasks } = await supabase
+      .from('mission_tasks')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('is_completed', false)
+      .order('created_at', { ascending: false });
+
+    if (allTasks) setTasks(allTasks);
   };
 
   const handleSessionComplete = async () => {
@@ -326,10 +340,21 @@ export default function Focus() {
       const canvas = canvasRef.current;
       const video = videoRef.current;
 
+      // Render once before capturing to ensure a frame exists
+      drawTimerOnCanvas();
+
       // Set up canvas stream
       const stream = canvas.captureStream(30);
       video.srcObject = stream;
-      await video.play();
+      video.muted = true;
+
+      // Wait for metadata to avoid AbortError on play()
+      await new Promise<void>((resolve) => {
+        if (video.readyState >= 2) return resolve();
+        video.onloadedmetadata = () => resolve();
+      });
+
+      await video.play().catch(() => {});
 
       // Enter PiP
       if (document.pictureInPictureEnabled) {
@@ -358,6 +383,11 @@ export default function Focus() {
     if (document.pictureInPictureElement) {
       document.exitPictureInPicture();
     }
+    // Stop canvas stream tracks
+    const v = videoRef.current;
+    const ms = (v?.srcObject as MediaStream) || null;
+    ms?.getTracks().forEach((t) => t.stop());
+    if (v) v.srcObject = null;
     setIsPipActive(false);
   };
 
@@ -565,11 +595,15 @@ export default function Focus() {
                 <SelectValue placeholder="Select a task (optional)" />
               </SelectTrigger>
               <SelectContent>
-                {tasks.map((task) => (
-                  <SelectItem key={task.id} value={task.id}>
-                    {task.description}
-                  </SelectItem>
-                ))}
+                {tasks.length === 0 ? (
+                  <SelectItem disabled value="no-tasks">No active tasks found</SelectItem>
+                ) : (
+                  tasks.map((task) => (
+                    <SelectItem key={task.id} value={task.id}>
+                      {task.description}
+                    </SelectItem>
+                  ))
+                )}
               </SelectContent>
             </Select>
 
