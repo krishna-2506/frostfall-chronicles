@@ -56,6 +56,11 @@ export default function Focus() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pipAnimationRef = useRef<number | null>(null);
+  // Refs to avoid stale state in PiP animation
+  const timeLeftRef = useRef(timeLeft);
+  const isRunningRef = useRef(isRunning);
+  const sessionTypeRef = useRef<SessionType>(sessionType);
+  const settingsRef = useRef(settings);
 
   useEffect(() => {
     loadSettings();
@@ -119,6 +124,14 @@ export default function Focus() {
       if (inactivityCheckRef.current) clearInterval(inactivityCheckRef.current);
     };
   }, [isRunning, sessionType]);
+
+  // Keep refs in sync to avoid stale state in PiP animation
+  useEffect(() => {
+    timeLeftRef.current = timeLeft;
+    isRunningRef.current = isRunning;
+    sessionTypeRef.current = sessionType;
+    settingsRef.current = settings;
+  }, [timeLeft, isRunning, sessionType, settings]);
 
   const loadSettings = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -298,13 +311,17 @@ export default function Focus() {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Calculate progress
-    const totalTime = sessionType === 'work' 
-      ? settings.work_duration * 60 
-      : sessionType === 'short_break' 
-      ? settings.short_break_duration * 60 
-      : settings.long_break_duration * 60;
-    const progress = ((totalTime - timeLeft) / totalTime);
+    // Calculate progress using refs (prevents stale state)
+    const st = sessionTypeRef.current;
+    const s = settingsRef.current;
+    const tl = timeLeftRef.current;
+
+    const totalTime = st === 'work' 
+      ? s.work_duration * 60 
+      : st === 'short_break' 
+      ? s.short_break_duration * 60 
+      : s.long_break_duration * 60;
+    const progress = ((totalTime - tl) / totalTime);
 
     // Draw progress arc
     const centerX = canvas.width / 2;
@@ -321,16 +338,17 @@ export default function Focus() {
     ctx.fillStyle = 'white';
     ctx.font = 'bold 24px system-ui';
     ctx.textAlign = 'center';
-    ctx.fillText(getSessionTitle(), centerX, centerY - 40);
+    const sessionLabel = st === 'work' ? 'Focus Time' : st === 'short_break' ? 'Short Break' : 'Long Break';
+    ctx.fillText(sessionLabel, centerX, centerY - 40);
 
     // Draw timer
     ctx.font = 'bold 72px monospace';
-    ctx.fillText(formatTime(timeLeft), centerX, centerY + 30);
+    ctx.fillText(formatTime(tl), centerX, centerY + 30);
 
     // Draw status
     ctx.font = '18px system-ui';
     ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-    ctx.fillText(isRunning ? '⏸ Running' : '▶ Paused', centerX, centerY + 70);
+    ctx.fillText(isRunningRef.current ? '⏸ Running' : '▶ Paused', centerX, centerY + 70);
   };
 
   const openPictureInPicture = async () => {
