@@ -48,11 +48,14 @@ export default function Focus() {
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
   const [showInactivityAlert, setShowInactivityAlert] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const [pipWindow, setPipWindow] = useState<Window | null>(null);
+  const [isPipActive, setIsPipActive] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const lastActivityRef = useRef<number>(Date.now());
   const inactivityCheckRef = useRef<NodeJS.Timeout | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const pipAnimationRef = useRef<number | null>(null);
 
   useEffect(() => {
     loadSettings();
@@ -264,75 +267,98 @@ export default function Focus() {
     }
   };
 
-  const openPictureInPicture = () => {
-    const width = 320;
-    const height = 200;
-    const left = window.screen.width - width - 20;
-    const top = 20;
+  const drawTimerOnCanvas = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw gradient background
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0, '#667eea');
+    gradient.addColorStop(1, '#764ba2');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Calculate progress
+    const totalTime = sessionType === 'work' 
+      ? settings.work_duration * 60 
+      : sessionType === 'short_break' 
+      ? settings.short_break_duration * 60 
+      : settings.long_break_duration * 60;
+    const progress = ((totalTime - timeLeft) / totalTime);
+
+    // Draw progress arc
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = Math.min(centerX, centerY) - 40;
     
-    const pipWin = window.open(
-      '',
-      'FocusTimer',
-      `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=no,status=no,location=no,toolbar=no,menubar=no`
-    );
-    
-    if (pipWin) {
-      pipWin.document.write(`
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <title>Focus Timer</title>
-            <style>
-              body {
-                margin: 0;
-                padding: 20px;
-                font-family: system-ui, -apple-system, sans-serif;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
-              }
-              .timer {
-                font-size: 48px;
-                font-weight: bold;
-                font-family: 'Courier New', monospace;
-                margin: 10px 0;
-              }
-              .session-type {
-                font-size: 14px;
-                opacity: 0.9;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-              }
-              .progress {
-                width: 100%;
-                height: 4px;
-                background: rgba(255,255,255,0.3);
-                border-radius: 2px;
-                overflow: hidden;
-                margin-top: 20px;
-              }
-              .progress-bar {
-                height: 100%;
-                background: white;
-                transition: width 1s linear;
-              }
-            </style>
-          </head>
-          <body>
-            <div class="session-type" id="sessionType">${getSessionTitle()}</div>
-            <div class="timer" id="timer">${formatTime(timeLeft)}</div>
-            <div class="progress">
-              <div class="progress-bar" id="progressBar"></div>
-            </div>
-          </body>
-        </html>
-      `);
-      setPipWindow(pipWin);
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, -Math.PI / 2, -Math.PI / 2 + (2 * Math.PI * progress));
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.lineWidth = 8;
+    ctx.stroke();
+
+    // Draw session type
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 24px system-ui';
+    ctx.textAlign = 'center';
+    ctx.fillText(getSessionTitle(), centerX, centerY - 40);
+
+    // Draw timer
+    ctx.font = 'bold 72px monospace';
+    ctx.fillText(formatTime(timeLeft), centerX, centerY + 30);
+
+    // Draw status
+    ctx.font = '18px system-ui';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+    ctx.fillText(isRunning ? '⏸ Running' : '▶ Paused', centerX, centerY + 70);
+  };
+
+  const openPictureInPicture = async () => {
+    if (!canvasRef.current || !videoRef.current) return;
+
+    try {
+      const canvas = canvasRef.current;
+      const video = videoRef.current;
+
+      // Set up canvas stream
+      const stream = canvas.captureStream(30);
+      video.srcObject = stream;
+      await video.play();
+
+      // Enter PiP
+      if (document.pictureInPictureEnabled) {
+        await video.requestPictureInPicture();
+        setIsPipActive(true);
+        
+        // Start animation loop
+        const animate = () => {
+          drawTimerOnCanvas();
+          pipAnimationRef.current = requestAnimationFrame(animate);
+        };
+        animate();
+
+        toast.success('Picture-in-Picture activated!');
+      }
+    } catch (error) {
+      console.error('PiP error:', error);
+      toast.error('Failed to activate Picture-in-Picture');
     }
+  };
+
+  const closePictureInPicture = () => {
+    if (pipAnimationRef.current) {
+      cancelAnimationFrame(pipAnimationRef.current);
+    }
+    if (document.pictureInPictureElement) {
+      document.exitPictureInPicture();
+    }
+    setIsPipActive(false);
   };
 
   const handleStillThere = () => {
@@ -402,26 +428,30 @@ export default function Focus() {
     }
   };
 
-  // Update PiP window
+  // Handle PiP events
   useEffect(() => {
-    if (pipWindow && !pipWindow.closed) {
-      const timerEl = pipWindow.document.getElementById('timer');
-      const sessionEl = pipWindow.document.getElementById('sessionType');
-      const progressEl = pipWindow.document.getElementById('progressBar');
-      
-      if (timerEl) timerEl.textContent = formatTime(timeLeft);
-      if (sessionEl) sessionEl.textContent = getSessionTitle();
-      if (progressEl) {
-        const totalTime = sessionType === 'work' 
-          ? settings.work_duration * 60 
-          : sessionType === 'short_break' 
-          ? settings.short_break_duration * 60 
-          : settings.long_break_duration * 60;
-        const progress = ((totalTime - timeLeft) / totalTime) * 100;
-        progressEl.style.width = `${progress}%`;
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleLeavePip = () => {
+      setIsPipActive(false);
+      if (pipAnimationRef.current) {
+        cancelAnimationFrame(pipAnimationRef.current);
       }
+    };
+
+    video.addEventListener('leavepictureinpicture', handleLeavePip);
+    return () => {
+      video.removeEventListener('leavepictureinpicture', handleLeavePip);
+    };
+  }, []);
+
+  // Update canvas when timer changes
+  useEffect(() => {
+    if (isPipActive) {
+      drawTimerOnCanvas();
     }
-  }, [timeLeft, sessionType, pipWindow]);
+  }, [timeLeft, isRunning, sessionType, isPipActive]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-6">
@@ -454,10 +484,10 @@ export default function Focus() {
               <Bell className={`h-4 w-4 ${notificationsEnabled ? 'text-primary' : ''}`} />
             </Button>
             <Button 
-              variant="outline" 
+              variant={isPipActive ? "default" : "outline"}
               size="icon"
-              onClick={openPictureInPicture}
-              title="Open in floating window"
+              onClick={isPipActive ? closePictureInPicture : openPictureInPicture}
+              title={isPipActive ? "Close Picture-in-Picture" : "Open Picture-in-Picture"}
             >
               <Maximize2 className="h-4 w-4" />
             </Button>
@@ -575,6 +605,10 @@ export default function Focus() {
           <p>💡 25 minutes of focused work, then a 5-minute break</p>
         </div>
       </div>
+
+      {/* Hidden canvas and video for PiP */}
+      <canvas ref={canvasRef} width="640" height="360" style={{ display: 'none' }} />
+      <video ref={videoRef} muted style={{ display: 'none' }} />
     </div>
   );
 }
