@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Play, Pause, SkipForward, Settings } from "lucide-react";
+import { Play, Pause, SkipForward, Settings, Maximize2, Bell } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
 interface Task {
   id: string;
@@ -45,15 +46,36 @@ export default function Focus() {
   const [sessionType, setSessionType] = useState<SessionType>('work');
   const [completedSessions, setCompletedSessions] = useState(0);
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
+  const [showInactivityAlert, setShowInactivityAlert] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [pipWindow, setPipWindow] = useState<Window | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const lastActivityRef = useRef<number>(Date.now());
+  const inactivityCheckRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     loadSettings();
     loadTasks();
+    requestNotificationPermission();
     
     // Create audio element for notification
     audioRef.current = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIF2W66+ifUhELTqXh8LdlHQQ0j9nyy3ooBS55y/LahTcJF2W67+mjUhELTKPf8Ldk');
+    
+    // Track user activity
+    const handleActivity = () => {
+      lastActivityRef.current = Date.now();
+    };
+    
+    window.addEventListener('mousemove', handleActivity);
+    window.addEventListener('keypress', handleActivity);
+    window.addEventListener('click', handleActivity);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleActivity);
+      window.removeEventListener('keypress', handleActivity);
+      window.removeEventListener('click', handleActivity);
+    };
   }, []);
 
   useEffect(() => {
@@ -64,17 +86,36 @@ export default function Focus() {
             handleSessionComplete();
             return 0;
           }
+          
+          // Send notification at 5 minutes remaining
+          if (prev === 300 && sessionType === 'work') {
+            sendNotification('5 Minutes Left!', 'Keep focusing, you\'re doing great!');
+          }
+          
           return prev - 1;
         });
       }, 1000);
-    } else if (intervalRef.current) {
-      clearInterval(intervalRef.current);
+      
+      // Check for inactivity every 3 minutes during work sessions
+      if (sessionType === 'work') {
+        inactivityCheckRef.current = setInterval(() => {
+          const inactiveMinutes = (Date.now() - lastActivityRef.current) / 1000 / 60;
+          if (inactiveMinutes > 3) {
+            setShowInactivityAlert(true);
+            setIsRunning(false);
+          }
+        }, 60000); // Check every minute
+      }
+    } else {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (inactivityCheckRef.current) clearInterval(inactivityCheckRef.current);
     }
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
+      if (inactivityCheckRef.current) clearInterval(inactivityCheckRef.current);
     };
-  }, [isRunning]);
+  }, [isRunning, sessionType]);
 
   const loadSettings = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -100,6 +141,19 @@ export default function Focus() {
         user_id: user.id,
         ...settings
       });
+    }
+  };
+
+  const requestNotificationPermission = async () => {
+    if ('Notification' in window) {
+      const permission = await Notification.requestPermission();
+      setNotificationsEnabled(permission === 'granted');
+    }
+  };
+
+  const sendNotification = (title: string, body: string) => {
+    if (notificationsEnabled && 'Notification' in window) {
+      new Notification(title, { body, icon: '/favicon.ico', badge: '/favicon.ico' });
     }
   };
 
@@ -157,6 +211,7 @@ export default function Focus() {
         : settings.short_break_duration;
       setTimeLeft(duration * 60);
       
+      sendNotification('Work Session Complete! 🎉', 'Great job! Time for a well-deserved break.');
       toast.success('Work session completed! Time for a break.');
       
       if (settings.auto_start_breaks) {
@@ -165,6 +220,7 @@ export default function Focus() {
     } else {
       setSessionType('work');
       setTimeLeft(settings.work_duration * 60);
+      sendNotification('Break Finished!', 'Ready to focus again?');
       toast.success('Break finished! Ready for another session?');
       
       if (settings.auto_start_pomodoros) {
@@ -198,7 +254,91 @@ export default function Focus() {
     if (session) {
       setCurrentSessionId(session.id);
       setIsRunning(true);
+      lastActivityRef.current = Date.now();
+      
+      const title = type === 'work' ? 'Focus Time Started!' : 'Break Time Started!';
+      const body = type === 'work' 
+        ? `${duration} minutes of focused work ahead. You've got this!`
+        : `${duration} minutes to relax and recharge.`;
+      sendNotification(title, body);
     }
+  };
+
+  const openPictureInPicture = () => {
+    const width = 320;
+    const height = 200;
+    const left = window.screen.width - width - 20;
+    const top = 20;
+    
+    const pipWin = window.open(
+      '',
+      'FocusTimer',
+      `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=no,status=no,location=no,toolbar=no,menubar=no`
+    );
+    
+    if (pipWin) {
+      pipWin.document.write(`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Focus Timer</title>
+            <style>
+              body {
+                margin: 0;
+                padding: 20px;
+                font-family: system-ui, -apple-system, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+              }
+              .timer {
+                font-size: 48px;
+                font-weight: bold;
+                font-family: 'Courier New', monospace;
+                margin: 10px 0;
+              }
+              .session-type {
+                font-size: 14px;
+                opacity: 0.9;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+              }
+              .progress {
+                width: 100%;
+                height: 4px;
+                background: rgba(255,255,255,0.3);
+                border-radius: 2px;
+                overflow: hidden;
+                margin-top: 20px;
+              }
+              .progress-bar {
+                height: 100%;
+                background: white;
+                transition: width 1s linear;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="session-type" id="sessionType">${getSessionTitle()}</div>
+            <div class="timer" id="timer">${formatTime(timeLeft)}</div>
+            <div class="progress">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+          </body>
+        </html>
+      `);
+      setPipWindow(pipWin);
+    }
+  };
+
+  const handleStillThere = () => {
+    lastActivityRef.current = Date.now();
+    setShowInactivityAlert(false);
+    setIsRunning(true);
   };
 
   const toggleTimer = () => {
@@ -262,18 +402,72 @@ export default function Focus() {
     }
   };
 
+  // Update PiP window
+  useEffect(() => {
+    if (pipWindow && !pipWindow.closed) {
+      const timerEl = pipWindow.document.getElementById('timer');
+      const sessionEl = pipWindow.document.getElementById('sessionType');
+      const progressEl = pipWindow.document.getElementById('progressBar');
+      
+      if (timerEl) timerEl.textContent = formatTime(timeLeft);
+      if (sessionEl) sessionEl.textContent = getSessionTitle();
+      if (progressEl) {
+        const totalTime = sessionType === 'work' 
+          ? settings.work_duration * 60 
+          : sessionType === 'short_break' 
+          ? settings.short_break_duration * 60 
+          : settings.long_break_duration * 60;
+        const progress = ((totalTime - timeLeft) / totalTime) * 100;
+        progressEl.style.width = `${progress}%`;
+      }
+    }
+  }, [timeLeft, sessionType, pipWindow]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-6">
+      <AlertDialog open={showInactivityAlert} onOpenChange={setShowInactivityAlert}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you still there? 🤔</AlertDialogTitle>
+            <AlertDialogDescription>
+              We noticed you haven't been active for a while. Are you still working on your task?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={handleStillThere}>
+              Yes, I'm still here!
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <div className="max-w-2xl mx-auto space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">Pomodoro Focus</h1>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline" size="icon">
-                <Settings className="h-4 w-4" />
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              size="icon"
+              onClick={requestNotificationPermission}
+              title="Enable Notifications"
+            >
+              <Bell className={`h-4 w-4 ${notificationsEnabled ? 'text-primary' : ''}`} />
+            </Button>
+            <Button 
+              variant="outline" 
+              size="icon"
+              onClick={openPictureInPicture}
+              title="Open in floating window"
+            >
+              <Maximize2 className="h-4 w-4" />
+            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Settings className="h-4 w-4" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
               <DialogHeader>
                 <DialogTitle>Pomodoro Settings</DialogTitle>
               </DialogHeader>
@@ -327,7 +521,8 @@ export default function Focus() {
                 <Button onClick={saveSettings} className="w-full">Save Settings</Button>
               </div>
             </DialogContent>
-          </Dialog>
+            </Dialog>
+          </div>
         </div>
 
         <Card className="p-8 text-center space-y-6">
