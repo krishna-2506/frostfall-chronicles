@@ -53,6 +53,7 @@ export default function Focus() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const lastActivityRef = useRef<number>(Date.now());
   const inactivityCheckRef = useRef<NodeJS.Timeout | null>(null);
+  const inactivityCheckCountRef = useRef<number>(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pipAnimationRef = useRef<number | null>(null);
@@ -104,15 +105,34 @@ export default function Focus() {
         });
       }, 1000);
       
-      // Check for inactivity every 3 minutes during work sessions
+      // Schedule random inactivity checks during work sessions
       if (sessionType === 'work') {
-        inactivityCheckRef.current = setInterval(() => {
-          const inactiveMinutes = (Date.now() - lastActivityRef.current) / 1000 / 60;
-          if (inactiveMinutes > 3) {
-            setShowInactivityAlert(true);
-            setIsRunning(false);
+        const scheduleInactivityCheck = () => {
+          if (inactivityCheckRef.current) clearTimeout(inactivityCheckRef.current);
+          
+          let nextCheckMinutes: number;
+          if (inactivityCheckCountRef.current === 0) {
+            nextCheckMinutes = 15; // First check at 15 minutes
+          } else if (inactivityCheckCountRef.current === 1) {
+            nextCheckMinutes = 25; // Second check at 25 minutes
+          } else {
+            // Random between 20-40 minutes for subsequent checks
+            nextCheckMinutes = Math.floor(Math.random() * 21) + 20;
           }
-        }, 60000); // Check every minute
+          
+          inactivityCheckRef.current = setTimeout(() => {
+            const inactiveMinutes = (Date.now() - lastActivityRef.current) / 1000 / 60;
+            if (inactiveMinutes >= nextCheckMinutes) {
+              sendNotification('Are you still there? 🤔', 'We noticed you haven\'t been active for a while.');
+              setShowInactivityAlert(true);
+              setIsRunning(false);
+            }
+            inactivityCheckCountRef.current++;
+            scheduleInactivityCheck(); // Schedule next check
+          }, nextCheckMinutes * 60 * 1000);
+        };
+        
+        scheduleInactivityCheck();
       }
     } else {
       if (intervalRef.current) clearInterval(intervalRef.current);
@@ -411,6 +431,7 @@ export default function Focus() {
 
   const handleStillThere = () => {
     lastActivityRef.current = Date.now();
+    inactivityCheckCountRef.current = 0; // Reset check counter
     setShowInactivityAlert(false);
     setIsRunning(true);
   };
