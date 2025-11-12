@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Play, Pause, SkipForward, Settings, Maximize2, Bell } from "lucide-react";
+import { Play, Pause, SkipForward, Settings, Maximize2, Bell, Target, Shield, Crosshair } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -98,7 +98,12 @@ export default function Focus() {
           
           // Send notification at 5 minutes remaining
           if (prev === 300 && sessionType === 'work') {
-            sendNotification('5 Minutes Left!', 'Keep focusing, you\'re doing great!');
+            sendNotification('⚠️ MISSION CRITICAL', 'T-minus 5 minutes until mission completion. Stay focused, agent!');
+          }
+          
+          // Send notification at 1 minute remaining
+          if (prev === 60 && sessionType === 'work') {
+            sendNotification('🎯 FINAL COUNTDOWN', 'One minute remaining. Execute with precision!');
           }
           
           return prev - 1;
@@ -123,7 +128,7 @@ export default function Focus() {
           inactivityCheckRef.current = setTimeout(() => {
             const inactiveMinutes = (Date.now() - lastActivityRef.current) / 1000 / 60;
             if (inactiveMinutes >= nextCheckMinutes) {
-              sendNotification('Are you still there? 🤔', 'We noticed you haven\'t been active for a while.');
+              sendNotification('🔴 MISSION STATUS: COMPROMISED', 'Agent, we have detected no activity. Confirm mission status immediately.');
               setShowInactivityAlert(true);
               setIsRunning(false);
             }
@@ -246,8 +251,8 @@ export default function Focus() {
       
       // Award XP for completed pomodoro
       await supabase.rpc('award_xp', { 
-        amount_to_add: 10, 
-        action_source: 'Completed Pomodoro Session' 
+        amount_to_add: 50, 
+        action_source: 'mission_completed' 
       });
 
       const nextSessionType: SessionType = 
@@ -261,8 +266,12 @@ export default function Focus() {
         : settings.short_break_duration;
       setTimeLeft(duration * 60);
       
-      sendNotification('Work Session Complete! 🎉', 'Great job! Time for a well-deserved break.');
-      toast.success('Work session completed! Time for a break.');
+      sendNotification('🎯 MISSION ACCOMPLISHED', `Operation complete! You've earned 50 XP, agent!`);
+      toast.success('🎯 Mission Complete! +50 XP');
+      
+      if (nextSessionType === 'long_break') {
+        sendNotification('🔋 EXTENDED RECHARGE', `Outstanding work, agent. ${settings.long_break_duration} minute debrief authorized.`);
+      }
       
       if (settings.auto_start_breaks) {
         setTimeout(() => startSession(nextSessionType), 1000);
@@ -270,8 +279,8 @@ export default function Focus() {
     } else {
       setSessionType('work');
       setTimeLeft(settings.work_duration * 60);
-      sendNotification('Break Finished!', 'Ready to focus again?');
-      toast.success('Break finished! Ready for another session?');
+      sendNotification('✅ Recovery Complete', 'Agent recharged. Ready for next operation.');
+      toast.success('Break complete! Ready for next mission');
       
       if (settings.auto_start_pomodoros) {
         setTimeout(() => startSession('work'), 1000);
@@ -491,9 +500,17 @@ export default function Focus() {
 
   const getSessionTitle = () => {
     switch (sessionType) {
-      case 'work': return 'Focus Time';
-      case 'short_break': return 'Short Break';
-      case 'long_break': return 'Long Break';
+      case 'work': return '🎯 MISSION ACTIVE';
+      case 'short_break': return '⏸️ TACTICAL PAUSE';
+      case 'long_break': return '🔋 RECHARGE SEQUENCE';
+    }
+  };
+
+  const getSessionSubtitle = () => {
+    switch (sessionType) {
+      case 'work': return 'Your mission, should you choose to accept it';
+      case 'short_break': return 'Agent recovering... Stand by';
+      case 'long_break': return 'Mission debrief in progress';
     }
   };
 
@@ -523,26 +540,48 @@ export default function Focus() {
   }, [timeLeft, isRunning, sessionType, isPipActive]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-destructive/10 p-6 relative overflow-hidden">
+      {/* Mission Impossible Grid Background */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(hsl(var(--destructive)) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--destructive)) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px'
+        }} />
+      </div>
+
       <AlertDialog open={showInactivityAlert} onOpenChange={setShowInactivityAlert}>
-        <AlertDialogContent>
+        <AlertDialogContent className="border-destructive/50">
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you still there? 🤔</AlertDialogTitle>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <Shield className="h-5 w-5 text-destructive" />
+              MISSION STATUS: COMPROMISED
+            </AlertDialogTitle>
             <AlertDialogDescription>
-              We noticed you haven't been active for a while. Are you still working on your task?
+              Agent, we've detected no activity. Mission abort protocol will initiate unless you confirm status immediately.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction onClick={handleStillThere}>
-              Yes, I'm still here!
+            <AlertDialogAction onClick={handleStillThere} className="bg-destructive hover:bg-destructive/90">
+              MISSION ACTIVE - RESUMING
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
 
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto space-y-6 relative z-10">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Pomodoro Focus</h1>
+          <div>
+            <h1 className="text-3xl font-bold uppercase tracking-wider flex items-center gap-2">
+              <Target className="h-8 w-8 text-destructive" />
+              TACTICAL FOCUS
+            </h1>
+            <p className="text-xs text-muted-foreground font-mono mt-1 tracking-widest">
+              CLASSIFIED OPERATION // LEVEL {completedSessions + 1}
+            </p>
+          </div>
           <div className="flex gap-2">
             <Button 
               variant="outline" 
@@ -566,116 +605,161 @@ export default function Focus() {
                   <Settings className="h-4 w-4" />
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="border-destructive/20">
               <DialogHeader>
-                <DialogTitle>Pomodoro Settings</DialogTitle>
+                <DialogTitle className="uppercase tracking-wider">Mission Parameters</DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
                 <div>
-                  <Label>Work Duration (minutes)</Label>
+                  <Label className="font-mono text-xs">WORK DURATION (minutes)</Label>
                   <Input
                     type="number"
                     value={settings.work_duration}
                     onChange={(e) => setSettings({ ...settings, work_duration: parseInt(e.target.value) })}
+                    className="font-mono"
                   />
                 </div>
                 <div>
-                  <Label>Short Break (minutes)</Label>
+                  <Label className="font-mono text-xs">SHORT BREAK (minutes)</Label>
                   <Input
                     type="number"
                     value={settings.short_break_duration}
                     onChange={(e) => setSettings({ ...settings, short_break_duration: parseInt(e.target.value) })}
+                    className="font-mono"
                   />
                 </div>
                 <div>
-                  <Label>Long Break (minutes)</Label>
+                  <Label className="font-mono text-xs">LONG BREAK (minutes)</Label>
                   <Input
                     type="number"
                     value={settings.long_break_duration}
                     onChange={(e) => setSettings({ ...settings, long_break_duration: parseInt(e.target.value) })}
+                    className="font-mono"
                   />
                 </div>
                 <div>
-                  <Label>Sessions before long break</Label>
+                  <Label className="font-mono text-xs">SESSIONS BEFORE LONG BREAK</Label>
                   <Input
                     type="number"
                     value={settings.sessions_before_long_break}
                     onChange={(e) => setSettings({ ...settings, sessions_before_long_break: parseInt(e.target.value) })}
+                    className="font-mono"
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label>Auto-start breaks</Label>
+                  <Label className="font-mono text-xs">AUTO-START BREAKS</Label>
                   <Switch
                     checked={settings.auto_start_breaks}
                     onCheckedChange={(checked) => setSettings({ ...settings, auto_start_breaks: checked })}
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label>Auto-start pomodoros</Label>
+                  <Label className="font-mono text-xs">AUTO-START MISSIONS</Label>
                   <Switch
                     checked={settings.auto_start_pomodoros}
                     onCheckedChange={(checked) => setSettings({ ...settings, auto_start_pomodoros: checked })}
                   />
                 </div>
-                <Button onClick={saveSettings} className="w-full">Save Settings</Button>
+                <Button onClick={saveSettings} className="w-full uppercase tracking-wider">
+                  Confirm Parameters
+                </Button>
               </div>
             </DialogContent>
             </Dialog>
           </div>
         </div>
 
-        <Card className="p-8 text-center space-y-6">
-          <h2 className="text-xl font-semibold text-muted-foreground">{getSessionTitle()}</h2>
-          <div className="text-8xl font-bold font-mono">{formatTime(timeLeft)}</div>
+        <Card className="p-8 text-center space-y-6 border-destructive/20 bg-card/50 backdrop-blur relative overflow-hidden">
+          {/* Red line accent at top */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-destructive to-transparent" />
+          
+          {/* Top secret watermark */}
+          <div className="absolute top-4 right-4 rotate-12 opacity-20">
+            <span className="text-xs font-bold text-destructive tracking-widest border border-destructive px-2 py-1">
+              TOP SECRET
+            </span>
+          </div>
+
+          <div className="space-y-2">
+            <h2 className="text-2xl font-bold uppercase tracking-widest text-destructive">{getSessionTitle()}</h2>
+            <p className="text-xs text-muted-foreground font-mono tracking-wider italic">
+              {getSessionSubtitle()}
+            </p>
+          </div>
+
+          {/* Timer display with crosshair */}
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center justify-center opacity-5">
+              <Crosshair className="h-64 w-64 text-destructive" />
+            </div>
+            <div className="text-8xl font-bold font-mono text-destructive relative z-10 tracking-wider">
+              {formatTime(timeLeft)}
+            </div>
+            {sessionType === 'work' && timeLeft <= 300 && timeLeft > 0 && (
+              <div className="text-sm text-destructive font-mono mt-2 animate-pulse">
+                ⚠️ MISSION CRITICAL - {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')} REMAINING
+              </div>
+            )}
+          </div>
           
           <div className="space-y-4">
-            <Select value={selectedTask} onValueChange={setSelectedTask}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select a task (optional)" />
-              </SelectTrigger>
-              <SelectContent>
-                {tasks.length === 0 ? (
-                  <SelectItem disabled value="no-tasks">No active tasks found</SelectItem>
-                ) : (
-                  tasks.map((task) => (
-                    <SelectItem key={task.id} value={task.id}>
-                      {task.description}
-                    </SelectItem>
-                  ))
-                )}
-              </SelectContent>
-            </Select>
+            <div className="border border-destructive/20 rounded-lg p-3 bg-destructive/5">
+              <Label className="text-xs font-mono text-muted-foreground tracking-wider">SELECT MISSION OBJECTIVE</Label>
+              <Select value={selectedTask} onValueChange={setSelectedTask}>
+                <SelectTrigger className="mt-2 font-mono">
+                  <SelectValue placeholder="[CLASSIFIED] - Choose target..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {tasks.length === 0 ? (
+                    <SelectItem disabled value="no-tasks">No active missions available</SelectItem>
+                  ) : (
+                    tasks.map((task) => (
+                      <SelectItem key={task.id} value={task.id} className="font-mono">
+                        🎯 {task.description}
+                      </SelectItem>
+                    ))
+                  )}
+                </SelectContent>
+              </Select>
+            </div>
 
             <div className="flex gap-4 justify-center">
               <Button
                 size="lg"
                 onClick={toggleTimer}
-                className="w-32"
+                className="w-40 uppercase tracking-wider bg-destructive hover:bg-destructive/90 font-bold"
               >
-                {isRunning ? <Pause className="mr-2 h-4 w-4" /> : <Play className="mr-2 h-4 w-4" />}
-                {isRunning ? 'Pause' : 'Start'}
+                {isRunning ? <Pause className="mr-2 h-5 w-5" /> : <Play className="mr-2 h-5 w-5" />}
+                {isRunning ? 'PAUSE' : 'INITIATE'}
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 onClick={skipSession}
                 disabled={!currentSessionId}
+                className="uppercase tracking-wider border-destructive/50 hover:bg-destructive/10"
               >
                 <SkipForward className="mr-2 h-4 w-4" />
-                Skip
+                ABORT
               </Button>
             </div>
           </div>
 
-          <div className="pt-4 border-t">
-            <p className="text-sm text-muted-foreground">
-              Completed sessions: {completedSessions} / {settings.sessions_before_long_break}
-            </p>
+          <div className="pt-4 border-t border-destructive/20">
+            <div className="flex items-center justify-center gap-2 text-sm font-mono">
+              <Shield className="h-4 w-4 text-destructive" />
+              <span className="text-muted-foreground">
+                OPERATIONS COMPLETED: <span className="text-destructive font-bold">{completedSessions}</span> / {settings.sessions_before_long_break}
+              </span>
+            </div>
           </div>
         </Card>
 
-        <div className="text-center text-sm text-muted-foreground">
-          <p>💡 25 minutes of focused work, then a 5-minute break</p>
+        <div className="text-center text-xs text-muted-foreground font-mono tracking-wider border border-destructive/10 rounded-lg p-4 bg-card/30 backdrop-blur">
+          <p className="flex items-center justify-center gap-2">
+            <Target className="h-3 w-3 text-destructive" />
+            This message will self-destruct after {settings.work_duration} minutes of focused work
+          </p>
         </div>
       </div>
 
