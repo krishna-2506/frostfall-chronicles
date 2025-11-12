@@ -59,16 +59,28 @@ export default function Tasks() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
-    const { data } = await supabase
+    // Only load active missions and last 5 completed/failed missions
+    const { data: activeMissions } = await supabase
       .from('missions')
       .select('*')
       .eq('user_id', user.id)
+      .eq('status', 'active')
       .order('created_at', { ascending: false });
 
-    if (data) {
-      setMissions(data);
-      if (data.length > 0 && !selectedMission) {
-        setSelectedMission(data[0].id);
+    const { data: recentMissions } = await supabase
+      .from('missions')
+      .select('*')
+      .eq('user_id', user.id)
+      .neq('status', 'active')
+      .order('created_at', { ascending: false })
+      .limit(5);
+
+    const allMissions = [...(activeMissions || []), ...(recentMissions || [])];
+    
+    if (allMissions.length > 0) {
+      setMissions(allMissions);
+      if (!selectedMission) {
+        setSelectedMission(allMissions[0].id);
       }
     }
   };

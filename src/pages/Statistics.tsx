@@ -99,20 +99,24 @@ export default function Statistics() {
         });
       }
 
-      // Project distribution
-      const missionMap = new Map();
+      // Group tasks by week instead of individual missions
+      const weekMap = new Map();
       tasks?.forEach(task => {
-        const missionId = task.mission_id;
-        if (!missionMap.has(missionId)) {
-          missionMap.set(missionId, {
-            name: `Mission ${new Date(task.missions.start_date).toLocaleDateString()}`,
+        const taskDate = new Date(task.missions.start_date);
+        const weekStart = new Date(taskDate);
+        weekStart.setDate(taskDate.getDate() - taskDate.getDay());
+        const weekKey = weekStart.toISOString().split('T')[0];
+        
+        if (!weekMap.has(weekKey)) {
+          weekMap.set(weekKey, {
+            name: `Week of ${weekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
             tasks: 0,
           });
         }
-        missionMap.get(missionId).tasks++;
+        weekMap.get(weekKey).tasks++;
       });
 
-      const projectDistribution = Array.from(missionMap.values());
+      const projectDistribution = Array.from(weekMap.values()).slice(-6); // Last 6 weeks
 
       setStats({
         totalPomodoros,
@@ -250,7 +254,7 @@ export default function Statistics() {
 
           <TabsContent value="projects">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Task Distribution by Mission</h3>
+              <h3 className="text-lg font-semibold mb-4">Task Distribution by Week</h3>
               <ResponsiveContainer width="100%" height={400}>
                 <PieChart>
                   <Pie

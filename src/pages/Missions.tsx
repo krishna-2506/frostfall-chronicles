@@ -32,20 +32,20 @@ const Missions = () => {
   const [timeRemaining, setTimeRemaining] = useState('');
   const [loading, setLoading] = useState(true);
 
-  // Calculate current 4-day period based on Winter Arc start date (Nov 1, 2024)
+  // Calculate current 2-day period based on Winter Arc start date (Nov 1, 2024)
   const calculateCurrentPeriod = () => {
     const arcStartDate = new Date('2024-11-01');
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
     const daysSinceStart = Math.floor((today.getTime() - arcStartDate.getTime()) / (1000 * 60 * 60 * 24));
-    const periodIndex = Math.floor(daysSinceStart / 4);
+    const periodIndex = Math.floor(daysSinceStart / 2);
     
     const periodStart = new Date(arcStartDate);
-    periodStart.setDate(periodStart.getDate() + (periodIndex * 4));
+    periodStart.setDate(periodStart.getDate() + (periodIndex * 2));
     
     const periodEnd = new Date(periodStart);
-    periodEnd.setDate(periodEnd.getDate() + 3);
+    periodEnd.setDate(periodEnd.getDate() + 1);
     
     return {
       start: periodStart.toISOString().split('T')[0],
@@ -77,11 +77,11 @@ const Missions = () => {
           return;
         }
 
-        // If mission is completed or failed, move to NEXT 4-day period immediately
+        // If mission is completed or failed, move to NEXT 2-day period immediately
         const nextStartDate = new Date(period.start);
-        nextStartDate.setDate(nextStartDate.getDate() + 4);
+        nextStartDate.setDate(nextStartDate.getDate() + 2);
         const nextEndDate = new Date(nextStartDate);
-        nextEndDate.setDate(nextEndDate.getDate() + 3);
+        nextEndDate.setDate(nextEndDate.getDate() + 1);
         const nextPeriod = {
           start: nextStartDate.toISOString().split('T')[0],
           end: nextEndDate.toISOString().split('T')[0]
@@ -340,8 +340,8 @@ const Missions = () => {
       <div className="mx-auto max-w-4xl space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold uppercase">4-Day Operations</h1>
-            <p className="text-sm text-muted-foreground font-mono mt-1">TACTICAL MISSION PLANNING</p>
+            <h1 className="text-4xl font-bold uppercase">2-Day Operations</h1>
+            <p className="text-sm text-muted-foreground font-mono mt-1">RAPID TACTICAL MISSIONS</p>
           </div>
           <Button variant="outline" onClick={() => navigate('/')}>
             <ArrowLeft className="mr-2 h-4 w-4" />
