@@ -333,10 +333,10 @@ export default function Focus() {
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw gradient background
+    // Draw Mission Impossible themed gradient background
     const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    gradient.addColorStop(0, '#667eea');
-    gradient.addColorStop(1, '#764ba2');
+    gradient.addColorStop(0, '#0a0a0a');
+    gradient.addColorStop(1, '#1a0a0a');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -359,19 +359,20 @@ export default function Focus() {
     
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, -Math.PI / 2, -Math.PI / 2 + (2 * Math.PI * progress));
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.strokeStyle = st === 'work' ? 'rgba(239, 68, 68, 0.5)' : 'rgba(251, 191, 36, 0.5)';
     ctx.lineWidth = 8;
     ctx.stroke();
 
     // Draw session type
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = st === 'work' ? '#ef4444' : '#fbbf24';
     ctx.font = 'bold 24px system-ui';
     ctx.textAlign = 'center';
-    const sessionLabel = st === 'work' ? 'Focus Time' : st === 'short_break' ? 'Short Break' : 'Long Break';
+    const sessionLabel = st === 'work' ? 'MISSION ACTIVE' : st === 'short_break' ? 'TACTICAL PAUSE' : 'RECHARGE';
     ctx.fillText(sessionLabel, centerX, centerY - 40);
 
     // Draw timer
     ctx.font = 'bold 72px monospace';
+    ctx.fillStyle = st === 'work' ? '#ef4444' : '#fbbf24';
     ctx.fillText(formatTime(tl), centerX, centerY + 30);
 
     // Draw status
