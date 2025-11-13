@@ -181,19 +181,26 @@ export default function Tasks() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-6">
       <div className="max-w-4xl mx-auto space-y-6">
+        {/* Mission Impossible Header */}
+        <div className="text-center space-y-2 border-b border-primary/20 pb-4">
+          <div className="flex items-center justify-center gap-2">
+            <Badge variant="destructive" className="bg-primary text-primary-foreground font-mono text-xs">CLASSIFIED</Badge>
+            <h1 className="text-3xl font-bold text-primary tracking-wider">MISSION OBJECTIVES</h1>
+          </div>
+          <p className="text-muted-foreground text-sm font-mono">TARGET ASSIGNMENT SYSTEM</p>
+        </div>
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Task Manager</h1>
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button>
-                <Plus className="mr-2 h-4 w-4" />
-                Add Task
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>Create New Task</DialogTitle>
-              </DialogHeader>
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-primary hover:bg-primary/80 text-primary-foreground font-bold tracking-wider shadow-[var(--glow-alert)] border border-primary/50">
+                  <Plus className="mr-2 h-4 w-4" />
+                  ADD TARGET
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-primary/30">
+                <DialogHeader>
+                  <DialogTitle className="text-primary font-bold tracking-wider">CREATE NEW TARGET</DialogTitle>
+                </DialogHeader>
               <div className="space-y-4">
                 <div>
                   <Label>Task Description</Label>
@@ -291,8 +298,8 @@ export default function Tasks() {
           </Dialog>
         </div>
 
-        <Card className="p-4">
-          <Label>Select Mission</Label>
+        <Card className="p-4 bg-card border-primary/20 shadow-[var(--shadow-tactical)]">
+          <Label className="text-primary font-mono tracking-wide">SELECT OPERATION</Label>
           <Select value={selectedMission} onValueChange={setSelectedMission}>
             <SelectTrigger>
               <SelectValue placeholder="Choose a mission" />
@@ -307,10 +314,18 @@ export default function Tasks() {
           </Select>
         </Card>
 
-        <div className="space-y-4">
-          {tasks.map((task) => (
-            <Card key={task.id} className="p-4 space-y-3">
-              <div className="flex items-start gap-3">
+        <Card className="p-6 bg-card border-primary/20 shadow-[var(--shadow-tactical)]">
+          <h2 className="text-xl font-semibold mb-4 text-primary font-mono tracking-wide">ACTIVE TARGETS</h2>
+          {tasks.length === 0 ? (
+            <div className="text-center py-8 border border-dashed border-primary/30 rounded-lg">
+              <p className="text-muted-foreground font-mono">NO ACTIVE TARGETS</p>
+              <p className="text-sm text-muted-foreground/60 mt-1">AWAITING MISSION ASSIGNMENT</p>
+            </div>
+          ) : (
+          <div className="space-y-4">
+            {tasks.map((task) => (
+              <Card key={task.id} className="p-4 space-y-3 border-primary/20 bg-card/50 hover:bg-card transition-colors">
+                <div className="flex items-start gap-3">
                 <Checkbox
                   checked={task.is_completed}
                   onCheckedChange={() => toggleTask(task.id, task.is_completed)}
@@ -389,8 +404,10 @@ export default function Tasks() {
                 </div>
               </div>
             </Card>
-          ))}
-        </div>
+            ))}
+          </div>
+          )}
+        </Card>
       </div>
     </div>
   );

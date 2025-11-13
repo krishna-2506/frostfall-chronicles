@@ -540,13 +540,13 @@ export default function Focus() {
   }, [timeLeft, isRunning, sessionType, isPipActive]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-destructive/10 p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/10 p-6 relative overflow-hidden">
       {/* Mission Impossible Grid Background */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute inset-0" style={{
           backgroundImage: `
-            linear-gradient(hsl(var(--destructive)) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--destructive)) 1px, transparent 1px)
+            linear-gradient(hsl(var(--primary)) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)
           `,
           backgroundSize: '50px 50px'
         }} />
@@ -575,8 +575,8 @@ export default function Focus() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold uppercase tracking-wider flex items-center gap-2">
-              <Target className="h-8 w-8 text-destructive" />
-              TACTICAL FOCUS
+              <Target className="h-8 w-8 text-primary animate-pulse" />
+              <span className="text-primary">TACTICAL FOCUS</span>
             </h1>
             <p className="text-xs text-muted-foreground font-mono mt-1 tracking-widest">
               CLASSIFIED OPERATION // LEVEL {completedSessions + 1}
@@ -605,9 +605,9 @@ export default function Focus() {
                   <Settings className="h-4 w-4" />
                 </Button>
               </DialogTrigger>
-              <DialogContent className="border-destructive/20">
+              <DialogContent className="border-primary/20 bg-card">
               <DialogHeader>
-                <DialogTitle className="uppercase tracking-wider">Mission Parameters</DialogTitle>
+                <DialogTitle className="uppercase tracking-wider text-primary font-mono">MISSION PARAMETERS</DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
                 <div>
@@ -669,19 +669,21 @@ export default function Focus() {
           </div>
         </div>
 
-        <Card className="p-8 text-center space-y-6 border-destructive/20 bg-card/50 backdrop-blur relative overflow-hidden">
+        <Card className="p-8 text-center space-y-6 border-primary/30 bg-card shadow-[var(--shadow-tactical)] relative overflow-hidden">
           {/* Red line accent at top */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-destructive to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent" style={{
+            boxShadow: 'var(--glow-alert)'
+          }} />
           
           {/* Top secret watermark */}
           <div className="absolute top-4 right-4 rotate-12 opacity-20">
-            <span className="text-xs font-bold text-destructive tracking-widest border border-destructive px-2 py-1">
+            <span className="text-xs font-bold text-primary tracking-widest border border-primary px-2 py-1">
               TOP SECRET
             </span>
           </div>
 
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold uppercase tracking-widest text-destructive">{getSessionTitle()}</h2>
+            <h2 className="text-2xl font-bold uppercase tracking-widest text-primary">{getSessionTitle()}</h2>
             <p className="text-xs text-muted-foreground font-mono tracking-wider italic">
               {getSessionSubtitle()}
             </p>
@@ -690,20 +692,22 @@ export default function Focus() {
           {/* Timer display with crosshair */}
           <div className="relative">
             <div className="absolute inset-0 flex items-center justify-center opacity-5">
-              <Crosshair className="h-64 w-64 text-destructive" />
+              <Crosshair className="h-64 w-64 text-primary" />
             </div>
-            <div className="text-8xl font-bold font-mono text-destructive relative z-10 tracking-wider">
+            <div className="text-8xl font-bold font-mono text-primary relative z-10 tracking-wider" style={{
+              textShadow: 'var(--glow-alert)'
+            }}>
               {formatTime(timeLeft)}
             </div>
             {sessionType === 'work' && timeLeft <= 300 && timeLeft > 0 && (
-              <div className="text-sm text-destructive font-mono mt-2 animate-pulse">
+              <div className="text-sm text-primary font-mono mt-2 animate-pulse">
                 ⚠️ MISSION CRITICAL - {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')} REMAINING
               </div>
             )}
           </div>
           
           <div className="space-y-4">
-            <div className="border border-destructive/20 rounded-lg p-3 bg-destructive/5">
+            <div className="border border-primary/20 rounded-lg p-3 bg-primary/5">
               <Label className="text-xs font-mono text-muted-foreground tracking-wider">SELECT MISSION OBJECTIVE</Label>
               <Select value={selectedTask} onValueChange={setSelectedTask}>
                 <SelectTrigger className="mt-2 font-mono">
@@ -727,7 +731,7 @@ export default function Focus() {
               <Button
                 size="lg"
                 onClick={toggleTimer}
-                className="w-40 uppercase tracking-wider bg-destructive hover:bg-destructive/90 font-bold"
+                className="w-40 uppercase tracking-wider bg-primary hover:bg-primary/90 font-bold shadow-[var(--glow-alert)] border border-primary/50"
               >
                 {isRunning ? <Pause className="mr-2 h-5 w-5" /> : <Play className="mr-2 h-5 w-5" />}
                 {isRunning ? 'PAUSE' : 'INITIATE'}
@@ -737,7 +741,7 @@ export default function Focus() {
                 variant="outline"
                 onClick={skipSession}
                 disabled={!currentSessionId}
-                className="uppercase tracking-wider border-destructive/50 hover:bg-destructive/10"
+                className="uppercase tracking-wider border-primary/50 hover:bg-primary/10"
               >
                 <SkipForward className="mr-2 h-4 w-4" />
                 ABORT
@@ -745,19 +749,19 @@ export default function Focus() {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-destructive/20">
+          <div className="pt-4 border-t border-primary/20">
             <div className="flex items-center justify-center gap-2 text-sm font-mono">
-              <Shield className="h-4 w-4 text-destructive" />
+              <Shield className="h-4 w-4 text-primary" />
               <span className="text-muted-foreground">
-                OPERATIONS COMPLETED: <span className="text-destructive font-bold">{completedSessions}</span> / {settings.sessions_before_long_break}
+                OPERATIONS COMPLETED: <span className="text-primary font-bold">{completedSessions}</span> / {settings.sessions_before_long_break}
               </span>
             </div>
           </div>
         </Card>
 
-        <div className="text-center text-xs text-muted-foreground font-mono tracking-wider border border-destructive/10 rounded-lg p-4 bg-card/30 backdrop-blur">
+        <div className="text-center text-xs text-muted-foreground font-mono tracking-wider border border-primary/10 rounded-lg p-4 bg-card/30 backdrop-blur">
           <p className="flex items-center justify-center gap-2">
-            <Target className="h-3 w-3 text-destructive" />
+            <Target className="h-3 w-3 text-primary" />
             This message will self-destruct after {settings.work_duration} minutes of focused work
           </p>
         </div>
