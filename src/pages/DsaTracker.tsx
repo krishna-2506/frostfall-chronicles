@@ -5,7 +5,6 @@ import { Progress } from '@/components/ui/progress';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
 import courseData from '@/data/dsa_playlist.json';
-import { Code2 } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,
@@ -132,92 +131,77 @@ export default function DsaTracker() {
   const totalVideos = Object.values(courseData as CourseData).flat().length;
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <div className="mb-4 flex items-center gap-3">
-            <Code2 className="h-8 w-8 text-primary" />
-            <h1 className="text-3xl font-bold uppercase tracking-wider">
-              Algorithm Combat Log
-            </h1>
+    <div className="max-w-4xl mx-auto space-y-6">
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight">DSA Progress</h1>
+        <p className="text-muted-foreground text-sm mt-1">Data Structures & Algorithms</p>
+      </div>
+
+      <Card className="border-border/50">
+        <CardContent className="pt-6">
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Overall Progress</span>
+              <span className="tabular-nums">{completedVideos.size} / {totalVideos}</span>
+            </div>
+            <Progress value={percentage} className="h-2" />
           </div>
-          <Card className="border-primary/20">
-            <CardContent className="pt-6">
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Overall Progress</span>
-                  <span className="font-mono">
-                    {completedVideos.size} / {totalVideos} lectures
-                  </span>
-                </div>
-                <Progress value={percentage} className="h-3" />
-                <div className="text-right text-xs text-muted-foreground">
-                  {Math.round(percentage)}% Complete
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        </CardContent>
+      </Card>
 
-        <Accordion type="multiple" className="space-y-4">
-          {Object.entries(courseData as CourseData).map(([section, videos]) => {
-            const progress = calculateSectionProgress(section, videos);
+      <Accordion type="multiple" className="space-y-3">
+        {Object.entries(courseData as CourseData).map(([section, videos]) => {
+          const progress = calculateSectionProgress(section, videos);
 
-            return (
-              <AccordionItem key={section} value={section} className="border-primary/20">
-                <Card className="border-primary/20">
-                  <AccordionTrigger className="hover:no-underline px-6 py-4">
-                    <div className="flex w-full items-center justify-between pr-4">
-                      <div className="text-left">
-                        <h3 className="font-semibold uppercase tracking-wide">{section}</h3>
-                        <div className="mt-2 flex items-center gap-4">
-                          <Progress value={progress} className="h-2 w-48" />
-                          <span className="text-sm text-primary font-mono">
-                            {Math.round(progress)}%
-                          </span>
-                        </div>
+          return (
+            <AccordionItem key={section} value={section} className="border-none">
+              <Card className="border-border/50">
+                <AccordionTrigger className="hover:no-underline px-4 py-3">
+                  <div className="flex w-full items-center justify-between pr-4">
+                    <div className="text-left flex-1">
+                      <h3 className="font-medium text-sm">{section}</h3>
+                      <div className="mt-2 flex items-center gap-3">
+                        <Progress value={progress} className="h-1.5 w-32" />
+                        <span className="text-xs text-muted-foreground tabular-nums">
+                          {Math.round(progress)}%
+                        </span>
                       </div>
                     </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4">
-                    <div className="space-y-2 pt-2">
-                      {videos.map((video) => {
-                        const key = `${section}|||${video.name}`;
-                        const isChecked = completedVideos.has(key);
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-4 pb-4">
+                  <div className="space-y-1 pt-2">
+                    {videos.map((video) => {
+                      const key = `${section}|||${video.name}`;
+                      const isChecked = completedVideos.has(key);
 
-                        return (
-                          <div
-                            key={video.name}
-                            className="flex items-start gap-3 rounded-md border border-border/50 bg-secondary/30 p-3 transition-colors hover:bg-secondary/50"
+                      return (
+                        <div
+                          key={video.name}
+                          className="flex items-center gap-3 rounded-md py-2 px-2 hover:bg-muted/50 transition-colors"
+                        >
+                          <Checkbox
+                            id={key}
+                            checked={isChecked}
+                            onCheckedChange={() => toggleVideo(section, video.name)}
+                          />
+                          <label
+                            htmlFor={key}
+                            className={`flex-1 cursor-pointer text-sm ${isChecked ? 'line-through text-muted-foreground' : ''}`}
                           >
-                            <Checkbox
-                              id={key}
-                              checked={isChecked}
-                              onCheckedChange={() => toggleVideo(section, video.name)}
-                              className="mt-0.5"
-                            />
-                            <label
-                              htmlFor={key}
-                              className="flex-1 cursor-pointer text-sm"
-                            >
-                              <div className={isChecked ? 'line-through text-muted-foreground' : ''}>
-                                {video.name}
-                              </div>
-                              <div className="text-xs text-muted-foreground">
-                                {video.duration_formatted}
-                              </div>
-                            </label>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </AccordionContent>
-                </Card>
-              </AccordionItem>
-            );
-          })}
-        </Accordion>
-      </div>
+                            {video.name}
+                          </label>
+                          <span className="text-xs text-muted-foreground">{video.duration_formatted}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </AccordionContent>
+              </Card>
+            </AccordionItem>
+          );
+        })}
+      </Accordion>
     </div>
   );
 }

@@ -1,311 +1,145 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
-import { useGamification } from '@/contexts/GamificationContext';
-import {
-  Shield,
-  Target,
-  Activity,
-  TrendingUp,
-  Clock,
-  Zap,
-  Calendar,
-  CheckCircle2,
-  AlertCircle,
-} from 'lucide-react';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Code2, Terminal, GraduationCap, Trophy } from "lucide-react";
+import dsaData from "@/data/dsa_playlist.json";
+import mlData from "@/data/course_tracker.json";
+import semesterData from "@/data/firstsem.json";
 
-interface DashboardStats {
-  perfectDays: number;
-  activeMissionTasks: number;
-  completedToday: number;
-  healthStatus: {
-    wakeup: boolean;
-    workout: boolean;
-    sleep: boolean;
-  };
-}
+type CourseData = { [section: string]: { name: string }[] };
+type SemesterData = { [course: string]: { credits: number; modules: { [m: string]: string[] } } };
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-  const { level, totalXp, xpToNextLevel, progressPercentage } = useGamification();
-  const [stats, setStats] = useState<DashboardStats>({
-    perfectDays: 0,
-    activeMissionTasks: 0,
-    completedToday: 0,
-    healthStatus: { wakeup: false, workout: false, sleep: false },
-  });
+  const [completedItems, setCompletedItems] = useState<Set<string>>(new Set());
+  const [totalXp, setTotalXp] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadDashboardData();
+    loadData();
   }, []);
 
-  const loadDashboardData = async () => {
+  const loadData = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
-      const today = new Date().toISOString().split('T')[0];
+      const [progressRes, statsRes] = await Promise.all([
+        supabase.from("course_progress").select("section_name, video_name").eq("user_id", user.id).eq("completed", true),
+        supabase.from("user_stats").select("total_xp").eq("user_id", user.id).maybeSingle(),
+      ]);
 
-      // Load perfect days count
-      const { data: healthLogs } = await supabase
-        .from('health_logs')
-        .select('log_date, log_type, value')
-        .eq('user_id', user.id);
-
-      const logsByDate = new Map<string, Map<string, number>>();
-      healthLogs?.forEach(log => {
-        if (!logsByDate.has(log.log_date)) {
-          logsByDate.set(log.log_date, new Map());
-        }
-        logsByDate.get(log.log_date)!.set(log.log_type, log.value);
-      });
-
-      let perfectDaysCount = 0;
-      logsByDate.forEach((logs) => {
-        const wakeup = logs.get('wakeup');
-        const pushups = logs.get('pushups');
-        const workHours = logs.get('work_hours');
-        if (
-          wakeup !== undefined && wakeup <= 450 &&
-          pushups !== undefined && pushups >= 5 &&
-          workHours !== undefined && workHours >= 600
-        ) {
-          perfectDaysCount++;
-        }
-      });
-
-      // Check today's vitals
-      const todayLogs = logsByDate.get(today);
-      const healthStatus = {
-        wakeup: todayLogs?.has('wakeup') || false,
-        workout: todayLogs?.has('pushups') || todayLogs?.has('running_km') || false,
-        sleep: todayLogs?.has('sleep_hours') || false,
-      };
-
-      // Load active mission tasks
-      const { data: tasks } = await supabase
-        .from('mission_tasks')
-        .select('id, is_completed')
-        .eq('user_id', user.id);
-
-      const activeTasks = tasks?.filter(t => !t.is_completed).length || 0;
-      const completedToday = tasks?.filter(t => t.is_completed).length || 0;
-
-      setStats({
-        perfectDays: perfectDaysCount,
-        activeMissionTasks: activeTasks,
-        completedToday,
-        healthStatus,
-      });
-    } catch (error) {
-      console.error('Failed to load dashboard:', error);
+      if (progressRes.data) {
+        setCompletedItems(new Set(progressRes.data.map((i) => `${i.section_name}|||${i.video_name}`)));
+      }
+      setTotalXp(statsRes.data?.total_xp || 0);
+    } catch (e) {
+      console.error(e);
     } finally {
       setLoading(false);
     }
   };
 
+  const countTotal = (data: CourseData) => Object.values(data).flat().length;
+  const countCompleted = (data: CourseData) => 
+    Object.entries(data).flatMap(([s, items]) => items.filter((i) => completedItems.has(`${s}|||${i.name}`))).length;
+
+  const countSemesterTotal = () => {
+    let t = 0;
+    Object.values(semesterData as SemesterData).forEach((c) => {
+      Object.values(c.modules).forEach((topics) => (t += topics.length));
+    });
+    return t;
+  };
+
+  const countSemesterCompleted = () => {
+    let c = 0;
+    Object.values(semesterData as SemesterData).forEach((course) => {
+      Object.entries(course.modules).forEach(([m, topics]) => {
+        topics.forEach((t) => {
+          if (completedItems.has(`${m}|||${t}`)) c++;
+        });
+      });
+    });
+    return c;
+  };
+
+  const dsaTotal = countTotal(dsaData as CourseData);
+  const dsaCompleted = countCompleted(dsaData as CourseData);
+  const mlTotal = countTotal(mlData as CourseData);
+  const mlCompleted = countCompleted(mlData as CourseData);
+  const semTotal = countSemesterTotal();
+  const semCompleted = countSemesterCompleted();
+
+  const level = Math.floor(Math.sqrt(totalXp / 100)) + 1;
+
+  const courses = [
+    { name: "DSA", icon: Code2, completed: dsaCompleted, total: dsaTotal, href: "/dsa", color: "text-primary" },
+    { name: "ML Course", icon: Terminal, completed: mlCompleted, total: mlTotal, href: "/ml-course", color: "text-accent" },
+    { name: "Semester", icon: GraduationCap, completed: semCompleted, total: semTotal, href: "/semester", color: "text-muted-foreground" },
+  ];
+
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[calc(100vh-3.5rem)]">
-        <div className="text-center space-y-2">
-          <Shield className="h-12 w-12 animate-pulse text-primary mx-auto" />
-          <p className="text-sm font-mono text-muted-foreground">INITIALIZING MISSION CONTROL...</p>
-        </div>
+      <div className="flex items-center justify-center py-20">
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
       </div>
     );
   }
 
-  const isPerfectDay = stats.healthStatus.wakeup && stats.healthStatus.workout;
-
   return (
-    <div className="min-h-[calc(100vh-3.5rem)] bg-gradient-to-br from-background via-background to-primary/5">
-      {/* Grid Background Effect */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(var(--primary-rgb,239,68,68)/0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(var(--primary-rgb,239,68,68)/0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000,transparent)]" />
+    <div className="space-y-8 max-w-4xl mx-auto">
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
+        <p className="text-muted-foreground text-sm mt-1">Track your learning progress</p>
+      </div>
 
-      <div className="relative container mx-auto px-4 py-8 space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold font-mono text-primary tracking-tight">
-              MISSION CONTROL
-            </h1>
-            <p className="text-sm text-muted-foreground font-mono mt-1">
-              Tactical Operations Dashboard // Clearance Level {level}
-            </p>
+      {/* XP Card */}
+      <Card className="border-border/50">
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+              <Trophy className="h-6 w-6 text-primary" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-bold">{totalXp.toLocaleString()}</span>
+                <span className="text-muted-foreground text-sm">XP</span>
+              </div>
+              <p className="text-sm text-muted-foreground">Level {level}</p>
+            </div>
           </div>
-          {isPerfectDay && (
-            <Badge className="bg-accent text-accent-foreground font-mono">
-              <CheckCircle2 className="h-3 w-3 mr-1" />
-              PERFECT DAY STATUS
-            </Badge>
-          )}
-        </div>
+        </CardContent>
+      </Card>
 
-        {/* Main Stats Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {/* Operator Level */}
-          <Card className="border-primary/20 shadow-[var(--shadow-tactical)] bg-card/95 backdrop-blur">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-mono text-muted-foreground flex items-center gap-2">
-                <Shield className="h-4 w-4 text-primary" />
-                OPERATOR LEVEL
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-4xl font-bold font-mono text-primary mb-2">{level}</div>
-              <Progress value={progressPercentage} className="h-2 mb-2" />
-              <p className="text-xs text-muted-foreground font-mono">
-                {totalXp} / {totalXp + xpToNextLevel} XP
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* Perfect Days */}
-          <Card className="border-primary/20 shadow-[var(--shadow-tactical)] bg-card/95 backdrop-blur">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-mono text-muted-foreground flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-accent" />
-                PERFECT DAYS
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-4xl font-bold font-mono text-accent mb-2">{stats.perfectDays}</div>
-              <p className="text-xs text-muted-foreground font-mono">
-                Flawless operations completed
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* Active Missions */}
-          <Card className="border-primary/20 shadow-[var(--shadow-tactical)] bg-card/95 backdrop-blur">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-mono text-muted-foreground flex items-center gap-2">
-                <Target className="h-4 w-4 text-tech" />
-                ACTIVE TARGETS
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-4xl font-bold font-mono text-tech mb-2">{stats.activeMissionTasks}</div>
-              <p className="text-xs text-muted-foreground font-mono">
-                Objectives awaiting completion
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* Completed Today */}
-          <Card className="border-primary/20 shadow-[var(--shadow-tactical)] bg-card/95 backdrop-blur">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-mono text-muted-foreground flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-success" />
-                TODAY'S PROGRESS
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-4xl font-bold font-mono text-success mb-2">{stats.completedToday}</div>
-              <p className="text-xs text-muted-foreground font-mono">
-                Missions accomplished
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Vitals Status & Quick Actions */}
-        <div className="grid gap-6 lg:grid-cols-2">
-          {/* Vitals Monitor */}
-          <Card className="border-primary/20 shadow-[var(--shadow-tactical)] bg-card/95 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-base font-mono text-foreground flex items-center gap-2">
-                <Activity className="h-5 w-5 text-primary" />
-                VITALS STATUS
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex items-center justify-between p-3 rounded-md border border-border/50 bg-background/50">
-                <div className="flex items-center gap-3">
-                  <Clock className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-mono text-sm">Morning Protocol</span>
-                </div>
-                {stats.healthStatus.wakeup ? (
-                  <CheckCircle2 className="h-5 w-5 text-success" />
-                ) : (
-                  <AlertCircle className="h-5 w-5 text-muted-foreground" />
-                )}
-              </div>
-              <div className="flex items-center justify-between p-3 rounded-md border border-border/50 bg-background/50">
-                <div className="flex items-center gap-3">
-                  <Zap className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-mono text-sm">Physical Training</span>
-                </div>
-                {stats.healthStatus.workout ? (
-                  <CheckCircle2 className="h-5 w-5 text-success" />
-                ) : (
-                  <AlertCircle className="h-5 w-5 text-muted-foreground" />
-                )}
-              </div>
-              <Button
-                onClick={() => navigate('/health')}
-                variant="outline"
-                className="w-full font-mono border-primary/20 hover:bg-primary/10"
-              >
-                ACCESS HEALTH CENTER
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Quick Actions */}
-          <Card className="border-primary/20 shadow-[var(--shadow-tactical)] bg-card/95 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-base font-mono text-foreground flex items-center gap-2">
-                <Target className="h-5 w-5 text-primary" />
-                QUICK OPERATIONS
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Button
-                onClick={() => navigate('/health')}
-                className="w-full justify-start font-mono bg-primary hover:bg-primary/90"
-              >
-                <Activity className="h-4 w-4 mr-2" />
-                LOG DAILY PROTOCOL
-              </Button>
-              <Button
-                onClick={() => navigate('/focus')}
-                variant="outline"
-                className="w-full justify-start font-mono border-tech/50 text-tech hover:bg-tech/10"
-              >
-                <Target className="h-4 w-4 mr-2" />
-                INITIATE FOCUS MODE
-              </Button>
-              <Button
-                onClick={() => navigate('/tasks')}
-                variant="outline"
-                className="w-full justify-start font-mono border-accent/50 text-accent hover:bg-accent/10"
-              >
-                <CheckCircle2 className="h-4 w-4 mr-2" />
-                VIEW MISSION OBJECTIVES
-              </Button>
-              <Button
-                onClick={() => navigate('/missions')}
-                variant="outline"
-                className="w-full justify-start font-mono border-border/50 hover:bg-muted/50"
-              >
-                <Shield className="h-4 w-4 mr-2" />
-                ACCESS MISSION LOG
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Classification Notice */}
-        <div className="text-center py-4">
-          <p className="text-[10px] font-mono text-muted-foreground/50 tracking-widest">
-            CLASSIFIED // FOR AUTHORIZED PERSONNEL ONLY
-          </p>
+      {/* Course Progress */}
+      <div className="space-y-4">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Progress</h2>
+        <div className="grid gap-4">
+          {courses.map((course) => {
+            const pct = course.total > 0 ? (course.completed / course.total) * 100 : 0;
+            return (
+              <Link key={course.name} to={course.href}>
+                <Card className="border-border/50 hover:border-border transition-colors">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-4">
+                      <course.icon className={`h-5 w-5 ${course.color}`} />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="font-medium">{course.name}</span>
+                          <span className="text-sm text-muted-foreground tabular-nums">
+                            {course.completed}/{course.total}
+                          </span>
+                        </div>
+                        <Progress value={pct} className="h-1.5" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>
