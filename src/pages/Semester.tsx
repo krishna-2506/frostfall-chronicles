@@ -161,111 +161,91 @@ export default function Semester() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background p-4">
-        <div className="container mx-auto">
-          <Card>
-            <CardContent className="p-8">
-              <div className="animate-pulse">Loading Academic Dossier...</div>
-            </CardContent>
-          </Card>
-        </div>
+      <div className="flex items-center justify-center py-20">
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <div className="container mx-auto space-y-6">
-        <Card className="border-primary/20">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold tracking-tight">
-              ACADEMIC DOSSIER - SEMESTER 1
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Overall Progress</span>
-                <span className="font-mono">
-                  {overallProgress.completed} / {overallProgress.total} Topics
-                </span>
-              </div>
-              <Progress value={overallProgress.percentage} className="h-2" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Accordion type="multiple" className="space-y-4">
-          {Object.entries(semesterData as SemesterData).map(([courseName, courseData]) => {
-            const courseProgress = calculateCourseProgress(courseData.modules);
-            
-            return (
-              <AccordionItem key={courseName} value={courseName} className="border-none">
-                <Card>
-                  <AccordionTrigger className="px-6 py-4 hover:no-underline">
-                    <div className="flex flex-col gap-2 text-left w-full">
-                      <div className="flex items-center justify-between w-full pr-4">
-                        <span className="font-semibold">{courseName}</span>
-                        <span className="text-sm text-muted-foreground">
-                          {courseData.credits} Credits
-                        </span>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="flex justify-between text-xs text-muted-foreground">
-                          <span>{courseProgress.completed} / {courseProgress.total} Topics</span>
-                          <span>{Math.round(courseProgress.percentage)}%</span>
-                        </div>
-                        <Progress value={courseProgress.percentage} className="h-1.5" />
-                      </div>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4">
-                    <Accordion type="multiple" className="space-y-2">
-                      {Object.entries(courseData.modules).map(([moduleName, topics]) => (
-                        <AccordionItem
-                          key={moduleName}
-                          value={moduleName}
-                          className="border rounded-lg"
-                        >
-                          <AccordionTrigger className="px-4 py-2 text-sm hover:no-underline">
-                            {moduleName}
-                          </AccordionTrigger>
-                          <AccordionContent className="px-4 pb-2">
-                            <div className="space-y-2">
-                              {topics.map((topic) => {
-                                const key = `${moduleName}|||${topic}`;
-                                const isChecked = completedTopics.has(key);
-                                
-                                return (
-                                  <div
-                                    key={topic}
-                                    className="flex items-start gap-3 py-2 px-2 rounded hover:bg-muted/50 transition-colors"
-                                  >
-                                    <Checkbox
-                                      checked={isChecked}
-                                      onCheckedChange={() =>
-                                        toggleTopic(moduleName, topic, topics)
-                                      }
-                                      className="mt-0.5"
-                                    />
-                                    <label className="text-sm cursor-pointer flex-1">
-                                      {topic}
-                                    </label>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      ))}
-                    </Accordion>
-                  </AccordionContent>
-                </Card>
-              </AccordionItem>
-            );
-          })}
-        </Accordion>
+    <div className="max-w-4xl mx-auto space-y-6">
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight">Semester</h1>
+        <p className="text-muted-foreground text-sm mt-1">First Semester Progress</p>
       </div>
+
+      <Card className="border-border/50">
+        <CardContent className="pt-6">
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Overall Progress</span>
+              <span className="tabular-nums">{overallProgress.completed} / {overallProgress.total}</span>
+            </div>
+            <Progress value={overallProgress.percentage} className="h-2" />
+          </div>
+        </CardContent>
+      </Card>
+
+      <Accordion type="multiple" className="space-y-3">
+        {Object.entries(semesterData as SemesterData).map(([courseName, courseData]) => {
+          const courseProgress = calculateCourseProgress(courseData.modules);
+          
+          return (
+            <AccordionItem key={courseName} value={courseName} className="border-none">
+              <Card className="border-border/50">
+                <AccordionTrigger className="px-4 py-3 hover:no-underline">
+                  <div className="flex flex-col gap-2 text-left w-full">
+                    <div className="flex items-center justify-between w-full pr-4">
+                      <span className="font-medium text-sm">{courseName}</span>
+                      <span className="text-xs text-muted-foreground">{courseData.credits} Credits</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Progress value={courseProgress.percentage} className="h-1.5 w-32" />
+                      <span className="text-xs text-muted-foreground tabular-nums">
+                        {courseProgress.completed}/{courseProgress.total}
+                      </span>
+                    </div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-4 pb-4">
+                  <Accordion type="multiple" className="space-y-2">
+                    {Object.entries(courseData.modules).map(([moduleName, topics]) => (
+                      <AccordionItem key={moduleName} value={moduleName} className="border rounded-md border-border/50">
+                        <AccordionTrigger className="px-3 py-2 text-sm hover:no-underline">
+                          {moduleName}
+                        </AccordionTrigger>
+                        <AccordionContent className="px-3 pb-2">
+                          <div className="space-y-1">
+                            {topics.map((topic) => {
+                              const key = `${moduleName}|||${topic}`;
+                              const isChecked = completedTopics.has(key);
+                              
+                              return (
+                                <div
+                                  key={topic}
+                                  className="flex items-center gap-3 py-2 px-2 rounded hover:bg-muted/50 transition-colors"
+                                >
+                                  <Checkbox
+                                    checked={isChecked}
+                                    onCheckedChange={() => toggleTopic(moduleName, topic, topics)}
+                                  />
+                                  <label className={`text-sm cursor-pointer flex-1 ${isChecked ? 'line-through text-muted-foreground' : ''}`}>
+                                    {topic}
+                                  </label>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </AccordionContent>
+              </Card>
+            </AccordionItem>
+          );
+        })}
+      </Accordion>
     </div>
   );
 }

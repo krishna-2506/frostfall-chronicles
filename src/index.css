@@ -2,63 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Minimal Dark Theme - Clean Academic Tracker */
 
 @layer base {
   :root {
-    /* Mission Impossible Theme - Tactical Dark */
-    --background: 0 0% 4%;
-    --foreground: 0 0% 98%;
+    --background: 220 20% 4%;
+    --foreground: 220 10% 94%;
 
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 98%;
+    --card: 220 18% 7%;
+    --card-foreground: 220 10% 94%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 220 18% 7%;
+    --popover-foreground: 220 10% 94%;
 
-    --primary: 0 84% 60%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 220 80% 60%;
+    --primary-foreground: 220 10% 98%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 220 15% 12%;
+    --secondary-foreground: 220 10% 90%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 220 15% 15%;
+    --muted-foreground: 220 10% 55%;
 
-    --accent: 45 96% 56%;
-    --accent-foreground: 0 0% 4%;
+    --accent: 160 60% 45%;
+    --accent-foreground: 160 10% 98%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 12%;
-    --ring: 0 84% 60%;
+    --border: 220 15% 15%;
+    --input: 220 15% 12%;
+    --ring: 220 80% 60%;
 
-    --success: 45 96% 56%;
-    --success-foreground: 0 0% 4%;
-
-    --tech: 217 91% 60%;
-    --tech-foreground: 0 0% 98%;
+    --success: 160 60% 45%;
+    --success-foreground: 160 10% 98%;
 
     --radius: 0.5rem;
 
-    /* Mission gradients */
-    --gradient-alert: linear-gradient(135deg, hsl(0 84% 60%) 0%, hsl(0 84% 45%) 100%);
-    --gradient-success: linear-gradient(135deg, hsl(45 96% 56%) 0%, hsl(45 96% 45%) 100%);
-    --gradient-tech: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(217 91% 45%) 100%);
-    --gradient-tactical: linear-gradient(180deg, hsl(0 0% 4%) 0%, hsl(0 0% 8%) 100%);
-    
-    /* Tactical effects */
-    --glow-alert: 0 0 30px hsl(0 84% 60% / 0.3);
-    --glow-success: 0 0 30px hsl(45 96% 56% / 0.3);
-    --glow-tech: 0 0 30px hsl(217 91% 60% / 0.3);
-    --shadow-tactical: 0 10px 40px hsl(0 0% 0% / 0.5);
-    
-    /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --sidebar-background: 220 20% 5%;
+    --sidebar-foreground: 220 10% 70%;
+    --sidebar-primary: 220 80% 60%;
+    --sidebar-primary-foreground: 220 10% 98%;
+    --sidebar-accent: 220 15% 12%;
+    --sidebar-accent-foreground: 220 10% 94%;
+    --sidebar-border: 220 15% 12%;
+    --sidebar-ring: 220 80% 60%;
   }
 }
 
@@ -68,6 +56,26 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
 }
