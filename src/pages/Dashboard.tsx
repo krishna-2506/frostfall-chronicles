@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Code2, Terminal, GraduationCap, Trophy } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Code2, Terminal, GraduationCap, Trophy, Timer } from "lucide-react";
+import { DailyStreak } from "@/components/DailyStreak";
 import dsaData from "@/data/dsa_playlist.json";
 import mlData from "@/data/course_tracker.json";
 import semesterData from "@/data/firstsem.json";
@@ -90,9 +92,20 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground text-sm mt-1">Track your learning progress</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
+          <p className="text-muted-foreground text-sm mt-1">Track your learning progress</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <DailyStreak />
+          <Link to="/focus">
+            <Button variant="outline" size="sm" className="gap-2">
+              <Timer className="h-4 w-4" />
+              Focus
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {/* XP Card */}

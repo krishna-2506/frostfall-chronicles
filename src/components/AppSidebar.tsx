@@ -6,6 +6,7 @@ import {
   Code2,
   Terminal,
   GraduationCap,
+  Timer,
   LogOut,
 } from "lucide-react";
 import {
@@ -24,6 +25,7 @@ import { Button } from "@/components/ui/button";
 
 const navItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { title: "Focus", url: "/focus", icon: Timer },
   { title: "DSA", url: "/dsa", icon: Code2 },
   { title: "ML Course", url: "/ml-course", icon: Terminal },
   { title: "Semester", url: "/semester", icon: GraduationCap },
