@@ -8,6 +8,7 @@ import { AppSidebar } from "./components/AppSidebar";
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "./components/ui/sidebar";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
+import Focus from "./pages/Focus";
 import DsaTracker from "./pages/DsaTracker";
 import DsCourse from "./pages/DsCourse";
 import Semester from "./pages/Semester";
@@ -40,6 +41,7 @@ const App = () => (
         <Routes>
           <Route path="/auth" element={<Auth />} />
           <Route path="/" element={<AuthGuard><AppLayout><Dashboard /></AppLayout></AuthGuard>} />
+          <Route path="/focus" element={<AuthGuard><AppLayout><Focus /></AppLayout></AuthGuard>} />
           <Route path="/dsa" element={<AuthGuard><AppLayout><DsaTracker /></AppLayout></AuthGuard>} />
           <Route path="/ml-course" element={<AuthGuard><AppLayout><DsCourse /></AppLayout></AuthGuard>} />
           <Route path="/semester" element={<AuthGuard><AppLayout><Semester /></AppLayout></AuthGuard>} />
