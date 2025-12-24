@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Play, Pause, SkipForward, Settings, Maximize2, Bell, Target, Shield, Crosshair } from "lucide-react";
+import { Play, Pause, SkipForward, Settings, Maximize2, Bell } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -30,7 +29,6 @@ interface PomodoroSettings {
 type SessionType = 'work' | 'short_break' | 'long_break';
 
 export default function Focus() {
-  const navigate = useNavigate();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [selectedTask, setSelectedTask] = useState<string>("");
   const [settings, setSettings] = useState<PomodoroSettings>({
@@ -57,7 +55,6 @@ export default function Focus() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pipAnimationRef = useRef<number | null>(null);
-  // Refs to avoid stale state in PiP animation
   const timeLeftRef = useRef(timeLeft);
   const isRunningRef = useRef(isRunning);
   const sessionTypeRef = useRef<SessionType>(sessionType);
@@ -68,10 +65,8 @@ export default function Focus() {
     loadTasks();
     requestNotificationPermission();
     
-    // Create audio element for notification
     audioRef.current = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIF2W66+ifUhELTqXh8LdlHQQ0j9nyy3ooBS55y/LahTcJF2W67+mjUhELTKPf8Ldk');
     
-    // Track user activity
     const handleActivity = () => {
       lastActivityRef.current = Date.now();
     };
@@ -96,44 +91,40 @@ export default function Focus() {
             return 0;
           }
           
-          // Send notification at 5 minutes remaining
           if (prev === 300 && sessionType === 'work') {
-            sendNotification('⚠️ MISSION CRITICAL', 'T-minus 5 minutes until mission completion. Stay focused, agent!');
+            sendNotification('5 minutes left', 'Keep going!');
           }
           
-          // Send notification at 1 minute remaining
           if (prev === 60 && sessionType === 'work') {
-            sendNotification('🎯 FINAL COUNTDOWN', 'One minute remaining. Execute with precision!');
+            sendNotification('1 minute left', 'Almost there!');
           }
           
           return prev - 1;
         });
       }, 1000);
       
-      // Schedule random inactivity checks during work sessions
       if (sessionType === 'work') {
         const scheduleInactivityCheck = () => {
           if (inactivityCheckRef.current) clearTimeout(inactivityCheckRef.current);
           
           let nextCheckMinutes: number;
           if (inactivityCheckCountRef.current === 0) {
-            nextCheckMinutes = 15; // First check at 15 minutes
+            nextCheckMinutes = 15;
           } else if (inactivityCheckCountRef.current === 1) {
-            nextCheckMinutes = 25; // Second check at 25 minutes
+            nextCheckMinutes = 25;
           } else {
-            // Random between 20-40 minutes for subsequent checks
             nextCheckMinutes = Math.floor(Math.random() * 21) + 20;
           }
           
           inactivityCheckRef.current = setTimeout(() => {
             const inactiveMinutes = (Date.now() - lastActivityRef.current) / 1000 / 60;
             if (inactiveMinutes >= nextCheckMinutes) {
-              sendNotification('🔴 MISSION STATUS: COMPROMISED', 'Agent, we have detected no activity. Confirm mission status immediately.');
+              sendNotification('Still there?', 'No activity detected. Timer paused.');
               setShowInactivityAlert(true);
               setIsRunning(false);
             }
             inactivityCheckCountRef.current++;
-            scheduleInactivityCheck(); // Schedule next check
+            scheduleInactivityCheck();
           }, nextCheckMinutes * 60 * 1000);
         };
         
@@ -150,7 +141,6 @@ export default function Focus() {
     };
   }, [isRunning, sessionType]);
 
-  // Keep refs in sync to avoid stale state in PiP animation
   useEffect(() => {
     timeLeftRef.current = timeLeft;
     isRunningRef.current = isRunning;
@@ -177,7 +167,6 @@ export default function Focus() {
       setSettings(data);
       setTimeLeft(data.work_duration * 60);
     } else {
-      // Create default settings
       await supabase.from('pomodoro_settings').insert({
         user_id: user.id,
         ...settings
@@ -194,7 +183,7 @@ export default function Focus() {
 
   const sendNotification = (title: string, body: string) => {
     if (notificationsEnabled && 'Notification' in window) {
-      new Notification(title, { body, icon: '/favicon.ico', badge: '/favicon.ico' });
+      new Notification(title, { body, icon: '/favicon.ico' });
     }
   };
 
@@ -202,7 +191,6 @@ export default function Focus() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
-    // Try active mission first
     const { data: missions } = await supabase
       .from('missions')
       .select('id')
@@ -223,7 +211,6 @@ export default function Focus() {
       }
     }
 
-    // Fallback: show all incomplete tasks for the user
     const { data: allTasks } = await supabase
       .from('mission_tasks')
       .select('*')
@@ -249,10 +236,9 @@ export default function Focus() {
       const newCompletedSessions = completedSessions + 1;
       setCompletedSessions(newCompletedSessions);
       
-      // Award XP for completed pomodoro
       await supabase.rpc('award_xp', { 
         amount_to_add: 50, 
-        action_source: 'mission_completed' 
+        action_source: 'pomodoro_completed' 
       });
 
       const nextSessionType: SessionType = 
@@ -266,12 +252,8 @@ export default function Focus() {
         : settings.short_break_duration;
       setTimeLeft(duration * 60);
       
-      sendNotification('🎯 MISSION ACCOMPLISHED', `Operation complete! You've earned 50 XP, agent!`);
-      toast.success('🎯 Mission Complete! +50 XP');
-      
-      if (nextSessionType === 'long_break') {
-        sendNotification('🔋 EXTENDED RECHARGE', `Outstanding work, agent. ${settings.long_break_duration} minute debrief authorized.`);
-      }
+      sendNotification('Session complete!', 'You earned 50 XP. Take a break.');
+      toast.success('Session complete! +50 XP');
       
       if (settings.auto_start_breaks) {
         setTimeout(() => startSession(nextSessionType), 1000);
@@ -279,8 +261,8 @@ export default function Focus() {
     } else {
       setSessionType('work');
       setTimeLeft(settings.work_duration * 60);
-      sendNotification('✅ Recovery Complete', 'Agent recharged. Ready for next operation.');
-      toast.success('Break complete! Ready for next mission');
+      sendNotification('Break over', 'Ready for another session?');
+      toast.success('Break complete!');
       
       if (settings.auto_start_pomodoros) {
         setTimeout(() => startSession('work'), 1000);
@@ -315,11 +297,8 @@ export default function Focus() {
       setIsRunning(true);
       lastActivityRef.current = Date.now();
       
-      const title = type === 'work' ? 'Focus Time Started!' : 'Break Time Started!';
-      const body = type === 'work' 
-        ? `${duration} minutes of focused work ahead. You've got this!`
-        : `${duration} minutes to relax and recharge.`;
-      sendNotification(title, body);
+      const title = type === 'work' ? 'Focus started' : 'Break started';
+      sendNotification(title, `${duration} minutes`);
     }
   };
 
@@ -330,17 +309,12 @@ export default function Focus() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw Mission Impossible themed gradient background
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    gradient.addColorStop(0, '#0a0a0a');
-    gradient.addColorStop(1, '#1a0a0a');
-    ctx.fillStyle = gradient;
+    // Simple dark background
+    ctx.fillStyle = '#0a0a0a';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Calculate progress using refs (prevents stale state)
     const st = sessionTypeRef.current;
     const s = settingsRef.current;
     const tl = timeLeftRef.current;
@@ -352,33 +326,33 @@ export default function Focus() {
       : s.long_break_duration * 60;
     const progress = ((totalTime - tl) / totalTime);
 
-    // Draw progress arc
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
     const radius = Math.min(centerX, centerY) - 40;
     
+    // Progress arc
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, -Math.PI / 2, -Math.PI / 2 + (2 * Math.PI * progress));
-    ctx.strokeStyle = st === 'work' ? 'rgba(239, 68, 68, 0.5)' : 'rgba(251, 191, 36, 0.5)';
-    ctx.lineWidth = 8;
+    ctx.strokeStyle = st === 'work' ? '#3b82f6' : '#22c55e';
+    ctx.lineWidth = 6;
     ctx.stroke();
 
-    // Draw session type
-    ctx.fillStyle = st === 'work' ? '#ef4444' : '#fbbf24';
-    ctx.font = 'bold 24px system-ui';
+    // Session type label
+    ctx.fillStyle = st === 'work' ? '#3b82f6' : '#22c55e';
+    ctx.font = 'bold 20px system-ui';
     ctx.textAlign = 'center';
-    const sessionLabel = st === 'work' ? 'MISSION ACTIVE' : st === 'short_break' ? 'TACTICAL PAUSE' : 'RECHARGE';
-    ctx.fillText(sessionLabel, centerX, centerY - 40);
+    const sessionLabel = st === 'work' ? 'Focus' : st === 'short_break' ? 'Short Break' : 'Long Break';
+    ctx.fillText(sessionLabel, centerX, centerY - 35);
 
-    // Draw timer
-    ctx.font = 'bold 72px monospace';
-    ctx.fillStyle = st === 'work' ? '#ef4444' : '#fbbf24';
-    ctx.fillText(formatTime(tl), centerX, centerY + 30);
+    // Timer
+    ctx.font = 'bold 64px monospace';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(formatTime(tl), centerX, centerY + 25);
 
-    // Draw status
-    ctx.font = '18px system-ui';
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-    ctx.fillText(isRunningRef.current ? '⏸ Running' : '▶ Paused', centerX, centerY + 70);
+    // Status
+    ctx.font = '16px system-ui';
+    ctx.fillStyle = '#888888';
+    ctx.fillText(isRunningRef.current ? 'Running' : 'Paused', centerX, centerY + 60);
   };
 
   const openPictureInPicture = async () => {
@@ -388,15 +362,12 @@ export default function Focus() {
       const canvas = canvasRef.current;
       const video = videoRef.current;
 
-      // Render once before capturing to ensure a frame exists
       drawTimerOnCanvas();
 
-      // Set up canvas stream
       const stream = canvas.captureStream(30);
       video.srcObject = stream;
       video.muted = true;
 
-      // Wait for metadata to avoid AbortError on play()
       await new Promise<void>((resolve) => {
         if (video.readyState >= 2) return resolve();
         video.onloadedmetadata = () => resolve();
@@ -404,23 +375,21 @@ export default function Focus() {
 
       await video.play().catch(() => {});
 
-      // Enter PiP
       if (document.pictureInPictureEnabled) {
         await video.requestPictureInPicture();
         setIsPipActive(true);
         
-        // Start animation loop
         const animate = () => {
           drawTimerOnCanvas();
           pipAnimationRef.current = requestAnimationFrame(animate);
         };
         animate();
 
-        toast.success('Picture-in-Picture activated!');
+        toast.success('Picture-in-Picture activated');
       }
     } catch (error) {
       console.error('PiP error:', error);
-      toast.error('Failed to activate Picture-in-Picture');
+      toast.error('Failed to activate PiP');
     }
   };
 
@@ -431,7 +400,6 @@ export default function Focus() {
     if (document.pictureInPictureElement) {
       document.exitPictureInPicture();
     }
-    // Stop canvas stream tracks
     const v = videoRef.current;
     const ms = (v?.srcObject as MediaStream) || null;
     ms?.getTracks().forEach((t) => t.stop());
@@ -441,7 +409,7 @@ export default function Focus() {
 
   const handleStillThere = () => {
     lastActivityRef.current = Date.now();
-    inactivityCheckCountRef.current = 0; // Reset check counter
+    inactivityCheckCountRef.current = 0;
     setShowInactivityAlert(false);
     setIsRunning(true);
   };
@@ -499,23 +467,14 @@ export default function Focus() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const getSessionTitle = () => {
+  const getSessionLabel = () => {
     switch (sessionType) {
-      case 'work': return '🎯 MISSION ACTIVE';
-      case 'short_break': return '⏸️ TACTICAL PAUSE';
-      case 'long_break': return '🔋 RECHARGE SEQUENCE';
+      case 'work': return 'Focus';
+      case 'short_break': return 'Short Break';
+      case 'long_break': return 'Long Break';
     }
   };
 
-  const getSessionSubtitle = () => {
-    switch (sessionType) {
-      case 'work': return 'Your mission, should you choose to accept it';
-      case 'short_break': return 'Agent recovering... Stand by';
-      case 'long_break': return 'Mission debrief in progress';
-    }
-  };
-
-  // Handle PiP events
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -533,7 +492,6 @@ export default function Focus() {
     };
   }, []);
 
-  // Update canvas when timer changes
   useEffect(() => {
     if (isPipActive) {
       drawTimerOnCanvas();
@@ -541,234 +499,162 @@ export default function Focus() {
   }, [timeLeft, isRunning, sessionType, isPipActive]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/10 p-6 relative overflow-hidden">
-      {/* Mission Impossible Grid Background */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `
-            linear-gradient(hsl(var(--primary)) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px'
-        }} />
-      </div>
-
+    <div className="max-w-lg mx-auto space-y-6">
       <AlertDialog open={showInactivityAlert} onOpenChange={setShowInactivityAlert}>
-        <AlertDialogContent className="border-destructive/50">
+        <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-destructive" />
-              MISSION STATUS: COMPROMISED
-            </AlertDialogTitle>
+            <AlertDialogTitle>Still there?</AlertDialogTitle>
             <AlertDialogDescription>
-              Agent, we've detected no activity. Mission abort protocol will initiate unless you confirm status immediately.
+              No activity detected. Your timer has been paused.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction onClick={handleStillThere} className="bg-destructive hover:bg-destructive/90">
-              MISSION ACTIVE - RESUMING
+            <AlertDialogAction onClick={handleStillThere}>
+              I'm here, resume
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
 
-      <div className="max-w-2xl mx-auto space-y-6 relative z-10">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold uppercase tracking-wider flex items-center gap-2">
-              <Target className="h-8 w-8 text-primary animate-pulse" />
-              <span className="text-primary">TACTICAL FOCUS</span>
-            </h1>
-            <p className="text-xs text-muted-foreground font-mono mt-1 tracking-widest">
-              CLASSIFIED OPERATION // LEVEL {completedSessions + 1}
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <Button 
-              variant="outline" 
-              size="icon"
-              onClick={requestNotificationPermission}
-              title="Enable Notifications"
-            >
-              <Bell className={`h-4 w-4 ${notificationsEnabled ? 'text-primary' : ''}`} />
-            </Button>
-            <Button 
-              variant={isPipActive ? "default" : "outline"}
-              size="icon"
-              onClick={isPipActive ? closePictureInPicture : openPictureInPicture}
-              title={isPipActive ? "Close Picture-in-Picture" : "Open Picture-in-Picture"}
-            >
-              <Maximize2 className="h-4 w-4" />
-            </Button>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Settings className="h-4 w-4" />
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="border-primary/20 bg-card">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight">Focus</h1>
+          <p className="text-sm text-muted-foreground">Pomodoro timer</p>
+        </div>
+        <div className="flex gap-2">
+          <Button 
+            variant="outline" 
+            size="icon"
+            onClick={requestNotificationPermission}
+            title="Enable Notifications"
+          >
+            <Bell className={`h-4 w-4 ${notificationsEnabled ? 'text-primary' : ''}`} />
+          </Button>
+          <Button 
+            variant={isPipActive ? "default" : "outline"}
+            size="icon"
+            onClick={isPipActive ? closePictureInPicture : openPictureInPicture}
+            title={isPipActive ? "Close PiP" : "Open PiP"}
+          >
+            <Maximize2 className="h-4 w-4" />
+          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="icon">
+                <Settings className="h-4 w-4" />
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
               <DialogHeader>
-                <DialogTitle className="uppercase tracking-wider text-primary font-mono">MISSION PARAMETERS</DialogTitle>
+                <DialogTitle>Settings</DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
                 <div>
-                  <Label className="font-mono text-xs">WORK DURATION (minutes)</Label>
+                  <Label>Work duration (min)</Label>
                   <Input
                     type="number"
                     value={settings.work_duration}
                     onChange={(e) => setSettings({ ...settings, work_duration: parseInt(e.target.value) })}
-                    className="font-mono"
                   />
                 </div>
                 <div>
-                  <Label className="font-mono text-xs">SHORT BREAK (minutes)</Label>
+                  <Label>Short break (min)</Label>
                   <Input
                     type="number"
                     value={settings.short_break_duration}
                     onChange={(e) => setSettings({ ...settings, short_break_duration: parseInt(e.target.value) })}
-                    className="font-mono"
                   />
                 </div>
                 <div>
-                  <Label className="font-mono text-xs">LONG BREAK (minutes)</Label>
+                  <Label>Long break (min)</Label>
                   <Input
                     type="number"
                     value={settings.long_break_duration}
                     onChange={(e) => setSettings({ ...settings, long_break_duration: parseInt(e.target.value) })}
-                    className="font-mono"
                   />
                 </div>
                 <div>
-                  <Label className="font-mono text-xs">SESSIONS BEFORE LONG BREAK</Label>
+                  <Label>Sessions before long break</Label>
                   <Input
                     type="number"
                     value={settings.sessions_before_long_break}
                     onChange={(e) => setSettings({ ...settings, sessions_before_long_break: parseInt(e.target.value) })}
-                    className="font-mono"
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label className="font-mono text-xs">AUTO-START BREAKS</Label>
+                  <Label>Auto-start breaks</Label>
                   <Switch
                     checked={settings.auto_start_breaks}
                     onCheckedChange={(checked) => setSettings({ ...settings, auto_start_breaks: checked })}
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label className="font-mono text-xs">AUTO-START MISSIONS</Label>
+                  <Label>Auto-start work</Label>
                   <Switch
                     checked={settings.auto_start_pomodoros}
                     onCheckedChange={(checked) => setSettings({ ...settings, auto_start_pomodoros: checked })}
                   />
                 </div>
-                <Button onClick={saveSettings} className="w-full uppercase tracking-wider">
-                  Confirm Parameters
+                <Button onClick={saveSettings} className="w-full">
+                  Save
                 </Button>
               </div>
             </DialogContent>
-            </Dialog>
-          </div>
-        </div>
-
-        <Card className="p-8 text-center space-y-6 border-primary/30 bg-card shadow-[var(--shadow-tactical)] relative overflow-hidden">
-          {/* Red line accent at top */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent" style={{
-            boxShadow: 'var(--glow-alert)'
-          }} />
-          
-          {/* Top secret watermark */}
-          <div className="absolute top-4 right-4 rotate-12 opacity-20">
-            <span className="text-xs font-bold text-primary tracking-widest border border-primary px-2 py-1">
-              TOP SECRET
-            </span>
-          </div>
-
-          <div className="space-y-2">
-            <h2 className="text-2xl font-bold uppercase tracking-widest text-primary">{getSessionTitle()}</h2>
-            <p className="text-xs text-muted-foreground font-mono tracking-wider italic">
-              {getSessionSubtitle()}
-            </p>
-          </div>
-
-          {/* Timer display with crosshair */}
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center justify-center opacity-5">
-              <Crosshair className="h-64 w-64 text-primary" />
-            </div>
-            <div className="text-8xl font-bold font-mono text-primary relative z-10 tracking-wider" style={{
-              textShadow: 'var(--glow-alert)'
-            }}>
-              {formatTime(timeLeft)}
-            </div>
-            {sessionType === 'work' && timeLeft <= 300 && timeLeft > 0 && (
-              <div className="text-sm text-primary font-mono mt-2 animate-pulse">
-                ⚠️ MISSION CRITICAL - {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')} REMAINING
-              </div>
-            )}
-          </div>
-          
-          <div className="space-y-4">
-            <div className="border border-primary/20 rounded-lg p-3 bg-primary/5">
-              <Label className="text-xs font-mono text-muted-foreground tracking-wider">SELECT MISSION OBJECTIVE</Label>
-              <Select value={selectedTask} onValueChange={setSelectedTask}>
-                <SelectTrigger className="mt-2 font-mono">
-                  <SelectValue placeholder="[CLASSIFIED] - Choose target..." />
-                </SelectTrigger>
-                <SelectContent>
-                  {tasks.length === 0 ? (
-                    <SelectItem disabled value="no-tasks">No active missions available</SelectItem>
-                  ) : (
-                    tasks.map((task) => (
-                      <SelectItem key={task.id} value={task.id} className="font-mono">
-                        🎯 {task.description}
-                      </SelectItem>
-                    ))
-                  )}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="flex gap-4 justify-center">
-              <Button
-                size="lg"
-                onClick={toggleTimer}
-                className="w-40 uppercase tracking-wider bg-primary hover:bg-primary/90 font-bold shadow-[var(--glow-alert)] border border-primary/50"
-              >
-                {isRunning ? <Pause className="mr-2 h-5 w-5" /> : <Play className="mr-2 h-5 w-5" />}
-                {isRunning ? 'PAUSE' : 'INITIATE'}
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={skipSession}
-                disabled={!currentSessionId}
-                className="uppercase tracking-wider border-primary/50 hover:bg-primary/10"
-              >
-                <SkipForward className="mr-2 h-4 w-4" />
-                ABORT
-              </Button>
-            </div>
-          </div>
-
-          <div className="pt-4 border-t border-primary/20">
-            <div className="flex items-center justify-center gap-2 text-sm font-mono">
-              <Shield className="h-4 w-4 text-primary" />
-              <span className="text-muted-foreground">
-                OPERATIONS COMPLETED: <span className="text-primary font-bold">{completedSessions}</span> / {settings.sessions_before_long_break}
-              </span>
-            </div>
-          </div>
-        </Card>
-
-        <div className="text-center text-xs text-muted-foreground font-mono tracking-wider border border-primary/10 rounded-lg p-4 bg-card/30 backdrop-blur">
-          <p className="flex items-center justify-center gap-2">
-            <Target className="h-3 w-3 text-primary" />
-            This message will self-destruct after {settings.work_duration} minutes of focused work
-          </p>
+          </Dialog>
         </div>
       </div>
 
-      {/* Hidden canvas and video for PiP */}
+      <Card className="p-8 text-center space-y-6">
+        <div>
+          <span className={`text-sm font-medium ${sessionType === 'work' ? 'text-primary' : 'text-green-500'}`}>
+            {getSessionLabel()}
+          </span>
+        </div>
+
+        <div className="text-7xl font-bold font-mono tracking-wider">
+          {formatTime(timeLeft)}
+        </div>
+        
+        <div className="space-y-4">
+          <Select value={selectedTask} onValueChange={setSelectedTask}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select a task (optional)" />
+            </SelectTrigger>
+            <SelectContent>
+              {tasks.length === 0 ? (
+                <SelectItem disabled value="no-tasks">No tasks available</SelectItem>
+              ) : (
+                tasks.map((task) => (
+                  <SelectItem key={task.id} value={task.id}>
+                    {task.description}
+                  </SelectItem>
+                ))
+              )}
+            </SelectContent>
+          </Select>
+
+          <div className="flex gap-3 justify-center">
+            <Button size="lg" onClick={toggleTimer} className="w-32">
+              {isRunning ? <Pause className="mr-2 h-4 w-4" /> : <Play className="mr-2 h-4 w-4" />}
+              {isRunning ? 'Pause' : 'Start'}
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={skipSession}
+              disabled={!currentSessionId}
+            >
+              <SkipForward className="mr-2 h-4 w-4" />
+              Skip
+            </Button>
+          </div>
+        </div>
+
+        <div className="text-sm text-muted-foreground">
+          Sessions: {completedSessions} / {settings.sessions_before_long_break}
+        </div>
+      </Card>
+
       <canvas ref={canvasRef} width="640" height="360" style={{ display: 'none' }} />
       <video ref={videoRef} muted style={{ display: 'none' }} />
     </div>
