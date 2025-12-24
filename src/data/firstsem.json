@@ -1,284 +1,283 @@
-    {
-    "MA 103: Mathematics I": {
-        "credits": 4,
-        "modules": {
-        "Module 1: Sequences and Series": [
-            "Sequences, Convergence of Sequence",
-            "Series, Convergence of Series",
-            "Tests for Convergence: Comparison tests",
-            "Tests for Convergence: Ratio test, Cauchy’s root test",
-            "Tests for Convergence: Raabe’s test, Gauss test, Cauchy's Integral test",
-            "Alternating series, Leibnitz test",
-            "Absolute and Conditional Convergence"
-        ],
-      "Module 2: Matrices": [
-        "Rank of a Matrix, elementary transformations",
-        "Row - reduced Echelon form",
-        "Vectors, Linear Independence and Dependence",
-        "Consistency of system of linear equations",
-        "Eigenvalues, Eigenvectors",
-        "Cayley - Hamilton theorem"
-      ],
-      "Module 3: Advance Differential Calculus": [
-        "Function of several variables, Limit, Continuity",
-        "Partial derivatives, Euler’s theorem",
-        "Total derivatives, Chain rules",
-        "Jacobians and its properties",
-        "Taylor series for function of two variables",
-        "Maxima – Minima",
-        "Lagrange’s method of multipliers"
-      ],
-      "Module 4: Advance Integral Calculus": [
-        "Beta and Gamma functions: definition and properties",
-        "Double integrals, double integrals in polar coordinates",
-        "Change of order of integration",
-        "Triple Integrals, cylindrical and spherical coordinate systems",
-        "Transformation of coordinates",
-        "Applications of double and triple integrals in areas and volumes"
-      ],
-      "Module 5: Vector Calculus": [
-        "Scalar and vector point functions",
-        "Gradient, directional derivative",
-        "Divergence, curl, vector equations and identities",
-        "Line Integral, Work done, Conservative field",
-        "Green’s theorem in a plane",
-        "Surface and volume integrals",
-        "Gauss – divergence theorem, Stoke ’s theorem"
-      ]
-    }
-  },
-  "Chemistry": {
+{
+  "PH 113: Physics": {
     "credits": 4,
     "modules": {
-      "Module 1: Chemical Bonding": [
-        "Ionic bond: Radius ratio rule, Born-Landé equation, Born-Haber cycle",
-        "Metallic Bond: valence bond and band theories",
-        "Defects in solids, Werner's Theory",
-        "Bonding in Transition metal complexes, Ligands",
-        "Crystal Field Theory: Octahedral, Tetrahedral, square planar",
-        "CFSE, Jahn Teller theorem",
-        "Electronic spectra, magnetism, and isomerization"
+      "Module 1: Physical Optics": [
+        "Polarization",
+        "Malus' Law",
+        "Brewster's Law",
+        "Double Refraction",
+        "Interference in thin films (Parallel films)",
+        "Interference in wedge-shaped layers",
+        "Newton's rings",
+        "Fraunhofer diffraction by single slit",
+        "Fraunhofer diffraction by double slit"
       ],
-      "Module 2: Organic Structure and Stereochemistry": [
-        "Covalent bond: Lewis structure, Valence Bond theory",
-        "Molecular orbital theory (diatomic and polyatomic)",
-        "Hybridization, conjugated molecules",
-        "Huckel molecular orbital theory",
-        "Isomerism, Geometrical isomerism: cis–trans, syn-anti",
-        "Optical isomerism & Chirality",
-        "Projection formulae: Wedge, Fischer, Newmann, Sawhorse",
-        "E/Z, D/L, R/S nomenclature",
-        "Conformational studies: ethane, n-butane, Cyclohexane"
+      "Module 2: Electromagnetic Theory": [
+        "Curl, Gradient, Divergence",
+        "Gauss theorem, Stokes theorem",
+        "Gauss's law and Applications",
+        "Concept of electric potential",
+        "Relationship between E and V",
+        "Polarization of dielectrics, dielectric constant",
+        "Boundary conditions for E & D",
+        "Gauss's law in magnetostatics",
+        "Ampere's circuital law",
+        "Boundary conditions for B & H",
+        "Equation of continuity of charge",
+        "Displacement current",
+        "Maxwell's equations"
       ],
-      "Module 3: Kinetics and Catalysis": [
-        "Order & molecularity of reactions",
-        "Reaction types: chain, parallel, competing, side, consecutive",
-        "Kinetics of Fast reactions",
-        "Catalysis: Characteristics, types, catalytic poison",
-        "Theories of catalysis; Acid base catalysis & kinetics",
-        "Enzyme catalysis, Michaelis-Menten equation",
-        "Industrial Catalysts: Wilkinsons, Cobalt-catalyst, Phase transfer"
+      "Module 3: Special Theory of Relativity": [
+        "Introduction to Special Relativity",
+        "Inertial frame of reference",
+        "Galilean transformations",
+        "Postulates of Special Relativity",
+        "Lorentz transformations and conclusions",
+        "Length contraction",
+        "Time dilation",
+        "Velocity addition",
+        "Mass change",
+        "Einstein's mass energy relation"
       ],
-      "Module 4: Spectroscopic Techniques": [
-        "Absorption and emission Spectroscopy, Lambert-Beers Law",
-        "Principles and applications of UV-Visible",
-        "Factors influencing for UV-VIS spectrum",
-        "Rotational and Vibrational spectroscopy",
-        "Principle of FT-IR, and NMR spectroscopy",
-        "Structural elucidation by UV-VIS, IR, & NMR"
+      "Module 4: Quantum Mechanics": [
+        "Planck's theory of black-body radiation",
+        "Compton effect",
+        "Wave particle duality",
+        "De Broglie waves",
+        "Davisson and Germer's experiment",
+        "Uncertainty principle",
+        "Physical interpretation of wave function",
+        "Schrodinger equation in one dimension",
+        "Free particle",
+        "Particle in an infinite square well"
       ],
-      "Module 5: Phase and Chemical equilibrium": [
-        "Phase Rule: Terms Involved",
-        "Phase diagram: one component (Water)",
-        "Phase diagram: two component (Pb/Ag)",
-        "Law of chemical equilibrium, equilibrium constants",
-        "Weak and strong electrolytes",
-        "Standard electrode potential & half cells",
-        "EMF and its measurement and application",
-        "Batteries and Fuel Cells",
-        "Chemical and Electrochemical corrosion"
+      "Module 5: Lasers": [
+        "Spontaneous and stimulated emission",
+        "Einstein's A and B coefficients",
+        "Population-inversion",
+        "Light amplification",
+        "Basic laser action",
+        "Ruby laser",
+        "He-Ne laser",
+        "Properties of laser radiation",
+        "Applications of laser radiation",
+        "Elementary ideas of fiber optics",
+        "Application of fiber optic cables"
       ]
     }
   },
-  "ME 101: Basics of Mechanical Engineering": {
+  "BE 101: Biological Science for Engineers": {
+    "credits": 3,
+    "modules": {
+      "Module 1: Basic Cell Biology": [
+        "Origin of life",
+        "Cell theory",
+        "Cell Structure and function",
+        "Biomolecules",
+        "Cell cycle and cell division",
+        "Biological Organization"
+      ],
+      "Module 2: Bioenergetics and Metabolism": [
+        "Gibbs free energy and thermodynamics",
+        "Aerobic and anaerobic respiration",
+        "Glycolysis",
+        "Krebs cycle and electron transport chain",
+        "Beta oxidation",
+        "Photosynthesis"
+      ],
+      "Module 3: Enzymes and Applications": [
+        "Classification of enzymes",
+        "Structure and mechanism of enzyme action",
+        "Uses of enzymes",
+        "Factors affecting enzyme activity",
+        "Immobilization of enzymes",
+        "Applications of immobilized enzymes"
+      ],
+      "Module 4: Biological Signal Generation": [
+        "Nerve cell structure and signal propagation",
+        "Mechanism of vision",
+        "Mechanism of hearing",
+        "Cell signaling",
+        "Circadian rhythm"
+      ],
+      "Module 5: Engineering Biological Systems": [
+        "Central dogma of molecular biology",
+        "Methods in genetic engineering",
+        "Applications of genetic engineering",
+        "PCR",
+        "ELISA and its application",
+        "Stem cell and tissue engineering",
+        "Artificial Intelligence in Biology",
+        "Plant factory"
+      ]
+    }
+  },
+  "EE 101: Basic Electrical Engineering": {
     "credits": 4,
     "modules": {
-      "Module 1: System of Forces and Structure Mechanics": [
-        "Addition of Forces, Moment, Couple, Varignon’s theorem",
-        "Free Body Diagram, Equilibrium in 2D and 3D",
-        "Analysis of Plane Trusses: Method of Joints",
-        "Analysis of Plane Trusses: Method of Sections",
-        "Analysis of Frames with Hinged Joints",
-        "Hooke’s Law, Stress and Strain, Elastic constants",
-        "Thermal Stresses",
-        "Properties of surfaces: centroid, area moment of inertia"
+      "Module 1: Single-phase AC Circuits (Series)": [
+        "Common signals and their waveforms",
+        "RMS and Average value",
+        "Form factor & Peak factor of sinusoidal waveform",
+        "Impedance of Series circuits",
+        "Phasor diagram",
+        "Active Power, Power factor",
+        "Power triangle"
       ],
-      "Module 2: Kinematics & Kinetics of rigid bodies": [
-        "Types of rigid body motion: translation, rotation",
-        "Equations of rotation about fixed axis",
-        "Plane motion, absolute and relative velocity",
-        "Instantaneous center of rotation",
-        "Equation of translational and rotational motion",
-        "Newton’s law and D’Alembert’s principle"
+      "Module 2: Single-phase AC Circuits (Parallel)": [
+        "Admittance method",
+        "Phasor diagram for parallel circuits",
+        "Power, Power factor, Power triangle",
+        "Series-parallel Circuit",
+        "Power factor improvement",
+        "Series Resonance",
+        "Parallel Resonance",
+        "Resonance curve, Q-factor",
+        "Dynamic Impedance and Bandwidth"
       ],
-      "Module 3: Friction and Vibration": [
-        "Laws of dry friction, static & kinetic friction",
-        "Analysis of rolling friction",
-        "Frictional forces: inclined planes, wedges",
-        "Frictional forces: screw jacks, belt drives",
-        "Types of vibration",
-        "Free un-damped longitudinal vibrations",
-        "Free damped longitudinal vibrations"
+      "Module 3: Three-Phase Circuits": [
+        "Line and Phase relation for Star connection",
+        "Line and Phase relation for Delta connection",
+        "Power relations",
+        "Analysis of balanced 3 phase circuits",
+        "Analysis of unbalanced 3 phase circuits",
+        "Measurement of Power"
       ],
-      "Module 4: Boilers and Internal Combustion Engine": [
-        "Boiler Mountings and Accessories",
-        "Fire Tube and Water Tube Boilers (Cochran, Babcock & Wilcox)",
-        "IC engines: components and terminology",
-        "Working of four stroke petrol/diesel engine",
-        "Working of two stroke petrol/diesel engine",
-        "Modes of heat transfer",
-        "One dimensional steady state conduction (composite walls, cylinder)"
+      "Module 4: Circuit Theorems": [
+        "Superposition theorem",
+        "Thevenin's Theorem",
+        "Norton's Theorem",
+        "Maximum Power Transfer theorem",
+        "Theorems for Independent Sources",
+        "Theorems for Dependent Sources",
+        "DC and AC circuit analysis",
+        "Coupled Circuits (Dot rule)",
+        "Self and mutual inductances",
+        "Coefficient of coupling"
       ],
-      "Module 5: Non-Conventional Energy": [
-        "Renewable and Non-renewable Energy Resources",
-        "Solar Energy",
-        "Wind Energy",
-        "Tidal Energy, Ocean Thermal Energy",
-        "Geothermal Energy",
-        "Nuclear Energy",
-        "Hydro Energy"
+      "Module 5: AC Machines & Instruments": [
+        "Working principles of AC Generators",
+        "Working principles of AC motors",
+        "Working principles of transformers",
+        "Digital voltmeter",
+        "Ammeter",
+        "Power factor meter",
+        "Wattmeter"
       ]
     }
   },
-  "EC 101: Basics of Electronics & Communication": {
+  "CS 101: Programming for Problem Solving": {
     "credits": 4,
     "modules": {
-      "Module 1: Diodes and Applications": [
-        "PN junction diodes: Intro & V-I characteristics",
-        "Diode-resistance, temperature-dependence, diode-capacitance",
-        "DC & AC load lines, Breakdown Mechanisms",
-        "Zener Diode – Operation and Applications",
-        "Half Wave Rectifiers (with and without C-Filters)",
-        "Full Wave Rectifiers (with and without C-Filters)"
+      "Module 1: Introduction to Programming": [
+        "Components of a computer system",
+        "Disks, memory, processor",
+        "Where a program is stored and executed",
+        "Operating system, compilers",
+        "Steps to solve logical and numerical problems",
+        "Representation of Algorithm: Flowchart",
+        "Representation of Algorithm: Pseudo code",
+        "From algorithms to programs",
+        "Source code, variables, data types",
+        "Variables and memory locations",
+        "Syntax and Logical Errors",
+        "Object and executable code"
       ],
-      "Module 2: Bipolar Junction Transistors (BJT)": [
-        "PNP and NPN Transistors, Basic Transistor Action",
-        "Input/Output Characteristics: CB, CE, CC Configs",
-        "DC and AC load line analysis, operating point",
-        "Transistor biasing: Fixed bias, emitter bias/self-bias",
-        "Low-frequency response of CE amplifier",
-        "JFET: Channel Formation, Pinch-Off, Characteristics",
-        "MOSFET: Basic structure, operation and characteristics"
+      "Module 2: Control Structures": [
+        "Arithmetic expressions and precedence",
+        "Conditional Branching",
+        "Loops",
+        "Writing and evaluation of conditionals",
+        "Iterations"
       ],
-      "Module 3: Sinusoidal Oscillators & Op-Amps": [
-        "Feedback: positive, negative, Barkhausen criterion",
-        "Hartley and Colpitt’s oscillator",
-        "Ideal and Practical Operational Amplifier (IC 741)",
-        "Inverting and non-inverting amplifiers",
-        "Op-Amp Errors: Offset, Slew Rate, Virtual Ground",
-        "Summing and Difference Amplifiers",
-        "Differentiator and Integrator",
-        "RC phase shift oscillator"
+      "Module 3: Arrays and Strings": [
+        "Array",
+        "Character array",
+        "Strings",
+        "Matrix addition",
+        "Matrix-matrix multiplication",
+        "Roots of an equation",
+        "Sorting",
+        "Searching"
       ],
-      "Module 4: Logic Gates and Boolean algebra": [
-        "Boolean Algebra and operators",
-        "Logic Gates: AND, OR, NOT, NAND, NOR, EX-OR, EX-NOR",
-        "Realization of Basic logic gates using universal gates",
-        "Adder, Subtractor, adder/subtractor"
+      "Module 4: Functions": [
+        "Functions (including built in libraries)",
+        "Parameter passing in functions",
+        "Call by value",
+        "Call by reference",
+        "Passing arrays to functions",
+        "Recursion",
+        "Finding Factorial",
+        "Fibonacci series",
+        "Ackerman function"
       ],
-      "Module 5: Electronic communication": [
-        "Intro to electronic communication systems, EM spectrum",
-        "Elements of Electronic Communication System",
-        "Analog vs Digital communication: Merits/demerits",
-        "Modes of communication, Signal radiation and propagation",
-        "Need for modulation",
-        "Introduction to Amplitude modulation (AM)",
-        "Introduction to Angle modulation (FM/PM)"
+      "Module 5: Structures, Pointers, Files": [
+        "Structures",
+        "Defining structures",
+        "Array of Structures",
+        "Pointers: Defining pointers",
+        "Use of Pointers in self-referential structures",
+        "File Handling"
       ]
     }
   },
-  "CE 101: Environmental Science": {
-    "credits": 2,
-    "modules": {
-      "Module 1: Ecosystem and Environment": [
-        "Concepts of Ecology and Environmental science",
-        "Ecosystem: structure, function and services",
-        "Biogeochemical cycles, energy and nutrient flow",
-        "Ecosystem management",
-        "Fate of environmental pollutants",
-        "Environmental status and reports on climate change"
-      ],
-      "Module 2: Air Pollution": [
-        "Structure of unpolluted atmosphere",
-        "Classification of air pollution sources",
-        "Types of air pollutants, effects of air pollution",
-        "Monitoring of air pollution",
-        "Control methods and equipment for air pollution",
-        "Vehicular emissions and control",
-        "Indoor air pollution, air pollution episodes"
-      ],
-      "Module 3: Water Pollution": [
-        "Water Resource; Water Pollution: types and Sources",
-        "Effects of water pollution",
-        "Water quality monitoring, water quality indices",
-        "Water and waste water treatment: primary, secondary",
-        "Water and waste water treatment: tertiary, advanced (nitrate/phosphate)",
-        "Sludge treatment and disposal"
-      ],
-      "Module 4: Water Pollution (Syllabus Repeat)": [
-        "Water Resource; Water Pollution: types and Sources",
-        "Effects of water pollution",
-        "Water quality monitoring, water quality indices",
-        "Water and waste water treatment: primary, secondary",
-        "Water and waste water treatment: tertiary, advanced (nitrate/phosphate)",
-        "Sludge treatment and disposal"
-      ],
-      "Module 5: Water Pollution (Syllabus Repeat)": [
-        "Water Resource; Water Pollution: types and Sources",
-        "Effects of water pollution",
-        "Water quality monitoring, water quality indices",
-        "Water and waste water treatment: primary, secondary",
-        "Water and waste water treatment: tertiary, advanced (nitrate/phosphate)",
-        "Sludge treatment and disposal"
-      ]
-    }
-  },
-  "Semester 1 Labs & Other": {
+  "MA 107: Mathematics II": {
     "credits": 4,
     "modules": {
-      "BECE Lab": [
-        "Lab 1: Familiarization with Lab Equipment",
-        "Lab 2: V-I Characteristics of PN Junction Diode",
-        "Lab 3: Zener Diode Characteristics & Voltage Regulator",
-        "Lab 4: Half Wave Rectifier (with/without filter)",
-        "Lab 5: Full Wave Rectifier (with/without filter)",
-        "Lab 6: BJT CE Configuration Characteristics",
-        "Lab 7: BJT CB Configuration Characteristics",
-        "Lab 8: FET Characteristics",
-        "Lab 9: Verification of Logic Gates",
-        "Lab 10: Realization of Basic Gates using Universal Gates",
-        "Lab Viva"
+      "Module 1: ODE - I": [
+        "Linear differential equations",
+        "Wronskian",
+        "Linear independence and dependence of solutions",
+        "Linear DE of second and higher order",
+        "Operator method",
+        "Legendre's form of linear DE",
+        "Euler-Cauchy's form of linear DE",
+        "Method of variation of parameters"
       ],
-      "Chemistry Lab": [
-        "Lab 1: Intro to Lab Safety & Equipment",
-        "Lab 2: Titration 1 - Acid-Base",
-        "Lab 3: Titration 2 - Redox",
-        "Lab 4: Water Hardness (EDTA)",
-        "Lab 5: Alkalinity of Water Sample",
-        "Lab 6: Determination of Iron (Colorimetry)",
-        "Lab 7: pH-metry or Potentiometry",
-        "Lab 8: Organic Synthesis 1",
-        "Lab 9: Organic Synthesis 2",
-        "Lab 10: Determination of Viscosity/Surface Tension",
-        "Lab Viva"
+      "Module 2: ODE - II": [
+        "Ordinary and singular points of DE",
+        "Power series solutions",
+        "Frobenius series solutions",
+        "Bessel's differential equation",
+        "Bessel function of first kind and properties",
+        "Legendre's differential equation",
+        "Legendre's polynomial and properties"
       ],
-      "NSS": [
-        "Activity 1",
-        "Activity 2",
-        "Activity 3",
-        "Activity 4",
-        "Activity 5",
-        "Final Report"
+      "Module 3: Fourier Series & PDE": [
+        "Euler formulae for Fourier series",
+        "Dirichlet conditions",
+        "Half range Fourier series",
+        "Linear partial differential equations",
+        "Lagrange's method",
+        "Method of separation of variables",
+        "One dimensional wave equation",
+        "One dimensional heat equation"
+      ],
+      "Module 4: Complex Variable": [
+        "Function of a complex variable",
+        "Limit, Continuity, Differentiability",
+        "Analyticity, Analytic functions",
+        "Cauchy-Riemann equations",
+        "Harmonic functions, Harmonic Conjugate",
+        "Cauchy's theorem",
+        "Cauchy's Integral formula",
+        "Taylor series expansion",
+        "Laurent series expansion",
+        "Singularities and its types",
+        "Residues, Residue theorem"
+      ],
+      "Module 5: Applied Probability": [
+        "Discrete random variables",
+        "Continuous random variables",
+        "Cumulative distribution function",
+        "Probability mass function",
+        "Probability density function",
+        "Expectation, variance",
+        "Moment generating function",
+        "Binomial Distribution",
+        "Poisson Distribution",
+        "Normal Distribution"
       ]
     }
   }
